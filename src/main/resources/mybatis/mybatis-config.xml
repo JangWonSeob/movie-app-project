@@ -3,9 +3,7 @@
 <configuration>
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting name="logImpl" value="org.apache.ibatis.logging.stdout.StdOutImpl" />
 	</settings>
-	<typeAliases>
-		<package name="com.website.trip.biz.dto"/>
-	</typeAliases>
 	<mappers></mappers>
 </configuration>

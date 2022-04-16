@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.website.movie.biz.dao.UserDao">
-    <select id="" resultType="">
+
+	<sql id="TABLE">USER</sql>
+
+	<select id="select" resultType="com.website.movie.biz.dto.UserDto">
+        SELECT * FROM user
     </select>
+
 </mapper>

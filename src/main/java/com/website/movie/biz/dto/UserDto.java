@@ -9,4 +9,8 @@ import lombok.*;
 public class UserDto extends BaseDto {
 
     private int id;
+    private String email;
+    private String name;
+    private String password;
+    private String userType;
 }
