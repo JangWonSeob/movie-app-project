@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.website.movie.biz.dao.BoardDao">
+
+	<sql id="TABLE">board</sql>
+
+    <sql id="WHERE">
+        AND T1.DEL_YN = 0
+
+        <if test="searchType != null and searchValue != null">
+            <choose>
+                <when test="searchType eq 'category'">
+                    AND T1.CATEGORY LIKE CONCAT('%', #{searchValue}, '%')
+                </when>
+                <when test="searchType eq 'title'">
+                    AND T1.TITLE LIKE CONCAT('%', #{searchValue}, '%')
+                </when>
+                <when test="searchType eq 'contents'">
+                    AND T1.CONTENTS LIKE CONCAT('%', #{searchValue}, '%')
+                </when>
+                <otherwise>
+                    AND (
+                        T1.CATEGORY LIKE CONCAT('%', #{searchValue}, '%')
+                        OR T1.TITLE LIKE CONCAT('%', #{searchValue}, '%')
+                        OR T1.CONTENTS LIKE CONCAT('%', #{searchValue}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+
+    </sql>
+
+	<select id="selectList" resultType="com.website.movie.biz.dto.BoardDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE 1 = 1
+        <include refid="WHERE"/>
+        LIMIT 0, 10
+    </select>
+
+    <select id="selectListCount" resultType="int">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE 1 = 1
+        <include refid="WHERE"/>
+    </select>
+
+    <select id="selectOne" >
+        SELECT T1.*
+        FROM <include refid="TABLE"/>
+        WHERE T1.ID = #{id}
+    </select>
+
+    <insert id="insert">
+
+    </insert>
+
+</mapper>

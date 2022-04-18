@@ -1,5 +1,6 @@
 package com.website.movie.biz.dao;
 
+import com.website.movie.biz.dto.BoardDto;
 import com.website.movie.biz.dto.UserDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,4 +10,7 @@ import java.util.List;
 public interface UserDao {
 
     List<UserDto> select();
+
+    List<UserDto> selectList();
+    int selectListCount();
 }
