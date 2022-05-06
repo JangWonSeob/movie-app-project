@@ -17,6 +17,7 @@ public class BoardDto extends BaseDto {
     private String title;
     private String contents;
     private int viewCount;
+    private boolean displayYn;
 
     public static BoardDto toDto(BoardInputModel model) {
 
@@ -25,6 +26,7 @@ public class BoardDto extends BaseDto {
                 .category(model.getCategory())
                 .title(model.getTitle())
                 .contents(model.getContents())
+                .displayYn(model.isDisplayYn())
                 .build();
     }
 }

@@ -11,6 +11,8 @@ import java.util.Date;
 @NoArgsConstructor
 public abstract class BaseDto {
 
+    private int loginUserId;
+
     protected Date regDt;
     protected String regId;
     protected Date udtDT;
@@ -18,5 +20,10 @@ public abstract class BaseDto {
     protected Date delDt;
     protected String delId;
     protected boolean delYn;
+
+    protected String sqlInsertType;
+    protected String sqlUpdateType;
+    protected String sqlSelectType;
+    protected String sqlDeleteType;
 
 }

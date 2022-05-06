@@ -15,5 +15,6 @@ public class BoardInputModel extends InputBaseDto {
     private String category;
     private String title;
     private String contents;
+    private boolean displayYn;
 
 }

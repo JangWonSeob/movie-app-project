@@ -10,4 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardSearchModel {
+
+    private int id;
+
 }

@@ -54,5 +54,14 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.selectListCount(model);
     }
 
+    @Override
+    public void viewCountUp(BoardSearchModel model) {
+
+        BoardDto parameter = new BoardDto();
+        parameter.setId(model.getId());
+        parameter.setSqlUpdateType("VIEW_COUNT_UP");
+        boardDao.update(parameter);
+    }
+
 
 }

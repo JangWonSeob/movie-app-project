@@ -5,6 +5,7 @@ import com.website.movie.biz.model.JsonResult;
 import com.website.movie.biz.model.input.BoardInputModel;
 import com.website.movie.biz.model.search.BoardSearchModel;
 import com.website.movie.biz.service.BoardService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ public class ApiBoardController {
     private final BoardService boardService;
 
     @PostMapping("/api/board/set.api")
+    @ApiOperation(value = "게시판 등록 및 수정 API", notes = "게시판 등록 및 수정이 가능합니다.")
     public JsonResult set(@RequestBody BoardInputModel model) {
 
         boolean result = boardService.set(model);
@@ -33,6 +35,7 @@ public class ApiBoardController {
     }
 
     @PostMapping("/api/board/get.api")
+    @ApiOperation(value = "게시판 한 건 조회 API", notes = "게시판 한 건에 대해서 조회 가능합니다.")
     public JsonResult get(@RequestBody BoardSearchModel model) {
 
         BoardDto result = boardService.get(model);
@@ -45,6 +48,7 @@ public class ApiBoardController {
     }
 
     @PostMapping("/api/board/gets.api")
+    @ApiOperation(value = "게시판 리스트 조회 API", notes = "게시판 리스트 조회가 가능합니다.")
     public JsonResult gets(@RequestBody BoardSearchModel model) {
 
         List<BoardDto> list = boardService.gets(model);
@@ -56,6 +60,17 @@ public class ApiBoardController {
         result.put("totalCount", totalCount);
 
         return JsonResult.success(result);
+    }
+
+    /**
+     * 조회수 증가 API
+     */
+    @PostMapping("/api/board/viewcount/add.api")
+    @ApiOperation(value = "조회수 증가 API", notes = "조회수를 증가시킵니다.")
+    public void viewCountUp(@RequestBody BoardSearchModel model) {
+        System.out.println(model);
+
+        boardService.viewCountUp(model);
     }
 
 

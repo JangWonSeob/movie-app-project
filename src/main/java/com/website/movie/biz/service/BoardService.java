@@ -13,4 +13,6 @@ public interface BoardService {
     BoardDto get(BoardSearchModel model);
     List<BoardDto> gets(BoardSearchModel model);
     int totalCount(BoardSearchModel model);
+
+    void viewCountUp(BoardSearchModel model);
 }

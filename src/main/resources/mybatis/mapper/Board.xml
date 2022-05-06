@@ -5,9 +5,19 @@
 
 	<sql id="TABLE">board</sql>
 
-    <sql id="WHERE">
+    <sql id="WHERE_REQUIRED">
         AND T1.DEL_YN = 0
+        <choose>
+            <when test="sqlSelectType != null and sqlSelectType eq 'FRONT'">
+                AND T1.DISPLAY_YN = 1
+            </when>
+            <when test="sqlSelectType != null and sqlSelectType eq 'MY_BOARD_LIST'">
+                AND T1.DISPLAY_YN = 1 AND T1.REG_ID = ${loginUserId}
+            </when>
+        </choose>
+    </sql>
 
+    <sql id="WHERE">
         <if test="searchType != null and searchValue != null">
             <choose>
                 <when test="searchType eq 'category'">
@@ -28,13 +38,13 @@
                 </otherwise>
             </choose>
         </if>
-
     </sql>
 
 	<select id="selectList" resultType="com.website.movie.biz.dto.BoardDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
-        WHERE 1 = 1
+        WHERE T1.CATEGORY = #{category}
+        <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
         LIMIT 0, 10
     </select>
@@ -42,18 +52,60 @@
     <select id="selectListCount" resultType="int">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
-        WHERE 1 = 1
+        WHERE T1.CATEGORY = #{category}
+        <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
     </select>
 
     <select id="selectOne" >
         SELECT T1.*
         FROM <include refid="TABLE"/>
-        WHERE T1.ID = #{id}
+        WHERE T1.CATEGORY = #{category}
+        T1.ID = #{id}
+        <include refid="WHERE_REQUIRED"/>
+        LIMIT 1
     </select>
 
     <insert id="insert">
-
+        INSERT INTO <include refid="TABLE"/>
+        (
+            REG_DT
+            , REG_ID
+            , CATEGORY
+            , TITLE
+            , CONTENTS
+            , VIEW_COUNT
+            , DISPLAY_YN
+        )
+        VALUES
+        (
+            NOW()
+            , #{loginUserId}
+            , #{category}
+            , #{title}
+            , #{contents}
+            , 0
+            , #{displayYn}
+        )
     </insert>
+
+    <update id="update">
+        UPDATE <include refid="TABLE"/>
+        SET
+        <choose>
+            <when test="sqlUpdateType != null and sqlUpdateType eq 'VIEW_COUNT_UP'">
+                VIEW_COUNT = VIEW_COUNT + 1
+            </when>
+            <otherwise>
+                UDT_DT = NOW()
+                , UDT_ID = #{loginUserId}
+                , CATEGORY = #{category}
+                , TITLE = #{title}
+                , CONTENTS = #{contents}
+                , DISPLAY_YN = #{displayYn}
+            </otherwise>
+        </choose>
+        WHERE ID = #{id}
+    </update>
 
 </mapper>

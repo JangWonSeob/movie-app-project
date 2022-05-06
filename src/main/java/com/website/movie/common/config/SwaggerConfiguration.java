@@ -1,4 +1,4 @@
-package com.website.movie.web.config;
+package com.website.movie.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

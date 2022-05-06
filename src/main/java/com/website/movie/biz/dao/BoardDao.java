@@ -17,5 +17,4 @@ public interface BoardDao {
     List<BoardDto> selectList(BoardSearchModel model);
     int selectListCount(BoardSearchModel model);
 
-
 }
