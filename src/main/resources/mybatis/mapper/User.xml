@@ -5,8 +5,23 @@
 
 	<sql id="TABLE">USER</sql>
 
-	<select id="select" resultType="com.website.movie.biz.dto.UserDto">
+	<select id="selectUser" resultType="com.website.movie.biz.dto.UserDto">
         SELECT * FROM user
     </select>
+
+    <!--회원가입-->
+    <insert id="createUser">
+        INSERT INTO user(ID,EMAIL,NAME,NIK_NAME,PASSWORD) VALUES(#{id}, #{email},#{name},#{nickname},#{passwrod})
+    </insert>
+
+    <!--회원삭제-->
+    <delete id="deleteUser" parameterType="String">
+        DELETE FROM user WHERE email = #{email}
+    </delete>
+
+    <select id="getById" parameterType="String" resultType="com.website.movie.biz.dto.UserDto">
+        SELECT * FROM user WHERE id = #{id}
+    </select>
+
 
 </mapper>

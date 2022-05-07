@@ -36,6 +36,10 @@ dependencies {
     // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
     implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 
+    // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-test'
+
 }
 
 tasks.named('test') {
