@@ -44,12 +44,14 @@ public class ApiBoardController {
             return JsonResult.fail(" 입력 값이 옳지 않습니다. ");
         }
 
-        return JsonResult.success();
+        return JsonResult.success(result);
     }
 
     @PostMapping("/api/board/gets.api")
     @ApiOperation(value = "게시판 리스트 조회 API", notes = "게시판 리스트 조회가 가능합니다.")
     public JsonResult gets(@RequestBody BoardSearchModel model) {
+
+        model.initPage();
 
         List<BoardDto> list = boardService.gets(model);
         int totalCount = boardService.totalCount(model);
@@ -62,13 +64,9 @@ public class ApiBoardController {
         return JsonResult.success(result);
     }
 
-    /**
-     * 조회수 증가 API
-     */
     @PostMapping("/api/board/viewcount/add.api")
     @ApiOperation(value = "조회수 증가 API", notes = "조회수를 증가시킵니다.")
     public void viewCountUp(@RequestBody BoardSearchModel model) {
-        System.out.println(model);
 
         boardService.viewCountUp(model);
     }

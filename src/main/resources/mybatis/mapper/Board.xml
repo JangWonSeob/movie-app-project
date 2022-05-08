@@ -46,22 +46,22 @@
         WHERE T1.CATEGORY = #{category}
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
-        LIMIT 0, 10
+        LIMIT #{startIndex}, #{pageSize}
     </select>
 
     <select id="selectListCount" resultType="int">
-        SELECT T1.*
+        SELECT COUNT(*)
         FROM <include refid="TABLE"/> T1
         WHERE T1.CATEGORY = #{category}
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
     </select>
 
-    <select id="selectOne" >
+    <select id="selectOne" resultType="com.website.movie.biz.dto.BoardDto">
         SELECT T1.*
-        FROM <include refid="TABLE"/>
+        FROM <include refid="TABLE"/> T1
         WHERE T1.CATEGORY = #{category}
-        T1.ID = #{id}
+        AND T1.ID = #{id}
         <include refid="WHERE_REQUIRED"/>
         LIMIT 1
     </select>
