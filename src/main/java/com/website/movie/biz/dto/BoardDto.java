@@ -5,9 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardDto extends BaseDto {
@@ -27,6 +28,7 @@ public class BoardDto extends BaseDto {
                 .title(model.getTitle())
                 .contents(model.getContents())
                 .displayYn(model.isDisplayYn())
+                .loginUserId(model.getLoginUserId())
                 .build();
     }
 }

@@ -65,11 +65,22 @@ public class ApiBoardController {
     }
 
     @PostMapping("/api/board/viewcount/add.api")
-    @ApiOperation(value = "조회수 증가 API", notes = "조회수를 증가시킵니다.")
+    @ApiOperation(value = "게시판 조회수 증가 API", notes = "게시판 조회수를 증가시킵니다.")
     public void viewCountUp(@RequestBody BoardSearchModel model) {
 
         boardService.viewCountUp(model);
     }
 
+    @PostMapping("/api/board/delete.api")
+    @ApiOperation(value = "게시판 삭제 API", notes = "게시판을 삭제합니다.")
+    public JsonResult delete(@RequestBody BoardInputModel model) {
 
+        boolean result = boardService.delete(model);
+
+        if(!result) {
+            return JsonResult.fail(" 데이터 처리 중 문제가 발생하였습니다. ");
+        }
+
+        return JsonResult.success();
+    }
 }

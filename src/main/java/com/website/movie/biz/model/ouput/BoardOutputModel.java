@@ -22,10 +22,11 @@ public class BoardOutputModel {
     private boolean displayYn;
 
     private Date regDt;
-    private String regId;
+    private int regId;
     private Date udtDT;
 
     public static BoardOutputModel toModel(BoardDto parameter) {
+
         return BoardOutputModel.builder()
                 .id(parameter.getId())
                 .category(parameter.getCategory())

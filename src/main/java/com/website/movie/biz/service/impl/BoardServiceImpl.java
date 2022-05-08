@@ -63,5 +63,21 @@ public class BoardServiceImpl implements BoardService {
         boardDao.update(parameter);
     }
 
+    @Override
+    public boolean delete(BoardInputModel model) {
+
+        if(model.getId() < 1) {
+            return false;
+        }
+
+        int affected = boardDao.delete(BoardDto.toDto(model));
+
+        if (affected < 1) {
+            return false;
+        }
+
+        return true;
+    }
+
 
 }

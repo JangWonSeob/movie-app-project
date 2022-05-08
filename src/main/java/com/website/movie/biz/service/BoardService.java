@@ -15,4 +15,6 @@ public interface BoardService {
     int totalCount(BoardSearchModel model);
 
     void viewCountUp(BoardSearchModel model);
+
+    boolean delete(BoardInputModel model);
 }

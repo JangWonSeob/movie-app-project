@@ -106,6 +106,19 @@
             </otherwise>
         </choose>
         WHERE ID = #{id}
+        <!-- 로그인 로직 추가 시 -->
+        <!-- AND REG_ID = #{loginUserId} -->
+    </update>
+
+    <update id="delete">
+        UPDATE <include refid="TABLE"/>
+        SET DEL_DT = NOW()
+        , DEL_ID = #{}
+        , DEL_YN = 1
+        WHERE ID = #{id}
+        AND CATEGORY = #{category}
+        <!-- 로그인 로직 추가 시 -->
+        <!-- AND REG_ID = #{loginUserId} -->
     </update>
 
 </mapper>

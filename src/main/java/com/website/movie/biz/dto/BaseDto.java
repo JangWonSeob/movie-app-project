@@ -3,10 +3,12 @@ package com.website.movie.biz.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 
 @Data
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class BaseDto {
@@ -14,11 +16,11 @@ public abstract class BaseDto {
     private int loginUserId;
 
     protected Date regDt;
-    protected String regId;
+    protected int regId;
     protected Date udtDT;
-    protected String udtId;
+    protected int udtId;
     protected Date delDt;
-    protected String delId;
+    protected int delId;
     protected boolean delYn;
 
     protected String sqlInsertType;

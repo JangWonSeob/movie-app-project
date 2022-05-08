@@ -10,7 +10,8 @@ import java.util.List;
 public interface BoardDao {
 
     int insert(BoardDto parameter);
-    int update(BoardDto toDto);
+    int update(BoardDto parameter);
+    int delete(BoardDto parameter);
 
     BoardDto selectOne(BoardSearchModel model);
 
