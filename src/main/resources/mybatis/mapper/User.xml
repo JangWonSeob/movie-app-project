@@ -5,13 +5,14 @@
 
 	<sql id="TABLE">USER</sql>
 
-	<select id="selectUser" resultType="com.website.movie.biz.dto.UserDto">
-        SELECT * FROM user
+    <!--id로 검색하여 유저 한명 데이터 검색-->
+	<select id="selectOne" resultType="com.website.movie.biz.dto.UserDto">
+        SELECT * FROM user WHERE id = #{id}
     </select>
 
     <!--회원가입-->
-    <insert id="createUser">
-        INSERT INTO user(ID,EMAIL,NAME,NIK_NAME,PASSWORD) VALUES(#{id}, #{email},#{name},#{nickname},#{passwrod})
+    <insert id="insertUser">
+        INSERT INTO user(ID,EMAIL,NAME,NIK_NAME,PASSWORD,USER_TYPE,REG_DT) VALUES(#{id}, #{email}, #{name}, #{nickname}, #{password}, "user", NOW())
     </insert>
 
     <!--회원삭제-->
@@ -22,6 +23,7 @@
     <select id="getById" parameterType="String" resultType="com.website.movie.biz.dto.UserDto">
         SELECT * FROM user WHERE id = #{id}
     </select>
+
 
 
 </mapper>
