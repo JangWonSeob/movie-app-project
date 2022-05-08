@@ -1,11 +1,13 @@
 package com.website.movie.biz.service.impl;
 
 import com.website.movie.biz.dao.BoardDao;
+import com.website.movie.biz.dao.CommentDao;
 import com.website.movie.biz.dao.UserDao;
 import com.website.movie.biz.dto.BoardDto;
 import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.model.input.BoardInputModel;
 import com.website.movie.biz.model.search.BoardSearchModel;
+import com.website.movie.biz.model.search.CommentSearchModel;
 import com.website.movie.biz.service.BoardService;
 import com.website.movie.biz.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardDao boardDao;
+    private final CommentDao commentDao;
 
     @Override
     public boolean set(BoardInputModel model) {
@@ -41,7 +44,12 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public BoardDto get(BoardSearchModel model) {
-        return boardDao.selectOne(model);
+
+        BoardDto result = boardDao.selectOne(model);
+        result.setComments(commentDao.selectList(CommentSearchModel.builder().boardId(result.getId()).build()));
+        result.setCommentTotalCount(commentDao.selectListCount(CommentSearchModel.builder().boardId(result.getId()).build()));
+
+        return result;
     }
 
     @Override

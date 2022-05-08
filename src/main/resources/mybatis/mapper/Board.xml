@@ -11,8 +11,8 @@
             <when test="sqlSelectType != null and sqlSelectType eq 'FRONT'">
                 AND T1.DISPLAY_YN = 1
             </when>
-            <when test="sqlSelectType != null and sqlSelectType eq 'MY_BOARD_LIST'">
-                AND T1.DISPLAY_YN = 1 AND T1.REG_ID = ${loginUserId}
+            <when test="sqlSelectType != null and sqlSelectType eq 'MY_BOARD_LIST' and loginUserId != null">
+                AND T1.DISPLAY_YN = 1 AND T1.REG_ID = #{loginUserId}
             </when>
         </choose>
     </sql>
@@ -107,18 +107,18 @@
         </choose>
         WHERE ID = #{id}
         <!-- 로그인 로직 추가 시 -->
-        <!-- AND REG_ID = #{loginUserId} -->
+        <!-- AND REG_ID = loginUserId -->
     </update>
 
     <update id="delete">
         UPDATE <include refid="TABLE"/>
         SET DEL_DT = NOW()
-        , DEL_ID = #{}
+        , DEL_ID = #{loginUserId}
         , DEL_YN = 1
         WHERE ID = #{id}
         AND CATEGORY = #{category}
         <!-- 로그인 로직 추가 시 -->
-        <!-- AND REG_ID = #{loginUserId} -->
+        <!-- AND REG_ID = loginUserId -->
     </update>
 
 </mapper>

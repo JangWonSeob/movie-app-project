@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -19,6 +21,10 @@ public class BoardDto extends BaseDto {
     private String contents;
     private int viewCount;
     private boolean displayYn;
+
+    // join
+    List<CommentDto> comments;
+    int commentTotalCount;
 
     public static BoardDto toDto(BoardInputModel model) {
 
