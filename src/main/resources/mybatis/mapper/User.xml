@@ -11,14 +11,23 @@
     </select>
 
     <!--회원가입-->
-    <insert id="insertUser">
-        INSERT INTO user(ID,EMAIL,NAME,NIK_NAME,PASSWORD,USER_TYPE,REG_DT) VALUES(#{id}, #{email}, #{name}, #{nickname}, #{password}, "user", NOW())
+    <insert id="insert">
+        INSERT INTO user(EMAIL,NAME,NIK_NAME,PASSWORD,USER_TYPE,REG_DT) VALUES(#{email}, #{name}, #{nickname}, #{password}, "user", NOW())
     </insert>
 
+    <update id="update">
+        UPDATE INTO user(NAME,NIK_NAME,PASSWORD,UPD_DT) VALUES(#{id}, #{email}, #{name}, #{nickname}, NOW())
+    </update>
+
     <!--회원삭제-->
-    <delete id="deleteUser" parameterType="String">
-        DELETE FROM user WHERE email = #{email}
-    </delete>
+    <update id="delete">
+        UPDATE FROM user
+        SET DEL_DT = NOW()
+        , DEL_ID = #{id}
+        , DEL_YN = 1
+        WHERE id = #{id}
+    </update>
+
 
     <select id="getById" parameterType="String" resultType="com.website.movie.biz.dto.UserDto">
         SELECT * FROM user WHERE id = #{id}

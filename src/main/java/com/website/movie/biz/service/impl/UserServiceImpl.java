@@ -3,8 +3,10 @@ package com.website.movie.biz.service.impl;
 import com.website.movie.biz.dao.UserDao;
 import com.website.movie.biz.dto.BoardDto;
 import com.website.movie.biz.dto.UserDto;
+import com.website.movie.biz.model.input.BoardInputModel;
 import com.website.movie.biz.model.input.UserInputModel;
 import com.website.movie.biz.model.search.BoardSearchModel;
+import com.website.movie.biz.model.search.CommentSearchModel;
 import com.website.movie.biz.model.search.UserSearchModel;
 import com.website.movie.biz.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,31 +21,47 @@ public class UserServiceImpl implements UserService {
     private final UserDao userDao;
 
     @Override
-    public void insertUser(UserInputModel model) {
-        userDao.insertUser(UserDto.toDto(model));
+    public boolean set(UserInputModel model) {
+        int affected;
+
+        if(model.getId() > 0){
+            affected = userDao.update(UserDto.toDto(model));
+        }  else {
+            affected = userDao.insert(UserDto.toDto(model));
+        }
+
+        if (affected < 1) {
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public UserDto getUser(UserSearchModel model) {
-        return userDao.selectOne(model);
+    public UserDto get(UserSearchModel model) {
+        UserDto result = userDao.selectOne(model);
+
+        return result;
     }
 
     @Override
-    public List<UserDto> getUsers(UserSearchModel model) {
-        return null;
+    public List<UserDto> gets(UserSearchModel model) {
+        return userDao.selectList(model);
     }
 
-//    @Override
-//    public List<UserDto> gets() {
-//        return userDao.select();
-//    }
-//
+    @Override
+    public boolean delete(UserInputModel model) {
 
-//    @Override
-//    public UserDto gets(UserInputModel model) {
-//        return null;
-//    }
+        if(model.getId() < 1) {
+            return false;
+        }
 
+        int affected = userDao.delete(UserDto.toDto(model));
 
+        if (affected < 1) {
+            return false;
+        }
+
+        return true;
+    }
 
 }
