@@ -15,6 +15,7 @@ public class UserDto extends BaseDto {
     private String nickname;
     private String password;
     private String userType;
+    private String certified;
 
     public static UserDto toDto(UserInputModel model) {
 
@@ -24,6 +25,7 @@ public class UserDto extends BaseDto {
                 .name(model.getName())
                 .nickname(model.getNickname())
                 .password(model.getPassword())
+                .password(model.getCertified())
                 .build();
     }
 

@@ -7,7 +7,7 @@
 
     <!--id로 검색하여 유저 한명 데이터 검색-->
 	<select id="selectOne" resultType="com.website.movie.biz.dto.UserDto">
-        SELECT * FROM user WHERE id = #{id}
+        SELECT * FROM user WHERE ID = #{id}
     </select>
 
     <!--회원가입-->
@@ -33,6 +33,13 @@
         SELECT * FROM user WHERE id = #{id}
     </select>
 
+    <select id="email_certified_check" parameterType="com.website.movie.biz.dto.UserDto" resultType="com.website.movie.biz.dto.UserDto">
+        SELECT EMAIL FROM user where EMAIL = #{email} and CERTIFIED = #{certified}
+    </select>
+
+    <update id="email_certified_update" parameterType="com.website.movie.biz.dto.UserDto">
+        UPDATE user SET CERTIFIED = 'Y' WHERE EMAIL = #{email}
+    </update>
 
 
 </mapper>

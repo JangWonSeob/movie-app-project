@@ -16,5 +16,6 @@ public class UserInputModel extends InputBaseDto {
     private String name;
     private String nickname;
     private String password;
+    private String certified;
 
 }

@@ -10,6 +10,8 @@ import com.website.movie.biz.model.search.CommentSearchModel;
 import com.website.movie.biz.model.search.UserSearchModel;
 import com.website.movie.biz.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public boolean set(UserInputModel model) {
@@ -48,6 +51,15 @@ public class UserServiceImpl implements UserService {
         return userDao.selectList(model);
     }
 
+
+    @Override
+    public void insert(UserDto user) {
+        String rawPassword = user.getPassword();
+        String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
+        user.setPassword(encodedPassword);
+        userDao.insert(user);
+    }
+
     @Override
     public boolean delete(UserInputModel model) {
 
@@ -62,6 +74,21 @@ public class UserServiceImpl implements UserService {
         }
 
         return true;
+    }
+    @Override
+    public PasswordEncoder passwordEncoder() {
+        return this.passwordEncoder;
+    }
+
+
+    @Override
+    public UserDto email_certified_check(UserDto user) {
+        return userDao.email_certified_check(user);
+    }
+
+    @Override
+    public void email_certified_update(UserDto user) {
+        userDao.email_certified_update(user);
     }
 
 }

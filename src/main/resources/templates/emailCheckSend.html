@@ -1,0 +1,40 @@
+<script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!--<sec:authorize access="isAuthenticated()">-->
+<!--    <sec:authentication property="principal" var="user" />-->
+
+<!--    <form id="email_form">-->
+<!--        <input type="hidden" name="certified" value="${user.certified}">-->
+<!--        <input type="hidden" name="username" value="${user.username}">-->
+<!--        <input type="hidden" name="name" value="${user.name}">-->
+<!--    </form>-->
+<!--</sec:authorize>-->
+
+<!--원래는 아래 값들을 세션이나 다른데서 받아와야 됨-->
+<form id="email_form">
+    <input type="text" name="certified" value="user.certified">
+    <input type="text" name="email" value="user.email">
+    <input type="text" name="nickname" value="user.nickname">
+</form>
+
+<button id="email_send_buttton">이메일 인증하기</button>
+
+<script type="text/javascript">
+    $('#email_send_buttton').on(
+        'click',
+        function() {
+            $.ajax({
+                url : "/user/email/send",
+                type : "GET",
+                data : $("#email_form").serialize(),
+                success : function(data) {
+                    alert("이메일이 전송되었습니다.")
+                },
+                error : function(e) {
+                    console.log(e);
+                    console.log("이메일 전송에 실패하셨습니다.");
+                }
+            });
+        });
+</script>
