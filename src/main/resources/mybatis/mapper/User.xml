@@ -3,12 +3,23 @@
 
 <mapper namespace="com.website.movie.biz.dao.UserDao">
 
-	<sql id="TABLE">USER</sql>
+	<sql id="TABLE">user</sql>
 
     <!--id로 검색하여 유저 한명 데이터 검색-->
 	<select id="selectOne" resultType="com.website.movie.biz.dto.UserDto">
-        SELECT * FROM user WHERE ID = #{id}
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE 1 = 1
+        <choose>
+            <when test="sqlSelectType eq 'CHECK_EMAIL'">
+                AND EMAIL = #{email} AND CERTIFIED = #{certified}
+            </when>
+            <otherwise>
+               AND ID = #{id}
+            </otherwise>
+        </choose>
     </select>
+
 
     <!--회원가입-->
     <insert id="insert">
@@ -28,6 +39,9 @@
         WHERE id = #{id}
     </update>
 
+    <select id="email_certified_check" parameterType="com.website.movie.biz.dto.UserDto" resultType="com.website.movie.biz.dto.UserDto">
+        SELECT EMAIL FROM user where EMAIL = #{email} and CERTIFIED = #{certified}
+    </select>
 
     <select id="getById" parameterType="String" resultType="com.website.movie.biz.dto.UserDto">
         SELECT * FROM user WHERE id = #{id}
