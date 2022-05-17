@@ -20,14 +20,32 @@
         </choose>
     </select>
 
+    <!--위에 꺼가 헷갈려서 일단 만듬-->
+    <select id="selectUser" parameterType="int" resultType="com.website.movie.biz.dto.UserDto">
+        SELECT * FROM user WHERE ID = #{id}
+    </select>
+
+    <select id="selectUsertype" parameterType="int" resultType="String">
+        SELECT USER_TYPE FROM user_type WHERE ID = #{id}
+    </select>
 
     <!--회원가입-->
     <insert id="insert">
-        INSERT INTO user(EMAIL,NAME,NIK_NAME,PASSWORD,USER_TYPE,REG_DT) VALUES(#{email}, #{name}, #{nickname}, #{password}, "user", NOW())
+        INSERT INTO user(EMAIL,NAME,NIK_NAME,PASSWORD,REG_DT) VALUES(#{email}, #{name}, #{nickname}, #{password}, NOW())
+    </insert>
+
+    <!--권한부여-->
+    <insert id="insertUsertype"
+            parameterType="org.springframework.security.core.GrantedAuthority">
+        INSERT INTO user_type (ID, USER_TYPE,REG_DT)
+        VALUES
+        <foreach item="item" collection="user_type" separator=",">
+            (#{id}, #{item.user_type},NOW())
+        </foreach>
     </insert>
 
     <update id="update">
-        UPDATE INTO user(NAME,NIK_NAME,PASSWORD,UPD_DT) VALUES(#{id}, #{email}, #{name}, #{nickname}, NOW())
+        UPDATE INTO user(NAME,NIK_NAME,PASSWORD,UPD_DT) VALUES(#{name}, #{nickname}, #{password}, NOW())
     </update>
 
     <!--회원삭제-->
@@ -38,6 +56,10 @@
         , DEL_YN = 1
         WHERE id = #{id}
     </update>
+
+    <delete id="deleteUsertype" parameterType="String">
+        DELETE FROM user_type WHERE USER_TYPE = #{user_type}
+    </delete>
 
     <select id="getById" parameterType="String" resultType="com.website.movie.biz.dto.UserDto">
         SELECT * FROM user WHERE id = #{id}
@@ -50,6 +72,7 @@
     <update id="email_certified_update" parameterType="com.website.movie.biz.dto.UserDto">
         UPDATE user SET CERTIFIED = 'Y' WHERE EMAIL = #{email}
     </update>
+
 
 
 </mapper>

@@ -8,9 +8,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity  // 스프링 시큐리티 필터가 스프링 필터체인에 등록이 된다.
@@ -20,25 +22,44 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
 
     @Override
+    public void configure(WebSecurity web) throws Exception
+    {
+        // static 디렉터리의 하위 파일 목록은 인증 무시 ( = 항상통과 )
+        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-//            .antMatchers("/user/**").authenticated() // /user 페이지는 로그인을 해야 사용가능
-//                .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
-//                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')") // /admin/** 주소는  ADMIN Role이 있어야 사용가능
+                .antMatchers("/user/admin/**").access("hasAuthority('ADMIN')")
+                .antMatchers("/user/myinfo").access("hasAuthority('USER')") // 페이지 권한 설정
                 .anyRequest().permitAll()  //위에 설정한 주소가 아니면 누구나 이용가능
                 .and()    //접근권한이 없을때
-                .formLogin()
-                .loginPage("/login");
+                    .formLogin() //아래내용은 로그인하는 경우에 대한 설정이다.
+                        .loginPage("/user/loginPage")  //로그인 페이지는 /login 이다.
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/user/login/result")
+                .permitAll()
+                .and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/user/logout")) //로그아웃 설정
+                .logoutSuccessUrl("/user/logout/result").invalidateHttpSession(true)
+                .and()
+                .exceptionHandling().accessDeniedPage("/user/denied") // 403 예외처리 핸들링
+                .and()
+                .csrf().disable();
     }
 
-    // 해당 메서드의 리턴되는 오브젝트를 Ioc로 등록해준다.
-
-    @Bean
-    public BCryptPasswordEncoder encodePwd(){
-        return new BCryptPasswordEncoder();
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService).passwordEncoder(userService.passwordEncoder());
     }
-    //오류 해결못함
+
+//    @Bean
+//    public BCryptPasswordEncoder encodePwd(){
+//        return new BCryptPasswordEncoder();
+//    }
+////    오류 해결못함
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.userDetailsService(userService).passwordEncoder(userService.passwordEncoder());
