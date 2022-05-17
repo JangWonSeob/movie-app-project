@@ -33,7 +33,6 @@ public class CommentServiceImpl implements CommentService {
         if (affected < 1) {
             return false;
         }
-
         return true;
     }
 

@@ -1,15 +1,8 @@
 package com.website.movie.biz.service.impl;
 
-import com.website.movie.biz.dao.BoardDao;
-import com.website.movie.biz.dao.CommentDao;
-import com.website.movie.biz.dao.UserDao;
-import com.website.movie.biz.dto.BoardDto;
-import com.website.movie.biz.dto.UserDto;
-import com.website.movie.biz.model.input.BoardInputModel;
-import com.website.movie.biz.model.search.BoardSearchModel;
-import com.website.movie.biz.model.search.CommentSearchModel;
+import com.website.movie.biz.dao.*;
+import com.website.movie.biz.dto.*;
 import com.website.movie.biz.service.BoardService;
-import com.website.movie.biz.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,19 +13,21 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardDao boardDao;
-    private final CommentDao commentDao;
+    private final LikesDao likesDao;
+    private final UnlikesDao unlikesDao;
+    private final BookMarkDao bookMarkDao;
 
     @Override
-    public boolean set(BoardInputModel model) {
+    public boolean set(BoardDto parameter) {
 
         int affected;
 
-        if(model.getId() > 0) {
+        if (parameter.getId() > 0) {
             // 수정
-            affected = boardDao.update(BoardDto.toDto(model));
+            affected = boardDao.update(parameter);
         } else {
             // 생성
-            affected = boardDao.insert(BoardDto.toDto(model));
+            affected = boardDao.insert(parameter);
         }
 
         if (affected < 1) {
@@ -43,42 +38,51 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardDto get(BoardSearchModel model) {
+    public BoardDto get(BoardDto parameter) {
 
-        BoardDto result = boardDao.selectOne(model);
-        result.setComments(commentDao.selectList(CommentSearchModel.builder().boardId(result.getId()).build()));
-        result.setCommentTotalCount(commentDao.selectListCount(CommentSearchModel.builder().boardId(result.getId()).build()));
+        BoardDto result = boardDao.selectOne(parameter);
+        if(parameter.getLoginUserId() > 0) {
+            // 나의 좋아요 여부
+            result.setMyLike(likesDao.selectMyLike(LikesDto.builder().boardId(result.getId()).loginUserId(parameter.getLoginUserId()).build()));
+            // 나의 싫어요 여부
+            result.setMyUnlike(unlikesDao.selectMyUnlike(UnlikesDto.builder().boardId(result.getId()).loginUserId(parameter.getLoginUserId()).build()));
+            // 즐겨찾기 여부
+            result.setMyBookMark(bookMarkDao.selectMyBookMark(BookMarkDto.builder().boardId(result.getId()).loginUserId(parameter.getLoginUserId()).build()));
+        }
+        // 좋아요 갯수
+        result.setLikeTotalCount(likesDao.selectListCount(LikesDto.builder().boardId(result.getId()).build()));
+        // 싫어요 갯수
+        result.setUnlikeTotalCount(unlikesDao.selectListCount(UnlikesDto.builder().boardId(result.getId()).build()));
 
         return result;
     }
 
     @Override
-    public List<BoardDto> gets(BoardSearchModel model) {
-        return boardDao.selectList(model);
+    public List<BoardDto> gets(BoardDto parameter) {
+        return boardDao.selectList(parameter);
     }
 
     @Override
-    public int totalCount(BoardSearchModel model) {
-        return boardDao.selectListCount(model);
+    public int totalCount(BoardDto parameter) {
+        return boardDao.selectListCount(parameter);
     }
 
     @Override
-    public void viewCountUp(BoardSearchModel model) {
+    public void viewCountUp(BoardDto parameter) {
 
-        BoardDto parameter = new BoardDto();
-        parameter.setId(model.getId());
+        parameter.setId(parameter.getId());
         parameter.setSqlUpdateType("VIEW_COUNT_UP");
         boardDao.update(parameter);
     }
 
     @Override
-    public boolean delete(BoardInputModel model) {
+    public boolean delete(BoardDto parameter) {
 
-        if(model.getId() < 1) {
+        if (parameter.getId() < 1) {
             return false;
         }
 
-        int affected = boardDao.delete(BoardDto.toDto(model));
+        int affected = boardDao.delete(parameter);
 
         if (affected < 1) {
             return false;

@@ -1,7 +1,6 @@
 package com.website.movie.biz.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -10,9 +9,10 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookMarkDto extends BaseDto {
+public class UnlikesDto extends BaseDto {
 
     private int id;
     private int userId;
     private int boardId;
+
 }

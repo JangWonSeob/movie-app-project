@@ -23,9 +23,9 @@ public class ApiBoardController {
 
     @PostMapping("/api/board/set.api")
     @ApiOperation(value = "게시판 등록 및 수정 API", notes = "게시판 등록 및 수정이 가능합니다.")
-    public JsonResult set(@RequestBody BoardInputModel model) {
+    public JsonResult set(@RequestBody BoardDto parameter) {
 
-        boolean result = boardService.set(model);
+        boolean result = boardService.set(parameter);
 
         if(!result) {
             return JsonResult.fail(" 데이터 처리 중 문제가 발생하였습니다. ");
@@ -36,9 +36,9 @@ public class ApiBoardController {
 
     @PostMapping("/api/board/get.api")
     @ApiOperation(value = "게시판 한 건 조회 API", notes = "게시판 한 건에 대해서 조회 가능합니다.")
-    public JsonResult get(@RequestBody BoardSearchModel model) {
+    public JsonResult get(@RequestBody BoardDto parameter) {
 
-        BoardDto result = boardService.get(model);
+        BoardDto result = boardService.get(parameter);
 
         if(result == null) {
             return JsonResult.fail(" 입력 값이 옳지 않습니다. ");
@@ -49,12 +49,12 @@ public class ApiBoardController {
 
     @PostMapping("/api/board/gets.api")
     @ApiOperation(value = "게시판 리스트 조회 API", notes = "게시판 리스트 조회가 가능합니다.")
-    public JsonResult gets(@RequestBody BoardSearchModel model) {
+    public JsonResult gets(@RequestBody BoardDto parameter) {
 
-        model.initPage();
+        parameter.initPage();
 
-        List<BoardDto> list = boardService.gets(model);
-        int totalCount = boardService.totalCount(model);
+        List<BoardDto> list = boardService.gets(parameter);
+        int totalCount = boardService.totalCount(parameter);
 
         Map<String, Object> result = new HashMap<>();
 
@@ -66,14 +66,14 @@ public class ApiBoardController {
 
     @PostMapping("/api/board/viewcount/add.api")
     @ApiOperation(value = "게시판 조회수 증가 API", notes = "게시판 조회수를 증가시킵니다.")
-    public void viewCountUp(@RequestBody BoardSearchModel model) {
+    public void viewCountUp(@RequestBody BoardDto model) {
 
         boardService.viewCountUp(model);
     }
 
     @PostMapping("/api/board/delete.api")
     @ApiOperation(value = "게시판 삭제 API", notes = "게시판을 삭제합니다.")
-    public JsonResult delete(@RequestBody BoardInputModel model) {
+    public JsonResult delete(@RequestBody BoardDto model) {
 
         boolean result = boardService.delete(model);
 

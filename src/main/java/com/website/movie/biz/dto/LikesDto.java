@@ -1,19 +1,18 @@
 package com.website.movie.biz.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LikeAndUnlikeDto {
+public class LikesDto extends BaseDto {
 
     private int id;
     private int userId;
     private int boardId;
-    private String type;
 
 }

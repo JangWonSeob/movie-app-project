@@ -13,9 +13,9 @@ public interface BoardDao {
     int update(BoardDto parameter);
     int delete(BoardDto parameter);
 
-    BoardDto selectOne(BoardSearchModel model);
+    BoardDto selectOne(BoardDto model);
 
-    List<BoardDto> selectList(BoardSearchModel model);
-    int selectListCount(BoardSearchModel model);
+    List<BoardDto> selectList(BoardDto model);
+    int selectListCount(BoardDto model);
 
 }

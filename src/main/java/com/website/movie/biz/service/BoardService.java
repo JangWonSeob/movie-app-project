@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface BoardService {
 
-    boolean set(BoardInputModel model);
+    boolean set(BoardDto parameter);
 
-    BoardDto get(BoardSearchModel model);
-    List<BoardDto> gets(BoardSearchModel model);
-    int totalCount(BoardSearchModel model);
+    BoardDto get(BoardDto parameter);
+    List<BoardDto> gets(BoardDto parameter);
+    int totalCount(BoardDto parameter);
 
-    void viewCountUp(BoardSearchModel model);
+    void viewCountUp(BoardDto parameter);
 
-    boolean delete(BoardInputModel model);
+    boolean delete(BoardDto parameter);
 }

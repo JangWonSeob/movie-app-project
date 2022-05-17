@@ -22,9 +22,17 @@ public class BoardDto extends BaseDto {
     private int viewCount;
     private boolean displayYn;
 
+    private boolean myLike;
+    private boolean myUnlike;
+
+    private int likeTotalCount;
+    private int unlikeTotalCount;
+
+    private boolean myBookMark;
+
     // join
-    List<CommentDto> comments;
-    int commentTotalCount;
+//    List<CommentDto> comments;
+//    int commentTotalCount;
 
     public static BoardDto toDto(BoardInputModel model) {
 
