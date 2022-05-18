@@ -31,14 +31,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        //username으로만 받는 로그인화면 파라미터를 email로 바꾼다.
+        http.formLogin().usernameParameter("email");
         http.authorizeRequests()
                 .antMatchers("/user/admin/**").access("hasAuthority('ADMIN')")
                 .antMatchers("/user/myinfo").access("hasAuthority('USER')") // 페이지 권한 설정
                 .anyRequest().permitAll()  //위에 설정한 주소가 아니면 누구나 이용가능
                 .and()    //접근권한이 없을때
-                    .formLogin() //아래내용은 로그인하는 경우에 대한 설정이다.
-                        .loginPage("/user/loginPage")  //로그인 페이지는 /login 이다.
-                .loginProcessingUrl("/login")
+                .formLogin() //아래내용은 로그인하는 경우에 대한 설정이다.
+                .loginPage("/user/loginPage")  //로그인 페이지는 /login 이다.
+                .usernameParameter("email")
+                .loginProcessingUrl("/login")  //로그인 버튼을 클릭했을시 action의 경로(기본적으로 post)
                 .defaultSuccessUrl("/user/login/result")
                 .permitAll()
                 .and()

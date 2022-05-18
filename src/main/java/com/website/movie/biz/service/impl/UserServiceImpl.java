@@ -1,13 +1,7 @@
 package com.website.movie.biz.service.impl;
 
 import com.website.movie.biz.dao.UserDao;
-import com.website.movie.biz.dto.BoardDto;
 import com.website.movie.biz.dto.UserDto;
-import com.website.movie.biz.model.input.BoardInputModel;
-import com.website.movie.biz.model.input.UserInputModel;
-import com.website.movie.biz.model.search.BoardSearchModel;
-import com.website.movie.biz.model.search.CommentSearchModel;
-import com.website.movie.biz.model.search.UserSearchModel;
 import com.website.movie.biz.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -38,7 +31,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if(parameter.getId() > 0){
             affected = userDao.update(parameter);
         }  else {
-            affected = userDao.insert(parameter);
+            affected = userDao.createUser(parameter);
         }
 
         if (affected < 1) {
@@ -54,43 +47,38 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return result;
     }
 
+    //유저
     @Override
-    public List<UserDto> gets(UserDto model) {
-        return userDao.selectList(model);
-    }
-
-    @Override
-    public void insert(UserDto user) {
+    public void createUser(UserDto user) {
+        System.out.println("\nUser 유저 변환전  \n"+user);
         String rawPassword = user.getPassword();
         String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
         user.setPassword(encodedPassword);
-        userDao.insert(user);
-        userDao.insertUsertype(user);
+        userDao.createUser(user);
+        userDao.createAuthority(user);
+    }
+    // Security 기본 메서드 나중에 로그인할때 입력 받는 값을 인자로 받아서 로그인했을때 과정을 처리해야함
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println("\n loadUserByUsername실행됨 \n");
+        UserDto user = userDao.selectByEmail(email);
+        if(user==null) {
+            System.out.println("\n user==null \n");
+            throw new UsernameNotFoundException(email);
+        }
+        user.setAuthorities(getAuthorities(email));
+        return user;
     }
 
-    // Security 기본 메서드 나중에 로그인할때 입력 받는 값을 인자로 받아서 로그인했을때 과정을 처리해야함
-//    @Override
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//        int id;
-//        UserDto user = userDao.selectUser(email);
-//        if(user==null) {
-//            throw new UsernameNotFoundException(email);
-//        }
-//        user.setAuthorities(getUsertype(email));
-//        return user;
-//    }
-
-    @Override
-    public Collection<GrantedAuthority> getUsertype(int id) {
-        List<String> string_authorities = userDao.selectUsertype(id);
+    public Collection<GrantedAuthority> getAuthorities(String email) {
+        System.out.println("\n getAuthorities로 넘어온 email 값 : " + email);
+        List<String> string_authorities = userDao.selectAuthorityByEmail(email);
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         for (String authority : string_authorities) {
             authorities.add(new SimpleGrantedAuthority(authority));
         }
         return authorities;
     }
-
-
 
     @Override
     public boolean delete(UserDto parameter) {
@@ -107,11 +95,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         return true;
     }
+
     @Override
     public PasswordEncoder passwordEncoder() {
         return this.passwordEncoder;
     }
-
 
     @Override
     public UserDto email_certified_check(UserDto user) {
@@ -123,9 +111,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDao.email_certified_update(user);
     }
 
-    //스프링 Security 기본제공 메소드
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }
 }

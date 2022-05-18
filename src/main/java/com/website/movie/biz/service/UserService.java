@@ -15,13 +15,13 @@ import java.util.List;
 
 public interface UserService extends UserDetailsService {
 
-    boolean set(UserDto parameter);
+    boolean set(UserDto user);
     // 유저한명에 대한 상세 정보 반환
-    UserDto get(UserDto model);
-    List<UserDto> gets(UserDto model);
-    boolean delete(UserDto model);
-    void insert(UserDto user);
-    Collection<GrantedAuthority> getUsertype(int id);
+    UserDto get(UserDto user);
+    boolean delete(UserDto user);
+    //유저를 회원가입시키고 기본적인 권한을 줍니다.
+    void createUser(UserDto user);
+    Collection<GrantedAuthority> getAuthorities(String email);
     public UserDto email_certified_check(UserDto user);
     public void email_certified_update(UserDto user);
     PasswordEncoder passwordEncoder();

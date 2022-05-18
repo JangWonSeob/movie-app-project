@@ -1,10 +1,8 @@
 package com.website.movie.web.controller;
 
 import com.website.movie.biz.dto.UserDto;
-import com.website.movie.biz.model.input.UserInputModel;
 import com.website.movie.biz.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,11 +19,6 @@ import java.util.Random;
 public class UserController {
 
     private final UserService userService;
-
-    // SecurityConfig에서 가져옴
-//    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
 //    @GetMapping("/user/gets.api")
 //    public List<UserDto> gets() {
 //        return userService.gets();
@@ -33,58 +26,34 @@ public class UserController {
 
     @GetMapping("/user")
     public String user() {
-
         return "user";
     }
-
-    @GetMapping("/login")
-    public String login() {
-
-        return "login";
-    }
     @GetMapping("/emailCheckSend")
-    public String join() {
+    public String emailCheckSend() {
 
         return "emailCheckSend";
     }
 
-
-    @GetMapping("/joinForm")
-    public String joinForm() {
-        return "joinForm";
-    }
-
-    @PostMapping("/join")
-    public String join(UserInputModel model) {
-        System.out.println(model);
-        //Security 이용 암호화 코드
-        String rawPassword = model.getPassword();
-        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-        model.setPassword(encPassword);
-
-        return "redirect:/loginForm";
-    }
-
-    @GetMapping("/signup")
-    public String signup(UserDto user)
+    @GetMapping("/user/signup")
+    public String signup()
     {
         return "signup";
     }
 
 
     // 회원가입 처리
-    @PostMapping("/signup")
+    @PostMapping("/user/signup")
     public String signupPost(UserDto user) {
-        System.out.println(user);
+        System.out.println("\n 변환하기전 \n" + user);
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 //		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         authorities.add(new SimpleGrantedAuthority("USER"));
         user.setAuthorities(authorities);
         user.setCertified(certified_key());  //회원가입을 하면 랜덤한 키값을 받는다 나중에 이 값을 URL에 담은채로 특정URL에 접속해야지만 진짜 가입상태가 된다.
-        userService.insert(user);
-        return "redirect:/user/login";
+        System.out.println("\n 변환이후 \n" + user);
+        userService.createUser(user);
+        return "redirect:/user/loginPage";
     }
-
     private String certified_key() {
         Random random = new Random();
         StringBuffer sb = new StringBuffer();
@@ -101,5 +70,39 @@ public class UserController {
         } while (sb.length() < 10);
         return sb.toString();
     }
+    // 로그인 페이지
+    @GetMapping("/user/loginPage")
+    public String login() {
+        return "login";
+    }
 
+    // 로그인 결과 페이지
+    @GetMapping("/user/login/result")
+    public String loginResult() {
+        return "loginSuccess";
+    }
+
+    // 로그아웃 결과 페이지
+    @GetMapping("/user/logout/result")
+    public String logout() {
+        return "logout";
+    }
+
+    // 접근 거부 페이지
+    @GetMapping("/user/denied")
+    public String denied() {
+        return "denied";
+    }
+
+    // 내 정보 페이지
+    @GetMapping("/user/info")
+    public String myInfo() {
+        return "myinfo";
+    }
+
+    // 어드민 페이지
+    @GetMapping("/user/admin")
+    public String admin() {
+        return "admin";
+    }
 }

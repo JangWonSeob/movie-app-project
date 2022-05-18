@@ -21,27 +21,16 @@ public class UserDto extends BaseDto implements UserDetails {
     private String certified;
     private Collection<? extends GrantedAuthority> authorities;  //두개이상의 권한을 리스트에 담아 사용
 
-    public static UserDto toDto(UserInputModel model) {
-
-        return UserDto.builder()
-                .id(model.getId())
-                .email(model.getEmail())
-                .name(model.getName())
-                .nickname(model.getNickname())
-                .password(model.getPassword())
-                .password(model.getCertified())
-                .build();
-    }
-
     //아래는 Spring Security 기본제공 메소드
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
+    // 로그인에 사용하는 아이디 get
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override

@@ -39,6 +39,8 @@ dependencies {
     // Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.security:spring-security-test'
+    // Security tag   <sec:/> for thymeleaf
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
     // email
     // https://mvnrepository.com/artifact/javax.mail/mail
