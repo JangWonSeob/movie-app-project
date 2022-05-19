@@ -26,7 +26,7 @@
     </select>
 
     <!--email로 유저를 찾아냅니다.-->
-    <select id="selectByEmail" parameterType="String" resultType="com.website.movie.biz.dto.UserDto">
+    <select id="findByEmail" parameterType="String" resultType="com.website.movie.biz.dto.UserDto">
         SELECT * FROM user WHERE EMAIL = #{email}
     </select>
 
@@ -48,7 +48,7 @@
 
     <!--회원가입-->
     <insert id="createUser">
-        INSERT INTO user(EMAIL,NAME,NIK_NAME,PASSWORD,REG_DT) VALUES(#{email}, #{name}, #{nickname}, #{password}, NOW())
+        INSERT INTO user(EMAIL,NAME,NICKNAME,PASSWORD,REG_DT) VALUES(#{email}, #{name}, #{nickname}, #{password}, NOW())
     </insert>
 
     <!--권한부여-->
@@ -65,7 +65,7 @@
     </insert>
 
     <update id="update">
-        UPDATE INTO user(NAME,NIK_NAME,PASSWORD,UPD_DT) VALUES(#{name}, #{nickname}, #{password}, NOW())
+        UPDATE INTO user(NAME,NICKNAME,PASSWORD,UPD_DT) VALUES(#{name}, #{nickname}, #{password}, NOW())
     </update>
 
     <!--회원삭제-->

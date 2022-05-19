@@ -10,7 +10,7 @@ public interface UserDao {
 
     UserDto selectOne(UserDto user);
     UserDto selectUser(int id);
-    UserDto selectByEmail(String email);
+    UserDto findByEmail(String email);
     List<String> selectAuthorityByEmail(String email);
     int createUser(UserDto user);
     //유저의 타입을 만들어주는 함수 //int id는 가입하는 회원의 고유키(ID)에 매칭시키기 위해 필요하다

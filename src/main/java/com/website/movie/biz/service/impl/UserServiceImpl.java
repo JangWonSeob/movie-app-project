@@ -61,12 +61,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         System.out.println("\n loadUserByUsername실행됨 \n");
-        UserDto user = userDao.selectByEmail(email);
+        UserDto user = userDao.findByEmail(email);
         if(user==null) {
             System.out.println("\n user==null \n");
             throw new UsernameNotFoundException(email);
         }
         user.setAuthorities(getAuthorities(email));
+        System.out.println("\n user \n" + user);
+        System.out.println("\n user.getNick \n" + user.getNickname());
+        System.out.println("\n user.getname \n" + user.getName());
+
         return user;
     }
 

@@ -9,14 +9,17 @@
 <h1>로그인 성공!!</h1>
 <hr>
 <p>
+  <a sec:authorize="isAnonymous()" href="/user/loginPage">로그인</a>
+  <a sec:authorize="isAuthenticated()" href="/user/logout">로그아웃</a>
   <sec:authorize access="isAuthenticated()">
-    <sec:authentication property="principal" var="user" />
-    <div>${user.name}님</div>
-    <div>${user.authorities}</div>
-</sec:authorize>
+    <div sec:authentication="principal.name"></div>
+    <div sec:authentication="principal"></div>
+    <div sec:authentication="principal.nickname"></div>
+    <div sec:authentication="principal.authorities"></div>
+  </sec:authorize>
 </p>
-<sec:authorize access="hasAuthority('ADMIN') or hasAuthority('USER')"><a href="/user/info">내정보</a></sec:authorize><br>
-<sec:authorize access="hasAuthority('USER')"><a href="/user/admin">admin</a></sec:authorize><br>
+<a sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" href="/user/info">내정보</a><br>
+<a sec:authorize="hasAuthority('ADMIN')" href="/user/admin">admin</a><br>
 
 <a href="/">메인으로 이동</a>
 </body>
