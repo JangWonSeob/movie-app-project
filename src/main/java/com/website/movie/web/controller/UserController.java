@@ -3,13 +3,16 @@ package com.website.movie.web.controller;
 import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.mail.internet.MimeMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,8 +20,11 @@ import java.util.Random;
 @Controller
 @RequiredArgsConstructor
 public class UserController {
+    private final JavaMailSender mailSender;
 
     private final UserService userService;
+
+
 //    @GetMapping("/user/gets.api")
 //    public List<UserDto> gets() {
 //        return userService.gets();
@@ -49,7 +55,8 @@ public class UserController {
 //		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         authorities.add(new SimpleGrantedAuthority("USER"));
         user.setAuthorities(authorities);
-        user.setCertified(certified_key());  //회원가입을 하면 랜덤한 키값을 받는다 나중에 이 값을 URL에 담은채로 특정URL에 접속해야지만 진짜 가입상태가 된다.
+        //회원가입을 하면 랜덤한 키값을 받는다 나중에 이 값을 URL에 담은채로 특정URL에 접속해야지만 진짜 가입상태가 된다.
+//        user.setCertified(certified_key());
         System.out.println("\n 변환이후 \n" + user);
         userService.createUser(user);
         return "redirect:/user/loginPage";
@@ -105,4 +112,17 @@ public class UserController {
     public String admin() {
         return "admin";
     }
+
+
+    // 평소에는 null만 나오지만
+    // 로그인을 하면 userDto의 정보들이 나옵니다.
+    @GetMapping("/user/authPrincipal")
+    public String authPrincipal(@AuthenticationPrincipal UserDto user) {
+
+        System.out.println("@Authen 사용 user 정보"+ user);
+        System.out.println("@Authen 사용 user email"+ user.getEmail() + user.getId());
+        return "index";
+    }
+
+
 }

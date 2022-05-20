@@ -20,15 +20,19 @@
         </choose>
     </select>
 
-    <!--위에 꺼가 헷갈려서 일단 만듬-->
     <select id="selectUser" parameterType="int" resultType="com.website.movie.biz.dto.UserDto">
-        SELECT * FROM user WHERE ID = #{id}
+        SELECT * FROM <include refid="TABLE"/> WHERE ID = #{id}
     </select>
 
-    <!--email로 유저를 찾아냅니다.-->
-    <select id="findByEmail" parameterType="String" resultType="com.website.movie.biz.dto.UserDto">
-        SELECT * FROM user WHERE EMAIL = #{email}
+    <!--email로 유저를 찾아냅니다. 고유키는 아니기 때문에 일단 LIMIT 1을 주었씁니다.-->
+    <select id="selectByEmail" parameterType="String" resultType="com.website.movie.biz.dto.UserDto">
+        SELECT * FROM <include refid="TABLE"/> WHERE EMAIL = #{email} LIMIT 1;
     </select>
+
+    <select id="selectById" parameterType="int" resultType="com.website.movie.biz.dto.UserDto">
+        SELECT * FROM <include refid="TABLE"/> WHERE id = #{id}
+    </select>
+
 
     <select id="selectAuthority" parameterType="int" resultType="String">
         SELECT AUTHORITY_NAME FROM authority WHERE ID = #{id}
@@ -47,8 +51,23 @@
     </select>
 
     <!--회원가입-->
-    <insert id="createUser">
-        INSERT INTO user(EMAIL,NAME,NICKNAME,PASSWORD,REG_DT) VALUES(#{email}, #{name}, #{nickname}, #{password}, NOW())
+    <insert id="insertUser">
+        INSERT INTO <include refid="TABLE"/>
+        (
+            EMAIL
+            ,NAME
+            ,NICKNAME
+            ,PASSWORD
+            ,REG_DT
+        )
+        VALUES
+        (
+            #{email}
+            , #{name}
+            , #{nickname}
+            , #{password}
+            , NOW()
+        )
     </insert>
 
     <!--권한부여-->
@@ -60,37 +79,29 @@
             ((SELECT AUTO_INCREMENT
             FROM information_schema.tables
             WHERE table_name = 'user'
-            AND table_schema = DATABASE())-1, #{item.authority}, #{email},NOW())
+            AND table_schema = DATABASE()) -1, #{item.authority}, #{email},NOW())
         </foreach>
     </insert>
 
     <update id="update">
-        UPDATE INTO user(NAME,NICKNAME,PASSWORD,UPD_DT) VALUES(#{name}, #{nickname}, #{password}, NOW())
+        UPDATE INTO <include refid="TABLE"/>(NAME,NICKNAME,PASSWORD,UPD_DT) VALUES(#{name}, #{nickname}, #{password}, NOW())
     </update>
 
     <!--회원삭제-->
     <update id="delete">
-        UPDATE FROM user
+        UPDATE FROM <include refid="TABLE"/>
         SET DEL_DT = NOW()
         , DEL_ID = #{id}
         , DEL_YN = 1
         WHERE id = #{id}
     </update>
 
-    <delete id="deleteAuthority" parameterType="int">
-        DELETE FROM authority WHERE ID = #{id}
-    </delete>
-
-    <select id="getById" parameterType="int" resultType="com.website.movie.biz.dto.UserDto">
-        SELECT * FROM user WHERE id = #{id}
+    <select id="emailCertifiedCheck" parameterType="com.website.movie.biz.dto.UserDto" resultType="com.website.movie.biz.dto.UserDto">
+        SELECT EMAIL FROM <include refid="TABLE"/> where EMAIL = #{email} and CERTIFIED = #{certified}
     </select>
 
-    <select id="email_certified_check" parameterType="com.website.movie.biz.dto.UserDto" resultType="com.website.movie.biz.dto.UserDto">
-        SELECT EMAIL FROM user where EMAIL = #{email} and CERTIFIED = #{certified}
-    </select>
-
-    <update id="email_certified_update" parameterType="com.website.movie.biz.dto.UserDto">
-        UPDATE user SET CERTIFIED = 'Y' WHERE EMAIL = #{email}
+    <update id="emailCertifiedUpdate" parameterType="com.website.movie.biz.dto.UserDto">
+        UPDATE <include refid="TABLE"/> SET CERTIFIED = 'Y' WHERE EMAIL = #{email}
     </update>
 
 

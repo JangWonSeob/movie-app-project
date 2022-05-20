@@ -23,7 +23,6 @@ public class EmailServiceImpl implements EmailService {
     }
 
     public void sendMail(String toEmail, String subject, String message) throws MessagingException {
-        System.out.println("toEmail"+toEmail+"subject"+subject+"message"+message);
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
         

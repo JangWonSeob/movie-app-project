@@ -52,12 +52,28 @@ dependencies {
     // https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl
     implementation 'com.sun.xml.bind:jaxb-impl:2.3.1'
 
-    // email
+    // for email send
     // https://mvnrepository.com/artifact/javax.mail/mail
     implementation 'javax.mail:mail:1.4.7'
+// https://mvnrepository.com/artifact/javax.mail/javax.mail-api
+    implementation 'javax.mail:javax.mail-api:1.5.5'
+// https://mvnrepository.com/artifact/com.sun.mail/javax.mail
+    implementation 'com.sun.mail:javax.mail:1.6.2'
+// https://mvnrepository.com/artifact/org.apache.commons/commons-email
+    implementation 'org.apache.commons:commons-email:1.5'
+// https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
     // https://mvnrepository.com/artifact/org.springframework/spring-context-support
     implementation 'org.springframework:spring-context-support:5.3.19'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    // ajax
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.12.3'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.3'
 
 
 

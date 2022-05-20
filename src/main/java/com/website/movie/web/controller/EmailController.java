@@ -4,15 +4,18 @@ import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.service.EmailService;
 import com.website.movie.biz.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Random;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,9 +24,17 @@ public class EmailController {
     private final EmailService emailService;
     private final UserService userService;
 
+    private final JavaMailSender mailSender;
+
+    // 아직 유저가 없으니 UserDto user 를 받지 못한다.
+    // 그렇기 때문에 화면에 있는
     //ajax로 이용
     @GetMapping(value = "/user/email/send")
     public void sendmail(UserDto user) throws MessagingException {
+        System.out.println("\n 인증키 설정 전 user \n" + user);
+        user.setCertified(certified_key());
+        System.out.println("\n 인증키 설정 후 user \n" + user);
+        
         StringBuffer emailcontent = new StringBuffer();
         emailcontent.append("<!DOCTYPE html>");
         emailcontent.append("<html>");
@@ -38,7 +49,7 @@ public class EmailController {
                         "		<span style=\"color: #02b875\">메일인증</span> 안내입니다."																																				+
                         "	</h1>\n"																																																+
                         "	<p style=\"font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\">"																													+
-                        user.getNickname()																																													+
+                            user.getEmail()																																													+
                         "		님 안녕하세요.<br />"																																													+
                         "		영화추천 서비스에 가입해 주셔서 진심으로 감사드립니다.<br />"																																						+
                         "		아래 <b style=\"color: #02b875\">'메일 인증'</b> 버튼을 클릭하여 회원가입을 완료해 주세요.<br />"																													+
@@ -56,10 +67,25 @@ public class EmailController {
         emailcontent.append("</body>");
         emailcontent.append("</html>");
         System.out.println(user);
-        System.out.println("\n"+"user정보"+user.getNickname()+"user정보"+user.getCertified()+user.getEmail());
         emailService.sendMail(user.getEmail(), "[12수2022 이메일 인증]", emailcontent.toString());
     }
+    // 랜덤 키값 만들기
+    private String certified_key() {
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        int num = 0;
 
+        do {
+            num = random.nextInt(75) + 48;
+            if ((num >= 48 && num <= 57) || (num >= 65 && num <= 90) || (num >= 97 && num <= 122)) {
+                sb.append((char) num);
+            } else {
+                continue;
+            }
+
+        } while (sb.length() < 10);
+        return sb.toString();
+    }
     //sendmail로 받은 메일에서 인증하기를 눌렀을때
     @GetMapping(value = "/user/email/certified")
     @Transactional
@@ -75,5 +101,34 @@ public class EmailController {
 
         return new ModelAndView("emailChecksuccess");
     }
+    @GetMapping("/user/mailCheck")
+    @ResponseBody
+    public String mailCheck(@RequestParam("email") String email) throws Exception{
+        System.out.println("\n mailCheck \n"+ email);
+        int serti = (int)((Math.random()*(99999 - 10000 + 1)) + 10000);
+        String from = "project.movieweb@gmail.com";
+        //보내는 이 메일주소
+        String to = email;
+        String title = "회원가입시 필요한 인증번호 입니다.";
+        String content = "[인증번호] "+ serti +" 입니다. <br/> 인증번호 확인란에 기입해주십시오.";
+        String num = "";
+        try {
+            MimeMessage mail = mailSender.createMimeMessage();
+            MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
+            mailHelper.setFrom(from);
+            mailHelper.setTo(to);
+            mailHelper.setSubject(title);
+            mailHelper.setText(content, true);
+            mailSender.send(mail);
+            num = Integer.toString(serti);
+        } catch(Exception e) {
+            num = "error";
+        }
+        System.out.println("\n num 값 \n" + num);
+        return num;
+    }
+
+
+
 
 }

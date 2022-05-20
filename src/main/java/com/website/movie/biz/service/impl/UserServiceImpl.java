@@ -1,5 +1,6 @@
 package com.website.movie.biz.service.impl;
 
+import com.website.movie.biz.dao.AuthorityDao;
 import com.website.movie.biz.dao.UserDao;
 import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.service.UserService;
@@ -22,6 +23,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserDao userDao;
+    private final AuthorityDao authorityDao;
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
@@ -31,7 +33,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if(parameter.getId() > 0){
             affected = userDao.update(parameter);
         }  else {
-            affected = userDao.createUser(parameter);
+            affected = userDao.insertUser(parameter);
         }
 
         if (affected < 1) {
@@ -54,14 +56,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         String rawPassword = user.getPassword();
         String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
         user.setPassword(encodedPassword);
-        userDao.createUser(user);
-        userDao.createAuthority(user);
+        userDao.insertUser(user);
+        authorityDao.insertAuthority(user);
     }
     // Security 기본 메서드 나중에 로그인할때 입력 받는 값을 인자로 받아서 로그인했을때 과정을 처리해야함
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         System.out.println("\n loadUserByUsername실행됨 \n");
-        UserDto user = userDao.findByEmail(email);
+        UserDto user = userDao.selectByEmail(email);
         if(user==null) {
             System.out.println("\n user==null \n");
             throw new UsernameNotFoundException(email);
@@ -76,7 +78,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     public Collection<GrantedAuthority> getAuthorities(String email) {
         System.out.println("\n getAuthorities로 넘어온 email 값 : " + email);
-        List<String> string_authorities = userDao.selectAuthorityByEmail(email);
+        List<String> string_authorities = authorityDao.selectByEmail(email);
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         for (String authority : string_authorities) {
             authorities.add(new SimpleGrantedAuthority(authority));
@@ -107,12 +109,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDto email_certified_check(UserDto user) {
-        return userDao.email_certified_check(user);
+        return userDao.emailCertifiedCheck(user);
     }
 
     @Override
     public void email_certified_update(UserDto user) {
-        userDao.email_certified_update(user);
+        userDao.emailCertifiedUpdate(user);
     }
 
 }

@@ -1,15 +1,14 @@
 package com.website.movie.web.controller.api;
 
+import com.website.movie.biz.dao.AuthorityDao;
 import com.website.movie.biz.dao.UserDao;
 import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.model.JsonResult;
 import com.website.movie.biz.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,8 +16,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApiUserController {
 
+
     private final UserService userService;
     private final UserDao userDao;
+    private final AuthorityDao authorityDao;
 
     @PostMapping("/api/user/set.api")
     @ApiOperation(value = "유저 회원가입 및 정보수정 API", notes = "유저 회원가입 및 정보수정이 가능합니다.")
@@ -71,8 +72,10 @@ public class ApiUserController {
     @PostMapping("/api/user/user_auth/{email}")
     @ApiOperation(value = "유저 권한 반환 API", notes = "email을 받으면 해당유저의 권한들을 반환합니다.")
     public List<String> user_auth(@PathVariable String email) {
-        return userDao.selectAuthorityByEmail(email);
+        return authorityDao.selectByEmail(email);
     }
+
+
 
 
 }
