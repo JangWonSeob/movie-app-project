@@ -20,24 +20,12 @@ import java.util.Random;
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-    private final JavaMailSender mailSender;
 
     private final UserService userService;
-
-
-//    @GetMapping("/user/gets.api")
-//    public List<UserDto> gets() {
-//        return userService.gets();
-//    }
 
     @GetMapping("/user")
     public String user() {
         return "user";
-    }
-    @GetMapping("/emailCheckSend")
-    public String emailCheckSend() {
-
-        return "emailCheckSend";
     }
 
     @GetMapping("/user/signup")
@@ -45,7 +33,6 @@ public class UserController {
     {
         return "signup";
     }
-
 
     // 회원가입 처리
     @PostMapping("/user/signup")
@@ -113,8 +100,7 @@ public class UserController {
         return "admin";
     }
 
-
-    // 평소에는 null만 나오지만
+    // @AuthenticationPrincipal은 평소에는 null만 나오지만
     // 로그인을 하면 userDto의 정보들이 나옵니다.
     @GetMapping("/user/authPrincipal")
     public String authPrincipal(@AuthenticationPrincipal UserDto user) {
@@ -123,6 +109,5 @@ public class UserController {
         System.out.println("@Authen 사용 user email"+ user.getEmail() + user.getId());
         return "index";
     }
-
 
 }

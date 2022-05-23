@@ -22,8 +22,5 @@ public interface UserService extends UserDetailsService {
     //유저를 회원가입시키고 기본적인 권한을 줍니다.
     void createUser(UserDto user);
     Collection<GrantedAuthority> getAuthorities(String email);
-    public UserDto email_certified_check(UserDto user);
-    public void email_certified_update(UserDto user);
     PasswordEncoder passwordEncoder();
-
 }

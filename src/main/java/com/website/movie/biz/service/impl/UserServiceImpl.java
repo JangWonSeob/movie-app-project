@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if(parameter.getId() > 0){
             affected = userDao.update(parameter);
         }  else {
-            affected = userDao.insertUser(parameter);
+            affected = userDao.insert(parameter);
         }
 
         if (affected < 1) {
@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDto get(UserDto model) {
-        UserDto result = userDao.selectOne(model);
+    public UserDto get(UserDto user) {
+        UserDto result = userDao.selectOne(user);
 
         return result;
     }
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         String rawPassword = user.getPassword();
         String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
         user.setPassword(encodedPassword);
-        userDao.insertUser(user);
+        userDao.insert(user);
         authorityDao.insertAuthority(user);
     }
     // Security 기본 메서드 나중에 로그인할때 입력 받는 값을 인자로 받아서 로그인했을때 과정을 처리해야함
@@ -64,15 +64,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         System.out.println("\n loadUserByUsername실행됨 \n");
         UserDto user = userDao.selectByEmail(email);
+        System.out.println("\n setAuthorities하기전 \n" + user);
         if(user==null) {
             System.out.println("\n user==null \n");
             throw new UsernameNotFoundException(email);
         }
         user.setAuthorities(getAuthorities(email));
         System.out.println("\n user \n" + user);
-        System.out.println("\n user.getNick \n" + user.getNickname());
-        System.out.println("\n user.getname \n" + user.getName());
-
         return user;
     }
 
@@ -105,16 +103,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public PasswordEncoder passwordEncoder() {
         return this.passwordEncoder;
-    }
-
-    @Override
-    public UserDto email_certified_check(UserDto user) {
-        return userDao.emailCertifiedCheck(user);
-    }
-
-    @Override
-    public void email_certified_update(UserDto user) {
-        userDao.emailCertifiedUpdate(user);
     }
 
 }

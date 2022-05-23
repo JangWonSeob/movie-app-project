@@ -4,12 +4,22 @@
 <mapper namespace="com.website.movie.biz.dao.AuthorityDao">
     <sql id="TABLE">authority</sql>
 
-    <select id="select" parameterType="int" resultType="String">
-        SELECT AUTHORITY_NAME FROM <include refid="TABLE"/> WHERE ID = #{id}
+    <!--DEL_YN무시-->
+    <sql id="WHERE_REQUIRED">
+        AND T1.DEL_YN = 0
+    </sql>
+
+    <select id="select" parameterType="int" resultType="com.website.movie.biz.dto.AuthorityDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE ID = #{id}
+        <include refid="WHERE_REQUIRED"/>
     </select>
 
     <select id="selectByEmail" parameterType="String" resultType="String">
-        SELECT AUTHORITY_NAME FROM <include refid="TABLE"/> WHERE EMAIL = #{email}
+        SELECT T1.AUTHORITY_NAME
+        FROM <include refid="TABLE"/> T1
+        WHERE EMAIL = #{email}
     </select>
 
     <!--권한부여-->
@@ -25,9 +35,13 @@
         </foreach>
     </insert>
 
-    <delete id="deleteAuthority" parameterType="int">
-        DELETE FROM authority WHERE ID = #{id}
-    </delete>
-
+    <update id="delete">
+        UPDATE <include refid="TABLE"/>
+        SET DEL_DT = NOW()
+        , DEL_ID = #{loginUserId}
+        , DEL_YN = 1
+        WHERE ID = #{id}
+        AND USER_ID = #{loginUserId}
+    </update>
 
 </mapper>

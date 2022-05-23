@@ -5,6 +5,11 @@
 
     <sql id="TABLE">user_certified</sql>
 
+    <!--DEL_YN무시-->
+    <sql id="WHERE_REQUIRED">
+        AND T1.DEL_YN = 0
+    </sql>
+
     <!--이메일에 맞는 인증번호 생성-->
     <insert id="insert">
         INSERT INTO <include refid="TABLE"/>
@@ -26,7 +31,5 @@
         CERTIFIED = #{certified}
         WHERE EMAIL = #{email}
     </update>
-
-
 
 </mapper>

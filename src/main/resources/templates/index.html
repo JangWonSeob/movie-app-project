@@ -12,6 +12,6 @@
 <a sec:authorize="isAuthenticated()" href="/user/logout">로그아웃</a>
 <a sec:authorize="isAnonymous()" href="/user/signup">회원가입</a>
 <a sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" href="/user/info">내정보</a><br>
-<a sec:authorize="hasAuthority('USER')" href="/user/admin">admin</a><br>
+<a sec:authorize="hasAuthority('ADMIN')" href="/user/admin">admin</a><br>
 </body>
 </html>

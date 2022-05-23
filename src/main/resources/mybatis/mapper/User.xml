@@ -5,7 +5,11 @@
 
 	<sql id="TABLE">user</sql>
 
-    <!--id로 검색하여 유저 한명 데이터 검색-->
+    <!--DEL_YN무시-->
+    <sql id="WHERE_REQUIRED">
+        AND T1.DEL_YN = 0
+    </sql>
+
 	<select id="selectOne" resultType="com.website.movie.biz.dto.UserDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
@@ -20,38 +24,13 @@
         </choose>
     </select>
 
-    <select id="selectUser" parameterType="int" resultType="com.website.movie.biz.dto.UserDto">
-        SELECT * FROM <include refid="TABLE"/> WHERE ID = #{id}
-    </select>
-
-    <!--email로 유저를 찾아냅니다. 고유키는 아니기 때문에 일단 LIMIT 1을 주었씁니다.-->
+    <!--email로 유저를 찾아냅니다. 고유키는 아니기 때문에 일단 LIMIT 1을 줬습니다.-->
     <select id="selectByEmail" parameterType="String" resultType="com.website.movie.biz.dto.UserDto">
         SELECT * FROM <include refid="TABLE"/> WHERE EMAIL = #{email} LIMIT 1;
     </select>
 
-    <select id="selectById" parameterType="int" resultType="com.website.movie.biz.dto.UserDto">
-        SELECT * FROM <include refid="TABLE"/> WHERE id = #{id}
-    </select>
-
-
-    <select id="selectAuthority" parameterType="int" resultType="String">
-        SELECT AUTHORITY_NAME FROM authority WHERE ID = #{id}
-    </select>
-
-    <select id="selectAuthorityByEmail" parameterType="String" resultType="String">
-        SELECT AUTHORITY_NAME FROM authority WHERE EMAIL = #{email}
-    </select>
-
-    <!--다음에 들어올 ID autoincrement 값을 가져옵니다.-->
-    <select id="selectNextId" resultType="int">
-        SELECT AUTO_INCREMENT
-        FROM information_schema.tables
-        WHERE table_name = 'user'
-          AND table_schema = DATABASE();
-    </select>
-
     <!--회원가입-->
-    <insert id="insertUser">
+    <insert id="insert">
         INSERT INTO <include refid="TABLE"/>
         (
             EMAIL
@@ -95,15 +74,5 @@
         , DEL_YN = 1
         WHERE id = #{id}
     </update>
-
-    <select id="emailCertifiedCheck" parameterType="com.website.movie.biz.dto.UserDto" resultType="com.website.movie.biz.dto.UserDto">
-        SELECT EMAIL FROM <include refid="TABLE"/> where EMAIL = #{email} and CERTIFIED = #{certified}
-    </select>
-
-    <update id="emailCertifiedUpdate" parameterType="com.website.movie.biz.dto.UserDto">
-        UPDATE <include refid="TABLE"/> SET CERTIFIED = 'Y' WHERE EMAIL = #{email}
-    </update>
-
-
 
 </mapper>
