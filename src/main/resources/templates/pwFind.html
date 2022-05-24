@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.98.0">
-    <title>로그인</title>
+    <title>비밀번호 찾기</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
 
@@ -103,42 +103,23 @@
 <main class="form-signin w-100 m-auto">
   <form>
     <img class="mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-    <h1 class="h3 mb-5 fw-normal">로그인</h1>
+    <h1 class="h3 mb-5 fw-normal">비밀번호 찾기</h1>
 
-    <div class="d-flex justify-content-center form-floating mb-4">
-      <input type="email" class="w-50 form-control" id="floatingInput" placeholder="name@example.com">
+    <div class="form-floating col-sm-10">
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
       <label for="floatingInput">이메일 주소</label>
     </div>
-    <div class="d-flex justify-content-center form-floating mb-4">
-      <input type="password" class="w-50 form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">비밀번호</label>
+    <div class="gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-primary me-md-2" type="button">인증</button>
     </div>
-
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> 로그인 유지
-      </label>
+    <div class="form-floating col-sm-10">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">인증코드</label>
+      <div id="passwordlHelp" class="form-text">인증번호를 다시 확인해주세요</div>
     </div>
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          회원가입
-        </div>
-        <div class="col">
-          PW찾기
-        </div>
-      </div>
+    <div class="gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-primary me-md-2" type="button">확인</button>
     </div>
-    <button class="w-30 btn btn-lg btn-primary" type="submit">로그인</button>
-    <hr class="my-4">
-    <button class="w-50 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
-      <svg class="bi me-1" width="16" height="16"><use xlink:href="#google"/></svg>
-      구글 로그인
-    </button>
-    <button class="w-50 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
-      <svg class="bi me-1" width="16" height="16"><use xlink:href="#facebook"/></svg>
-      페이스북 로그인
-    </button>
   </form>
 </main>
 

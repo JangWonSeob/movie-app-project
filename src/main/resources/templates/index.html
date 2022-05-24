@@ -1,17 +1,111 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>메인</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기본 페이지</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
+<style>
+  div { position: static; }
+</style>
 <body>
-<h1>메인페이지</h1>
-<hr>
-<a sec:authorize="isAnonymous()" href="/user/loginPage">로그인</a>
-<a sec:authorize="isAuthenticated()" href="/user/logout">로그아웃</a>
-<a sec:authorize="isAnonymous()" href="/user/signup">회원가입</a>
-<a sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" href="/user/info">내정보</a><br>
-<a sec:authorize="hasAuthority('ADMIN')" href="/user/admin">admin</a><br>
+
+      <div class="container">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+          <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+          </a>
+    
+          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="#" class="nav-link px-2 link-secondary">영화소개</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">커뮤니티</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">게시판</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">마이페이지</a></li>
+          </ul>
+    
+          <div class="col-md-3 text-end">
+            <button type="button" class="btn btn-outline-primary me-2">로그인</button>
+          </div>
+        </header>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-md-6">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-black"># 커뮤니티</strong>
+              <a href="#" class="stretched-link text-end">+ 더보기</a>
+              <ol>
+                <li>커뮤니티 첫번째</li>
+                <li>커뮤니티 두번째</li>
+                <li>커뮤니티 세번째</li>
+                <li>커뮤니티 네번째</li>
+                <li>커뮤니티 다섯번째</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+    
+
+      <div class="row mb-2"> &nbsp&nbsp&nbsp&nbsp&nbsp 금주 영화 순위</div>
+      <div class="row mb-5">
+        <div class="col-lg-3">
+            <div class="card" style="width: 18rem;">
+                <img src="https://file2.nocutnews.co.kr/newsroom/image/2022/04/08/202204081311322351_0.jpg" class="card-img-top" alt="...">
+              </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card" style="width: 18rem;">
+                <img src="https://file2.nocutnews.co.kr/newsroom/image/2022/04/08/202204081311322351_0.jpg" class="card-img-top" alt="...">
+              </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card" style="width: 18rem;">
+                <img src="https://file2.nocutnews.co.kr/newsroom/image/2022/04/08/202204081311322351_0.jpg" class="card-img-top" alt="...">
+              </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card" style="width: 18rem;">
+                <img src="https://file2.nocutnews.co.kr/newsroom/image/2022/04/08/202204081311322351_0.jpg" class="card-img-top" alt="...">
+              </div>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <div class="col-md-6">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-black"># 공지사항</strong>
+              <a href="#" class="stretched-link  text-end">+ 더보기</a>
+              <ol>
+                <li>공지사항 첫번째</li>
+                <li>공지사항 두번째</li>
+                <li>공지사항 세번째</li>
+                <li>공지사항 네번째</li>
+                <li>공지사항 다섯번째</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-black"># 최신글</strong>
+              <a href="#" class="stretched-link text-end">+ 더보기</a>
+              <ol>
+                <li>최신글 첫번째</li>
+                <li>최신글 두번째</li>
+                <li>최신글 세번째</li>
+                <li>최신글 네번째</li>
+                <li>최신글 다섯번째</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
 </html>
