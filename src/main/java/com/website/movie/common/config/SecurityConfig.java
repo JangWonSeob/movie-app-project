@@ -34,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //username으로만 받는 로그인화면 파라미터를 email로 바꾼다.
         http.formLogin().usernameParameter("email");
         http.authorizeRequests()
+//                .mvcMatchers("/","/css/**","/scripts/**","/plugin/**","/fonts/**")   // 로그인후 css 미적용시
+//                .permitAll()
                 .antMatchers("/user/admin/**").access("hasAuthority('ADMIN')")
                 .antMatchers("/user/myinfo").access("hasAuthority('USER')") // 페이지 권한 설정
                 .anyRequest().permitAll()  //위에 설정한 주소가 아니면 누구나 이용가능
