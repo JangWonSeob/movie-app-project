@@ -43,12 +43,12 @@ public class UserController {
         authorities.add(new SimpleGrantedAuthority("USER"));
         user.setAuthorities(authorities);
         //회원가입을 하면 랜덤한 키값을 받는다 나중에 이 값을 URL에 담은채로 특정URL에 접속해야지만 진짜 가입상태가 된다.
-//        user.setCertified(certified_key());
+//        user.setCertified(certifiedKey());
         System.out.println("\n 변환이후 \n" + user);
         userService.createUser(user);
         return "redirect:/user/loginPage";
     }
-    private String certified_key() {
+    private String certifiedKey() {
         Random random = new Random();
         StringBuffer sb = new StringBuffer();
         int num = 0;
@@ -109,5 +109,4 @@ public class UserController {
         System.out.println("@Authen 사용 user email"+ user.getEmail() + user.getId());
         return "index";
     }
-
 }

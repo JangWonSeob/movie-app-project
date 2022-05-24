@@ -7,7 +7,6 @@ import com.website.movie.biz.model.JsonResult;
 import com.website.movie.biz.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -69,7 +68,7 @@ public class ApiUserController {
     }
 
     //email에 맞게 권한 반환
-    @PostMapping("/api/user/user_auth/{email}")
+    @PostMapping("/api/user/userAuth/{email}")
     @ApiOperation(value = "유저 권한 반환 API", notes = "email을 받으면 해당유저의 권한들을 반환합니다.")
     public List<String> user_auth(@PathVariable String email) {
         return authorityDao.selectByEmail(email);
