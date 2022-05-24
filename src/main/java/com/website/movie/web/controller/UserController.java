@@ -65,10 +65,10 @@ public class UserController {
         return sb.toString();
     }
     // 로그인 페이지
-    @GetMapping("/user/loginPage")
-    public String login() {
-        return "login";
-    }
+//    @GetMapping("/user/login")
+//    public String login() {
+//        return "login";
+//    }
 
     // 로그인 결과 페이지
     @GetMapping("/user/login/result")
@@ -109,4 +109,70 @@ public class UserController {
         System.out.println("@Authen 사용 user email"+ user.getEmail() + user.getId());
         return "index";
     }
+
+    ///////////////////////// 퍼블리싱 연결용 컨트롤러
+
+
+    @GetMapping("boardList")
+    public String boardList() {
+        return "boardList";
+    }
+    @GetMapping("boardUpdate")
+    public String boardUpdate() {
+        return "boardUpdate";
+    }
+    @GetMapping("community")
+    public String community() {
+        return "community";
+    }
+    @GetMapping("index")
+    public String index() {
+        return "index";
+    }
+    // Security 설정으로 user 필수
+    @GetMapping("/user/login")
+    public String login() {
+        return "login";
+    }
+    @GetMapping("loginAlert")
+    public String loginAlert() {
+        return "loginAlert";
+    }
+    @GetMapping("notice")
+    public String notice() {
+        return "notice";
+    }
+    @GetMapping("noticeList")
+    public String noticeList() {
+        return "noticeList";
+    }
+    @GetMapping("pwFind")
+    public String pwFind() {
+        return "pwFind";
+    }
+    @GetMapping("pwFindReset")
+    public String pwFindReset() {
+        return "pwFindReset";
+    }
+
+    @GetMapping("signUp")
+    public String signUp() {
+        return "signUp";
+    }
+
+    @GetMapping("text")
+    public String text() {
+        return "text";
+    }
+
+    //중복
+//    @GetMapping("user")
+//    public String user() {
+//        return "user";
+//    }
+
+
+
+
+
 }
