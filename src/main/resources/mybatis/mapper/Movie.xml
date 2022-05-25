@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.website.movie.biz.dao.MovieDao">
+
+	<sql id="TABLE">movie</sql>
+
+    <sql id="WHERE_REQUIRED">
+        AND T1.DEL_YN = 0
+        <choose>
+            <when test="sqlSelectType != null and sqlSelectType eq 'FRONT'">
+                AND T1.DISPLAY_YN = 1
+            </when>
+            <when test="sqlSelectType != null and sqlSelectType eq 'MY_BOARD_LIST' and loginUserId != null">
+                AND T1.DISPLAY_YN = 1 AND T1.REG_ID = #{loginUserId}
+            </when>
+        </choose>
+    </sql>
+
+    <sql id="WHERE">
+        <if test="searchType != null and searchValue != null">
+        </if>
+    </sql>
+
+	<select id="selectList" resultType="com.website.movie.biz.dto.MovieDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE T1.CATEGORY = #{category}
+        <include refid="WHERE_REQUIRED"/>
+        <include refid="WHERE"/>
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+    <select id="selectListCount" resultType="int">
+        SELECT COUNT(*)
+        FROM <include refid="TABLE"/> T1
+        WHERE T1.CATEGORY = #{category}
+        <include refid="WHERE_REQUIRED"/>
+        <include refid="WHERE"/>
+    </select>
+
+    <select id="selectOne" resultType="com.website.movie.biz.dto.MovieDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE T1.ID = #{id}
+        <include refid="WHERE_REQUIRED"/>
+        LIMIT 1
+    </select>
+
+    <insert id="insert">
+        INSERT INTO <include refid="TABLE"/>
+        (
+            REG_DT
+            , DEL_YN
+
+            , ID
+            , TITLE
+            , OVERVIEW
+            , ADULT
+            , ORIGINAL_LANGUAGE
+            , ORIGINAL_TITLE
+            , BACKDROP_PATH
+            , POST_PATH
+            , RELEASE_DATE
+            , VOTE_AVERAGE
+            , VOTE_COUNT
+            , POPULARITY
+            , VIEW_COUNT
+            , DISPLAY_YN
+        )
+        VALUES
+        (
+            NOW()
+            , 0
+
+            , #{id}
+            , #{title}
+            , #{overview}
+            , #{adult}
+            , #{originalLanguage}
+            , #{originalTitle}
+            , #{backdropPath}
+            , #{postPath}
+            , #{releaseDate}
+            , #{voteAverage}
+            , #{voteCount}
+            , #{popularity}
+            , #{viewCount}
+            , #{displayYn}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE <include refid="TABLE"/>
+        SET
+        <choose>
+            <when test="sqlUpdateType != null and sqlUpdateType eq 'VIEW_COUNT_UP'">
+                VIEW_COUNT = VIEW_COUNT + 1
+            </when>
+            <otherwise>
+                UDT_DT = NOW()
+                , TITLE = #{title}
+                , OVERVIEW = #{overview}
+                , ADULT = #{adult}
+                , ORIGINAL_LANGUAGE = #{originalLanguage}
+                , ORIGINAL_TITLE = #{originalTitle}
+                , BACKDROP_PATH = #{backdropPath}
+                , POST_PATH = #{postPath}
+                , RELEASE_DATE = #{releaseDate}
+                , VOTE_AVERAGE = #{voteAverage}
+                , VOTE_COUNT = #{voteCount}
+                , POPULARITY = #{popularity}
+                , DISPLAY_YN = #{displayYn}
+            </otherwise>
+        </choose>
+        WHERE ID = #{id}
+        <!-- 로그인 로직 추가 시 -->
+        <!-- AND REG_ID = loginUserId -->
+    </update>
+
+    <update id="delete">
+        UPDATE <include refid="TABLE"/>
+        SET DEL_DT = NOW()
+        , DEL_YN = 1
+        WHERE ID = #{id}
+        <!-- 로그인 로직 추가 시 -->
+        <!-- AND REG_ID = loginUserId -->
+    </update>
+
+</mapper>
