@@ -102,14 +102,6 @@ public class UserController {
     }
     ///////////////////////// 퍼블리싱 연결용 컨트롤러
 
-    @GetMapping("boardList")
-    public String boardList() {
-        return "boardList";
-    }
-    @GetMapping("boardUpdate")
-    public String boardUpdate() {
-        return "boardUpdate";
-    }
     @GetMapping("community")
     public String community() {
         return "community";

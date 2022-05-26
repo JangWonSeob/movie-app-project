@@ -12,27 +12,25 @@ public class BoardController {
 
     private final BoardService boardService;
 
+
     //
-    @GetMapping("boardUpdate")
+    @GetMapping("/boardUpdate")
     public String boardUpdate() {
         return "boardUpdate";
     }
-    @GetMapping("boardRegist")
+    @GetMapping("/boardRegist")
     public String boardRegist() {
         return "boardRegist";
     }
-    @GetMapping("boardContent")
+    @GetMapping("/boardContent")
     public String boardContent() {
         return "boardContent";
     }
-    @GetMapping("boardList")
+    @GetMapping("/boardList")
     public String boardList() {
         return "boardList";
     }
 
 
+
 }
-
-
-
-
