@@ -6,9 +6,15 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.98.0">
-    <title>로그인</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <!-- include summernote css/js-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -16,10 +22,13 @@
     <link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">
     <link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
     <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
+
     <meta name="theme-color" content="#712cf9">
     <link href="/css/style.css" type="text/css" rel="stylesheet">
+    <title>게시글 상세</title>
   </head>
   <body class="text-center">
+    
     <div class="container">
       <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
@@ -32,52 +41,11 @@
           <li><a href="#" class="nav-link px-2 link-dark">게시판</a></li>
           <li><a href="#" class="nav-link px-2 link-dark">마이페이지</a></li>
         </ul>
-  
         <div class="col-md-3 text-end">
           <button type="button" class="btn btn-outline-primary me-2">로그인</button>
         </div>
       </header>
     </div>
-
-<main class="form-signin w-100 m-auto">
-  <form action="/login" method="post">
-    <img class="mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-    <h1 class="h3 mb-5 fw-normal">로그인</h1>
-    <div class="d-flex justify-content-center form-floating mb-4">
-      <input type="email" name="email" class="w-50 form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">이메일 주소</label>
-    </div>
-    <div class="d-flex justify-content-center form-floating mb-4">
-      <input type="password" name="password" class="w-50 form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">비밀번호</label>
-    </div>
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> 로그인 유지
-      </label>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <a href="/user/signUp">회원가입</a>
-        </div>
-        <div class="col">
-          PW찾기
-        </div>
-      </div>
-    </div>
-    <button class="w-30 btn btn-lg btn-primary" type="submit">로그인</button>
-    <hr class="my-4">
-    <button class="w-50 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
-      <svg class="bi me-1" width="16" height="16"><use xlink:href="#google"/></svg>
-      구글 로그인
-    </button>
-    <button class="w-50 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
-      <svg class="bi me-1" width="16" height="16"><use xlink:href="#facebook"/></svg>
-      페이스북 로그인
-    </button>
-  </form>
-</main>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

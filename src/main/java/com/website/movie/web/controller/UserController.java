@@ -23,19 +23,8 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/user")
-    public String user() {
-        return "user";
-    }
-
-    @GetMapping("/user/signup")
-    public String signup()
-    {
-        return "signup";
-    }
-
     // 회원가입 처리
-    @PostMapping("/user/signup")
+    @PostMapping("/user/signUp")
     public String signupPost(UserDto user) {
         System.out.println("\n 변환하기전 \n" + user);
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
@@ -46,7 +35,7 @@ public class UserController {
 //        user.setCertified(certifiedKey());
         System.out.println("\n 변환이후 \n" + user);
         userService.createUser(user);
-        return "redirect:/user/loginPage";
+        return "redirect:/user/login";
     }
     private String certifiedKey() {
         Random random = new Random();
@@ -64,17 +53,19 @@ public class UserController {
         } while (sb.length() < 10);
         return sb.toString();
     }
-    // 로그인 페이지
-//    @GetMapping("/user/login")
-//    public String login() {
-//        return "login";
-//    }
 
     // 로그인 결과 페이지
     @GetMapping("/user/login/result")
     public String loginResult() {
-        return "loginSuccess";
+        return "index";
     }
+
+    // 마이페이지
+    @GetMapping("/user/user")
+    public String user() {
+        return "user";
+    }
+
 
     // 로그아웃 결과 페이지
     @GetMapping("/user/logout/result")
@@ -109,9 +100,7 @@ public class UserController {
         System.out.println("@Authen 사용 user email"+ user.getEmail() + user.getId());
         return "index";
     }
-
     ///////////////////////// 퍼블리싱 연결용 컨트롤러
-
 
     @GetMapping("boardList")
     public String boardList() {
@@ -154,9 +143,9 @@ public class UserController {
     public String pwFindReset() {
         return "pwFindReset";
     }
-
-    @GetMapping("signUp")
-    public String signUp() {
+    @GetMapping("/user/signUp")
+    public String signUp()
+    {
         return "signUp";
     }
 
@@ -164,15 +153,5 @@ public class UserController {
     public String text() {
         return "text";
     }
-
-    //중복
-//    @GetMapping("user")
-//    public String user() {
-//        return "user";
-//    }
-
-
-
-
 
 }
