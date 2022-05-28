@@ -18,5 +18,4 @@ public class MovieGenreDto extends BaseDto {
     // join
     private String genreName;
 
-
 }

@@ -24,7 +24,7 @@ public class MovieData {
     private String originalLanguage;
     private String originalTitle;
     private String backdropPath;
-    private String postPath;
+    private String posterPath;
     private Date releaseDate;
     private double voteAverage;
     private int voteCount;

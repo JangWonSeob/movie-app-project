@@ -7,14 +7,6 @@
 
     <sql id="WHERE_REQUIRED">
         AND T1.DEL_YN = 0
-        <choose>
-            <when test="sqlSelectType != null and sqlSelectType eq 'FRONT'">
-                AND T1.DISPLAY_YN = 1
-            </when>
-            <when test="sqlSelectType != null and sqlSelectType eq 'MY_BOARD_LIST' and loginUserId != null">
-                AND T1.DISPLAY_YN = 1 AND T1.REG_ID = #{loginUserId}
-            </when>
-        </choose>
     </sql>
 
     <sql id="WHERE">
@@ -22,10 +14,18 @@
         </if>
     </sql>
 
+    <select id="main" resultType="com.website.movie.biz.dto.MovieDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE T1.GENRE_IDS LIKE CONCAT('%', #{searchGenre}, '%')
+        ORDER BY T1.POPULARITY DESC
+        LIMIT 5
+    </select>
+
 	<select id="selectList" resultType="com.website.movie.biz.dto.MovieDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
-        WHERE T1.CATEGORY = #{category}
+        WHERE 1 = 1
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
         LIMIT #{startIndex}, #{pageSize}
@@ -34,7 +34,7 @@
     <select id="selectListCount" resultType="int">
         SELECT COUNT(*)
         FROM <include refid="TABLE"/> T1
-        WHERE T1.CATEGORY = #{category}
+        WHERE 1 = 1
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
     </select>
@@ -56,11 +56,13 @@
             , ID
             , TITLE
             , OVERVIEW
+            , GENRE_IDS
+            , GENRE_NAMES
             , ADULT
             , ORIGINAL_LANGUAGE
             , ORIGINAL_TITLE
             , BACKDROP_PATH
-            , POST_PATH
+            , POSTER_PATH
             , RELEASE_DATE
             , VOTE_AVERAGE
             , VOTE_COUNT
@@ -76,11 +78,13 @@
             , #{id}
             , #{title}
             , #{overview}
+            , #{genreIds}
+            , #{genreNames}
             , #{adult}
             , #{originalLanguage}
             , #{originalTitle}
             , #{backdropPath}
-            , #{postPath}
+            , #{posterPath}
             , #{releaseDate}
             , #{voteAverage}
             , #{voteCount}
@@ -105,7 +109,7 @@
                 , ORIGINAL_LANGUAGE = #{originalLanguage}
                 , ORIGINAL_TITLE = #{originalTitle}
                 , BACKDROP_PATH = #{backdropPath}
-                , POST_PATH = #{postPath}
+                , POSTER_PATH = #{posterPath}
                 , RELEASE_DATE = #{releaseDate}
                 , VOTE_AVERAGE = #{voteAverage}
                 , VOTE_COUNT = #{voteCount}
@@ -114,17 +118,11 @@
             </otherwise>
         </choose>
         WHERE ID = #{id}
-        <!-- 로그인 로직 추가 시 -->
-        <!-- AND REG_ID = loginUserId -->
     </update>
 
-    <update id="delete">
-        UPDATE <include refid="TABLE"/>
-        SET DEL_DT = NOW()
-        , DEL_YN = 1
+    <delete id="delete">
+        DELETE FROM <include refid="TABLE"/>
         WHERE ID = #{id}
-        <!-- 로그인 로직 추가 시 -->
-        <!-- AND REG_ID = loginUserId -->
-    </update>
+    </delete>
 
 </mapper>

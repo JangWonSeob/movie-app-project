@@ -8,6 +8,8 @@ import java.util.List;
 @Mapper
 public interface CodeDao {
 
-    List<CodeDto> selectList();
-    int selectListCount();
+    List<CodeDto> selectList(CodeDto parameter);
+    int selectListCount(CodeDto parameter);
+
+    CodeDto selectOne(CodeDto parameter);
 }

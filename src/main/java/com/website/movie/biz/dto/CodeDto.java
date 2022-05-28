@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CodeDto extends BaseDto {
 
-    private int id;
-    private int type;
-    private int name;
+    private String id;
+    private String type;
+    private String name;
 }

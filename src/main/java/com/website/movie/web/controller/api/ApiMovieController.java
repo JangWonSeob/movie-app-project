@@ -18,7 +18,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ApiMovieController {
 
-    private final BoardService boardService;
     private final MovieService movieService;
 
 
@@ -52,12 +51,11 @@ public class ApiMovieController {
         return JsonResult.success(result);
     }
 
-//    @PostMapping("/api/movie/viewcount/add.api")
-//    @ApiOperation(value = "영화 조회수 증가 API", notes = "영화 조회수를 증가시킵니다.")
-//    public void viewCountUp(@RequestBody BoardDto model) {
-//
-//        boardService.viewCountUp(model);
-//    }
+    @PostMapping("/api/movie/tmdb/add.api")
+    public void tmdb() {
+
+        movieService.getTmdbMovieData();
+    }
 
 
 }

@@ -12,9 +12,11 @@ public interface MovieDao {
     int update(MovieDto parameter);
     int delete(MovieDto parameter);
 
-    MovieDto selectOne(MovieDto model);
+    MovieDto selectOne(MovieDto parameter);
 
-    List<MovieDto> selectList(MovieDto model);
-    int selectListCount(MovieDto model);
+    List<MovieDto> selectList(MovieDto parameter);
+    int selectListCount(MovieDto parameter);
+
+    List<MovieDto> main(MovieDto parameter);
 
 }
