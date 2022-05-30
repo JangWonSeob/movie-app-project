@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +18,17 @@
   <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
   <meta name="theme-color" content="#712cf9">
 
+  <!-- include libraries(jQuery, bootstrap) -->
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+  <!-- include summernote css/js-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+
+
   <link href="/js/summernote-ko-KR.js" type="text/css" rel="stylesheet">
+
 </head>
 <body class="text-center">
 
@@ -38,20 +48,53 @@
       <button type="button" class="btn btn-outline-primary me-2">로그인</button>
     </div>
   </header>
+
+  <div style="width: 60%; margin: auto;">
+    <form method="post" action="/boardRegist">
+      <input type="text" name="writer" style="width: 20%;" th:value="${nickname}" placeholder="작성자" disabled/><br>
+      <input type="text" name="title" style="width: 40%;" placeholder="제목"/> <br>
+      <input type="hidden" name="loginUserId" style="width: 20%;" th:value="${loginUserId}" placeholder="작성자ID"/><br>
+      <input type="text" name="category" style="width: 40%;" placeholder="카테고리"/>
+      <br><br>
+      <textarea id="summernote" name="contents"></textarea>
+      <input id="subBtn" type="button" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/>
+    </form>
+  </div>
 </div>
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
 <script>
   $(document).ready(function() {
     $('#summernote').summernote({
-      placeholder: 'content',
+      placeholder: 'contents',
       minHeight: 370,
       maxHeight: null,
       focus: true,
       lang : 'ko-KR'
     });
   });
+  function goWrite(frm) {
+    var title = frm.title.value;
+    var writer = frm.writer.value;
+    var contents = frm.contents.value;
+
+    if (title.trim() == ''){
+      alert("제목을 입력해주세요");
+      return false;
+    }
+    if (writer.trim() == ''){
+      alert("작성자를 입력해주세요");
+      return false;
+    }
+    if (contents.trim() == ''){
+      alert("내용을 입력해주세요");
+      return false;
+    }
+    frm.submit();
+  }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,6 +47,33 @@
       </header>
     </div>
 
+
+    <!-- 게시물 내용 출력 -->
+    <div class="container">
+      <div class="row">
+        <table class="table table-striped" style="text-align: center; border=1px solid #dddddd">
+          <thead>
+            <tr>
+              <th colspan="2" style="background-color: #eeeeee; text-align: center;">게시판 글 보기</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="width: 20%;">글 제목</td>
+              <td th:text="${boardOne.getTitle()}" colspan="2"></td>
+            </tr>
+            <tr>
+              <td style="width: 20%;">글 작성자</td>
+              <td th:text="${writer_nickname}" colspan="2">${글제목}</td>
+            </tr>
+            <tr>
+              <td>글 내용</td>
+              <td th:text="${boardOne.getContents()}" colspan="2" style="height: 200px; text-align: left"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   </body>

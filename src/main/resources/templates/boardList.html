@@ -1,6 +1,5 @@
-
 <!doctype html>
-<html lang="en">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,9 +21,67 @@
 <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
 <meta name="theme-color" content="#712cf9">
 
-  <link href="/css/style.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .row {
+        grid-column-gap: 20px;
+      }
+
+      
+    </style>
+
   </head>
-</head>
 <body class="text-center">
   
   <div class="container">
@@ -46,9 +103,10 @@
     </header>
   </div>
 
-<div class="container-fluid">
-  <div class="row">
-    <nav id="sidebarMenu" class="col col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+
+
+<div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
           <span>영화관련</span>
           <a class="link-secondary" href="#" aria-label="Add a new report">
@@ -73,74 +131,278 @@
               <span data-feather="file-text" class="align-text-bottom"></span>
               토론, 견해
             </a>
-          </li>
-        </ul>
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-          <span>커뮤니티</span>
-          <a class="link-secondary" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle" class="align-text-bottom"></span>
-          </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text" class="align-text-bottom"></span>
-              유머
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text" class="align-text-bottom"></span>
-              자유
-            </a>
-          </li>
-        </ul>
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-          <span>극장</span>
-          <a class="link-secondary" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle" class="align-text-bottom"></span>
-          </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text" class="align-text-bottom"></span>
-              극장맛집
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text" class="align-text-bottom"></span>
-              굿즈
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text" class="align-text-bottom"></span>
-              극장볼거리
-            </a>
-          </li>
-        </ul>
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+              <span>커뮤니티</span>
+              <a class="link-secondary" href="#" aria-label="Add a new report">
+                <span data-feather="plus-circle" class="align-text-bottom"></span>
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text" class="align-text-bottom"></span>
+                  유머
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file-text" class="align-text-bottom"></span>
+                  자유
+                </a>
+              </li>
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+                  <span>극장</span>
+                  <a class="link-secondary" href="#" aria-label="Add a new report">
+                    <span data-feather="plus-circle" class="align-text-bottom"></span>
+                  </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <span data-feather="file-text" class="align-text-bottom"></span>
+                      극장맛집
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <span data-feather="file-text" class="align-text-bottom"></span>
+                      굿즈
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <span data-feather="file-text" class="align-text-bottom"></span>
+                      극장볼거리
+                    </a>
+                  </li>
+                </ul>
+            </ul>
+          </ul>
     </nav>
-    <main class="col col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+
+
+  <div class="row col-md-9 col-lg-10 p-4 mb-4 text-black rounded bg-light ">
+        <div class="px-3">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">최신</label>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar" class="align-text-bottom"></span>
-            This week
-          </button>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+            <label class="form-check-label" for="inlineCheckbox2">인기</label>
+           </div>
+           <div class="d-flex justify-content-end align-items-center">
+             <a class="link-secondary" href="#" aria-label="Search">
+               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+             </a>
+           </div>
+           <hr style="border: solid 1px black;">
+           <div class="px-3 row">
+            <div class="col">
+              <label class="form-label" for="inline">번호</label>
+            </div>
+            <div class="col">
+              <label class="form-label" for="inline">제목</label>
+            </div>
+            <div class="col">
+              <label class="form-label" for="inline">등록일</label>
+            </div>
+            <div class="col">
+              <label class="form-label" for="inline">글쓴이</label>
+            </div>
+           </div>
+           <hr style="border: solid 1px black;">
+
+           <div class="px-3 row">
+             <div class="col">
+               <label class="form-label" for="inline">공지</label>
+             </div>
+             <div class="col">
+              <label class="form-label" for="inline">닉네임 변경하는 방법</label>
+             </div>
+             <div class="col">
+              <label class="form-label" for="inline">22.05.05</label>
+             </div>
+             <div class="col">
+              <label class="form-label" for="inline">지창민</label>
+             </div>
+           </div>
+          <div class="px-3 row">
+            <div class="col">
+              <label class="form-label" for="inline">공지</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">비밀번호 변경하는 방법</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">22.05.05</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">이재현</label>
+            </div>
+           </div>
+          <div class="px-3 row">
+           <div class="col">
+            <label class="form-label" for="inline">HOT</label>
+           </div>
+           <div class="col">
+            <label class="form-label" for="inline">오늘자 롯데월드 입장상황</label>
+           </div>
+           <div class="col">
+            <label class="form-label" for="inline">22.05.03</label>
+           </div>
+           <div class="col">
+            <label class="form-label" for="inline">김영훈</label>
+           </div>
+         </div>
+          
+           <hr style="border: solid 1px black;">
+           <div class="px-3 row">
+            <div class="col">
+              <label class="form-label" for="inline">100</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">동해물과 백두산이</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">22.05.05</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">지창민</label>
+            </div>
+          </div>
+          <div class="px-3 row">
+            <div class="col">
+              <label class="form-label" for="inline">99</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">동해물과 백두산이</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">22.05.05</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">지창민</label>
+            </div>
+          </div>
+          <div class="px-3 row">
+            <div class="col">
+              <label class="form-label" for="inline">98</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">동해물과 백두산이</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">22.05.05</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">지창민</label>
+            </div>
+          </div>
+          <div class="px-3 row">
+            <div class="col">
+              <label class="form-label" for="inline">97</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">동해물과 백두산이</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">22.05.05</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">지창민</label>
+            </div>
+          </div>
+          <div class="px-3 row">
+            <div class="col">
+              <label class="form-label" for="inline">96</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">동해물과 백두산이</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">22.05.05</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">지창민</label>
+            </div>
+          </div>
+          <div class="px-3 row">
+            <div class="col">
+              <label class="form-label" for="inline">95</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">동해물과 백두산이</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">22.05.05</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">지창민</label>
+            </div>
+          </div>
+          <div class="px-3 row">
+            <div class="col">
+              <label class="form-label" for="inline">94</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">동해물과 백두산이</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">22.05.05</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">지창민</label>
+            </div>
+          </div>
+          <div class="px-3 row">
+            <div class="col">
+              <label class="form-label" for="inline">93</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">동해물과 백두산이</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">22.05.05</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">지창민</label>
+            </div>
+          </div>
+          <div class="px-3 row">
+            <div class="col">
+              <label class="form-label" for="inline">92</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">동해물과 백두산이</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">22.05.05</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">지창민</label>
+            </div>
+          </div>
+          <div class="px-3 row">
+            <div class="col">
+              <label class="form-label" for="inline">91</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">동해물과 백두산이</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">22.05.05</label>
+            </div>
+            <div class="col">
+             <label class="form-label" for="inline">지창민</label>
+            </div>
+          </div>
         </div>
-      </div>
-    </main>
   </div>
 </div>
-</div>
 
+
+              
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
     <li class="page-item"><a class="page-link" href="#">이전</a></li>
@@ -157,6 +419,8 @@
     <li class="page-item"><a class="page-link" href="#">다음</a></li>
   </ul>
 </nav>
+
+</div>
 
 
     <script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

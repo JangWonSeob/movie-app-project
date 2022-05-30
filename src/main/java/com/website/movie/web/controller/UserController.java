@@ -3,16 +3,12 @@ package com.website.movie.web.controller;
 import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.internet.MimeMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -24,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     // 회원가입 처리
-    @PostMapping("/user/signUp")
+    @PostMapping("/signUp")
     public String signupPost(UserDto user) {
         System.out.println("\n 변환하기전 \n" + user);
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
@@ -35,7 +31,7 @@ public class UserController {
 //        user.setCertified(certifiedKey());
         System.out.println("\n 변환이후 \n" + user);
         userService.createUser(user);
-        return "redirect:/user/login";
+        return "redirect:/login";
     }
     private String certifiedKey() {
         Random random = new Random();
@@ -55,7 +51,7 @@ public class UserController {
     }
 
     // 로그인 결과 페이지
-    @GetMapping("/user/login/result")
+    @GetMapping("/login/result")
     public String loginResult() {
         return "index";
     }
@@ -66,9 +62,8 @@ public class UserController {
         return "user";
     }
 
-
     // 로그아웃 결과 페이지
-    @GetMapping("/user/logout/result")
+    @GetMapping("/logout/result")
     public String logout() {
         return "logout";
     }
@@ -102,40 +97,40 @@ public class UserController {
     }
     ///////////////////////// 퍼블리싱 연결용 컨트롤러
 
-    @GetMapping("community")
+    @GetMapping("communityList")
     public String community() {
-        return "community";
+        return "communityList";
     }
     @GetMapping("index")
     public String index() {
         return "index";
     }
     // Security 설정으로 user 필수
-    @GetMapping("/user/login")
+    @GetMapping("/login")
     public String login() {
         return "login";
     }
-    @GetMapping("loginAlert")
+    @GetMapping("/loginAlert")
     public String loginAlert() {
         return "loginAlert";
     }
-    @GetMapping("notice")
+    @GetMapping("/notice")
     public String notice() {
         return "notice";
     }
-    @GetMapping("noticeList")
+    @GetMapping("/noticeList")
     public String noticeList() {
         return "noticeList";
     }
-    @GetMapping("pwFind")
+    @GetMapping("/pwFind")
     public String pwFind() {
         return "pwFind";
     }
-    @GetMapping("pwFindReset")
+    @GetMapping("/pwFindReset")
     public String pwFindReset() {
         return "pwFindReset";
     }
-    @GetMapping("/user/signUp")
+    @GetMapping("/signUp")
     public String signUp()
     {
         return "signUp";
