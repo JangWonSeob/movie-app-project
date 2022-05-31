@@ -7,6 +7,7 @@ import com.website.movie.biz.model.JsonResult;
 import com.website.movie.biz.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -73,6 +74,21 @@ public class ApiUserController {
     public List<String> user_auth(@PathVariable String email) {
         return authorityDao.selectByEmail(email);
     }
+
+    //email Check axios로 이용
+    @PostMapping
+    public int emailCheck(UserDto user) {
+        int result = userService.emailCheck(user);
+        return result;
+    }
+    //
+    @PostMapping
+    public int nickCheck(UserDto user) {
+        int result = userService.nicknameCheck(user);
+        return result;
+    }
+
+
 
 
 

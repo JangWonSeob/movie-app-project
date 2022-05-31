@@ -95,10 +95,12 @@ public class BoardController {
     }
     @GetMapping("/boardList")
     public String boardList(Model model) {
-
         BoardDto parameter = new BoardDto();
-
+        parameter.setCategory("자유");
+        parameter.setStartIndex(0);
+        parameter.setPageSize(12);
         List<BoardDto> list = boardService.gets(parameter);
+        System.out.println("list :"+list);
 
         return "/board/boardList";
     }

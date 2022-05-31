@@ -12,5 +12,7 @@ public interface UserDao {
     int insert(UserDto user);
     int update(UserDto user);
     int delete(UserDto user);
-
+    //존재하면 1 존재하지 않으면 0
+    int emailCheck(UserDto user);
+    int nicknameCheck(UserDto user);
 }

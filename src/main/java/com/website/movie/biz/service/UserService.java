@@ -23,4 +23,7 @@ public interface UserService extends UserDetailsService {
     void createUser(UserDto user);
     Collection<GrantedAuthority> getAuthorities(String email);
     PasswordEncoder passwordEncoder();
+    int emailCheck(UserDto user);
+
+    int nicknameCheck(UserDto user);
 }

@@ -105,4 +105,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return this.passwordEncoder;
     }
 
+    @Override
+    public int emailCheck(UserDto user) {
+        int result = userDao.emailCheck(user);
+        return result;
+    }
+
+    @Override
+    public int nicknameCheck(UserDto user) {
+        int result = userDao.nicknameCheck(user);
+        return result;
+    }
+
 }

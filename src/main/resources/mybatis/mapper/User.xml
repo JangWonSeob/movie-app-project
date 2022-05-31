@@ -75,4 +75,21 @@
         WHERE id = #{id}
     </update>
 
+
+    <!--이메일 중복검사-->
+    <select id="emailCheck" parameterType="org.springframework.security.core.GrantedAuthority" resultType="int">
+        SELECT COUNT(*)
+        FROM user
+        WHERE EMIAL = #{email}
+    </select>
+
+    <!--닉네임 중복검사-->
+    <select id="nicknameCheck" parameterType="org.springframework.security.core.GrantedAuthority" resultType="int">
+        SELECT COUNT(*)
+        FROM user
+        WHERE NICKNAME = #{nickname}
+    </select>
+
+
+
 </mapper>
