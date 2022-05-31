@@ -21,10 +21,11 @@ public class UserController {
 
     // 회원가입 처리
     @PostMapping("/signUp")
-    public String signupPost(UserDto user) {
+    public String signUpPost(UserDto user) {
         System.out.println("\n 변환하기전 \n" + user);
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-//		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        // 여러권한 추가 가능
+        //		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         authorities.add(new SimpleGrantedAuthority("USER"));
         user.setAuthorities(authorities);
         //회원가입을 하면 랜덤한 키값을 받는다 나중에 이 값을 URL에 담은채로 특정URL에 접속해야지만 진짜 가입상태가 된다.
@@ -50,16 +51,10 @@ public class UserController {
         return sb.toString();
     }
 
-    // 로그인 결과 페이지
-    @GetMapping("/login/result")
-    public String loginResult() {
-        return "index";
-    }
-
     // 마이페이지
     @GetMapping("/user/user")
     public String user() {
-        return "user";
+        return "/user/authorithy/user";
     }
 
     // 로그아웃 결과 페이지
@@ -74,45 +69,39 @@ public class UserController {
         return "denied";
     }
 
-    // 내 정보 페이지
-    @GetMapping("/user/info")
-    public String myInfo() {
-        return "myinfo";
-    }
-
-    // 어드민 페이지
-    @GetMapping("/user/admin")
-    public String admin() {
-        return "admin";
-    }
-
     // @AuthenticationPrincipal은 평소에는 null만 나오지만
     // 로그인을 하면 userDto의 정보들이 나옵니다.
-    @GetMapping("/user/authPrincipal")
-    public String authPrincipal(@AuthenticationPrincipal UserDto user) {
-
-        System.out.println("@Authen 사용 user 정보"+ user);
-        System.out.println("@Authen 사용 user email"+ user.getEmail() + user.getId());
-        return "index";
-    }
+//    @GetMapping("/user/authPrincipal")
+//    public String authPrincipal(@AuthenticationPrincipal UserDto user) {
+//
+//        System.out.println("@Authen 사용 user 정보"+ user);
+//        System.out.println("@Authen 사용 user email"+ user.getEmail() + user.getId());
+//        return "index";
+//    }
     ///////////////////////// 퍼블리싱 연결용 컨트롤러
 
-    @GetMapping("communityList")
+    @GetMapping("/communityList")
     public String community() {
         return "communityList";
     }
-    @GetMapping("index")
+    @GetMapping("/index")
     public String index() {
         return "index";
     }
     // Security 설정으로 user 필수
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "/user/login";
     }
+    // 로그인 결과 페이지
+    @GetMapping("/login/result")
+    public String loginResult() {
+        return "index";
+    }
+
     @GetMapping("/loginAlert")
     public String loginAlert() {
-        return "loginAlert";
+        return "/user/loginAlert";
     }
     @GetMapping("/notice")
     public String notice() {
@@ -124,21 +113,19 @@ public class UserController {
     }
     @GetMapping("/pwFind")
     public String pwFind() {
-        return "pwFind";
+        return "/user/pwFind";
     }
     @GetMapping("/pwFindReset")
     public String pwFindReset() {
-        return "pwFindReset";
+        return "/user/pwFindReset";
     }
     @GetMapping("/signUp")
     public String signUp()
     {
-        return "signUp";
+        return "/user/signUp";
     }
-
-    @GetMapping("text")
+    @GetMapping("/text")
     public String text() {
         return "text";
     }
-
 }

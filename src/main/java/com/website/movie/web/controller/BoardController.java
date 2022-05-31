@@ -26,7 +26,7 @@ public class BoardController {
 
     @GetMapping("/boardUpdate")
     public String boardUpdate(@RequestParam("id") int id) {
-        return "boardUpdate";
+        return "/board/boardUpdate";
     }
 
     @GetMapping("/boardRegist")
@@ -38,7 +38,7 @@ public class BoardController {
         model.addAttribute("loginUserId",user.getId());
         model.addAttribute("nickname",user.getNickname());
 
-        return "boardRegist";
+        return "/board/boardRegist";
     }
     @PostMapping("/boardRegist")
     public String boardRegistPost(HttpServletRequest request) throws UnsupportedEncodingException {
@@ -62,7 +62,7 @@ public class BoardController {
 
         System.out.println("게시판 정보" + board);
         boardService.set(board);
-        return "redirect:boardList";
+        return "redirect:/board/boardList";
     }
 
     @GetMapping("/boardContents")
@@ -77,7 +77,6 @@ public class BoardController {
         parameter.setCategory("자유");
 
         System.out.println("\n\n parameter정보 : " + parameter);
-
         BoardDto boardOne = boardService.get(parameter);
         System.out.println("\n\n boardOne정보 : " + boardOne);
         int write_id = boardOne.getRegId();
@@ -92,7 +91,7 @@ public class BoardController {
         model.addAttribute("boardOne", boardOne);
         model.addAttribute("writer_nickname", writer_nickname);
 //        http://localhost:8080/boardContents?bdId=11
-        return "boardContents";
+        return "/board/boardContents";
     }
     @GetMapping("/boardList")
     public String boardList(Model model) {
@@ -101,7 +100,6 @@ public class BoardController {
 
         List<BoardDto> list = boardService.gets(parameter);
 
-        return "boardList";
+        return "/board/boardList";
     }
-
 }
