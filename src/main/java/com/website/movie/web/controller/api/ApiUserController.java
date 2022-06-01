@@ -76,21 +76,16 @@ public class ApiUserController {
     }
 
     //email Check axios로 이용
-    @PostMapping
+    @PostMapping("/api/user/emailCheck.api")
     public int emailCheck(UserDto user) {
         int result = userService.emailCheck(user);
         return result;
     }
     //
-    @PostMapping
+    @PostMapping("/api/iser/nickCheck.api")
     public int nickCheck(UserDto user) {
         int result = userService.nicknameCheck(user);
         return result;
     }
-
-
-
-
-
 
 }
