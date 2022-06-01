@@ -48,6 +48,7 @@ public class UserController {
         userService.createUser(user);
         return "redirect:/login";
     }
+
     private String certifiedKey() {
         Random random = new Random();
         StringBuffer sb = new StringBuffer();
@@ -98,15 +99,18 @@ public class UserController {
     public String community() {
         return "communityList";
     }
+
     @GetMapping("/index")
     public String index() {
         return "index";
     }
+
     // Security 설정으로 user 필수
     @GetMapping("/login")
     public String login() {
         return "/user/login";
     }
+
     // 로그인 결과 페이지
     @GetMapping("/login/result")
     public String loginResult() {
@@ -117,29 +121,32 @@ public class UserController {
     public String loginAlert() {
         return "/user/loginAlert";
     }
+
     @GetMapping("/notice")
     public String notice() {
         return "notice";
     }
+
     @GetMapping("/noticeList")
     public String noticeList() {
         return "noticeList";
     }
+
     @GetMapping("/pwFind")
     public String pwFind() {
         return "/user/pwFind";
     }
+
     @GetMapping("/pwFindReset")
     public String pwFindReset() {
         return "/user/pwFindReset";
     }
+
     @GetMapping("/signUp")
-    public String signUp()
-    {
-        return "/user/signUp";
-    }
-    @GetMapping("/text")
-    public String text() {
-        return "text";
-    }
+    public String signUp() {return "/user/signUp";}
+
+    @GetMapping("/movieList")
+    public String movieList() {return "/pub/movieList";}
+
+
 }
