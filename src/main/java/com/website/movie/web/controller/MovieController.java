@@ -37,5 +37,27 @@ public class MovieController {
 
         return "movie/main";
     }
+    @GetMapping("/movieList")
+    public String movieList(Model model) {
+
+        MovieDto parameter = new MovieDto();
+        // 액션
+        parameter.setSearchGenre("28");
+        model.addAttribute("actionList",movieService.main(parameter));
+        // 로맨스
+        parameter.setSearchGenre("10749");
+        model.addAttribute("romanceList",movieService.main(parameter));
+        // 코미디
+        parameter.setSearchGenre("35");
+        model.addAttribute("comedyList",movieService.main(parameter));
+        // 판타지
+        parameter.setSearchGenre("14");
+        model.addAttribute("fantasyList",movieService.main(parameter));
+        // 스릴러
+        parameter.setSearchGenre("53");
+        model.addAttribute("thrillerList",movieService.main(parameter));
+
+        return "movie/main";
+    }
 
 }
