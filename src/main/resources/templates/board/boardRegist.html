@@ -50,7 +50,7 @@
   </header>
 
   <div style="width: 60%; margin: auto;">
-    <form method="post" action="/boardRegist">
+    <form method="post" action="/board/boardRegist">
       <input type="text" name="writer" style="width: 20%;" th:value="${nickname}" placeholder="작성자" disabled/><br>
       <input type="text" name="title" style="width: 40%;" placeholder="제목"/> <br>
       <input type="hidden" name="loginUserId" style="width: 20%;" th:value="${loginUserId}" placeholder="작성자ID"/><br>

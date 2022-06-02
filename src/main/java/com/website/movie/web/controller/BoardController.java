@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -24,12 +23,12 @@ public class BoardController {
     private final BoardService boardService;
     private final UserService userService;
 
-    @GetMapping("/boardUpdate")
-    public String boardUpdate(@RequestParam("id") int id) {
-        return "/board/boardUpdate";
-    }
+//    @GetMapping("/board/boardUpdate")
+//    public String boardUpdate(@RequestParam("id") int id) {
+//        return "/board/boardUpdate";
+//    }
 
-    @GetMapping("/boardRegist")
+    @GetMapping("/board/boardRegist")
     public String boardRegistGet(@AuthenticationPrincipal UserDto user, Model model) {
 
         System.out.println("user 정보"+ user);
@@ -40,7 +39,7 @@ public class BoardController {
 
         return "/board/boardRegist";
     }
-    @PostMapping("/boardRegist")
+    @PostMapping("/board/boardRegist")
     public String boardRegistPost(HttpServletRequest request) throws UnsupportedEncodingException {
         request.setCharacterEncoding("utf-8");
 
@@ -65,7 +64,7 @@ public class BoardController {
         return "redirect:/board/boardList";
     }
 
-    @GetMapping("/boardContents")
+    @GetMapping("/board/boardContents")
     public String boardContent(HttpServletRequest request, Model model) throws UnsupportedEncodingException {
         request.setCharacterEncoding("utf-8");
 
@@ -93,7 +92,7 @@ public class BoardController {
 //        http://localhost:8080/boardContents?bdId=11
         return "/board/boardContents";
     }
-    @GetMapping("/boardList")
+    @GetMapping("/board/boardList")
     public String boardList(Model model) {
         BoardDto parameter = new BoardDto();
         parameter.setCategory("자유");
@@ -101,7 +100,25 @@ public class BoardController {
         parameter.setPageSize(12);
         List<BoardDto> list = boardService.gets(parameter);
         System.out.println("list :"+list);
+        model.addAttribute("boardList",boardService.gets(parameter));
+
 
         return "/board/boardList";
     }
+
+    @GetMapping("/board/communityList")
+    public String community() {
+        return "/board/communityList";
+    }
+
+    @GetMapping("/board/notice")
+    public String notice() {
+        return "/board/notice";
+    }
+
+    @GetMapping("/board/noticeList")
+    public String noticeList() {
+        return "/board/noticeList";
+    }
+
 }

@@ -4,7 +4,6 @@ import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +19,7 @@ public class UserController {
     private final UserService userService;
 
     // 회원가입 처리
-    @PostMapping("/signUp")
+    @PostMapping("/user/signUp")
     public String signUpPost(UserDto user) {
         int emailResult = userService.emailCheck(user);
         int nicknameResult = userService.nicknameCheck(user);
@@ -46,7 +45,7 @@ public class UserController {
 //        user.setCertified(certifiedKey());
         System.out.println("\n 변환이후 \n" + user);
         userService.createUser(user);
-        return "redirect:/login";
+        return "redirect:/user/login";
     }
 
     private String certifiedKey() {
@@ -95,58 +94,43 @@ public class UserController {
 //    }
     ///////////////////////// 퍼블리싱 연결용 컨트롤러
 
-    @GetMapping("/communityList")
-    public String community() {
-        return "communityList";
-    }
-
     @GetMapping("/index")
     public String index() {
         return "index";
     }
 
     // Security 설정으로 user 필수
-    @GetMapping("/login")
+    @GetMapping("/user/login")
     public String login() {
         return "/user/login";
     }
 
     // 로그인 결과 페이지
-    @GetMapping("/login/result")
+    @GetMapping("/user/login/result")
     public String loginResult() {
         return "index";
     }
 
-    @GetMapping("/loginAlert")
+    @GetMapping("/user/loginAlert")
     public String loginAlert() {
         return "/user/loginAlert";
     }
 
-    @GetMapping("/notice")
-    public String notice() {
-        return "notice";
-    }
-
-    @GetMapping("/noticeList")
-    public String noticeList() {
-        return "noticeList";
-    }
-
-    @GetMapping("/pwFind")
+    @GetMapping("/user/pwFind")
     public String pwFind() {
         return "/user/pwFind";
     }
 
-    @GetMapping("/pwFindReset")
+    @GetMapping("/user/pwFindReset")
     public String pwFindReset() {
         return "/user/pwFindReset";
     }
 
-    @GetMapping("/signUp")
+    @GetMapping("/user/signUp")
     public String signUp() {return "/user/signUp";}
 
     @GetMapping("/movieList")
-    public String movieList() {return "/user/movieList";}
+    public String movieList() {return "/movieList";}
 
 
 }
