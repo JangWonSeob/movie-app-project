@@ -80,7 +80,7 @@
     <select id="emailCheck" parameterType="org.springframework.security.core.GrantedAuthority" resultType="int">
         SELECT COUNT(*)
         FROM user
-        WHERE EMIAL = #{email}
+        WHERE EMAIL = #{email}
     </select>
 
     <!--닉네임 중복검사-->

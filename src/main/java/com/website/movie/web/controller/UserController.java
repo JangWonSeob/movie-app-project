@@ -21,20 +21,6 @@ public class UserController {
     // 회원가입 처리
     @PostMapping("/user/signUp")
     public String signUpPost(UserDto user) {
-        int emailResult = userService.emailCheck(user);
-        int nicknameResult = userService.nicknameCheck(user);
-
-        try {
-            // 하나라도 중복 될떄
-            if (emailResult == 1 || nicknameResult == 1) {
-
-            } else if (emailResult == 0 && nicknameResult == 0) {
-
-            }
-        } catch (Exception e) {
-
-        }
-
         System.out.println("\n 변환하기전 \n" + user);
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         // 여러권한 추가 가능

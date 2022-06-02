@@ -11,6 +11,8 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequiredArgsConstructor
@@ -79,12 +81,27 @@ public class ApiUserController {
     @PostMapping("/api/user/emailCheck.api")
     public int emailCheck(UserDto user) {
         int result = userService.emailCheck(user);
+        String email = user.getEmail();
+        String regex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(email);
+
+        if (email.equals("")) {
+            result = 2;
+        } else if (!m.matches()) {
+            System.out.println("m.matches()");
+            result = 3;
+        }
         return result;
     }
     //
-    @PostMapping("/api/iser/nickCheck.api")
+    @PostMapping("/api/user/nickCheck.api")
     public int nickCheck(UserDto user) {
         int result = userService.nicknameCheck(user);
+        String nickname = user.getNickname();
+        if (nickname.equals("")) {
+            result = 2;
+        }
         return result;
     }
 

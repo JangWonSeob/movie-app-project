@@ -12,7 +12,6 @@ import javax.mail.internet.MimeMessage;
 @RequiredArgsConstructor
 public class EmailController {
 
-    private final UserService userService;
     private final JavaMailSender mailSender;
 
     @GetMapping("/mailCheck")
