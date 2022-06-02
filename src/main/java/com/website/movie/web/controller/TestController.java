@@ -1,6 +1,5 @@
 package com.website.movie.web.controller;
 
-
 import com.website.movie.biz.dto.MovieDto;
 import com.website.movie.biz.service.MovieService;
 import lombok.RequiredArgsConstructor;
@@ -10,13 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class MovieController {
+public class TestController {
 
     private final MovieService movieService;
 
-    // 영화 목록 페이지
-    @GetMapping("/movie/main")
-    public String boardList(Model model) {
+    @GetMapping("/movieList")
+    public String movieList(Model model) {
 
         MovieDto parameter = new MovieDto();
         // 액션
@@ -37,6 +35,4 @@ public class MovieController {
 
         return "movie/main";
     }
-
-
 }
