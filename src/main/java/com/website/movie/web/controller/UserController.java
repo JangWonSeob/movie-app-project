@@ -115,8 +115,6 @@ public class UserController {
     @GetMapping("/user/signUp")
     public String signUp() {return "/user/signUp";}
 
-    @GetMapping("/movieList")
-    public String movieList() {return "/movieList";}
 
 
 }
