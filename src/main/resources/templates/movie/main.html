@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="/fragments/head :: fragment-head"></div>
 </head>
@@ -105,13 +105,19 @@
         const url = '/api/movie/gets.api';
         const param = {};
 
-        API_CALL.post(url, param, function (result, message, data) {
-            if(!result) {
-                alert(message);
-                return false;
-            }
-            // 리스트 뿌리기
-        })
+        // API_CALL.post(url, param, function (result, message, data) {
+        //     if(!result) {
+        //         alert(message);
+        //         return false;
+        //     }
+        //     // 리스트 뿌리기
+        // })
+        //
+        // axios.post(url, param).then(function(response) {
+        //     console.log(response);
+        // }).catch(function (err){
+        //     console.log(err);
+        // })
 
     </script>
 
