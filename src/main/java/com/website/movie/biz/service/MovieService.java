@@ -1,12 +1,13 @@
 package com.website.movie.biz.service;
 
+import com.website.movie.biz.dto.CodeDto;
 import com.website.movie.biz.dto.MovieDto;
 
 import java.util.List;
 
 public interface MovieService {
 
-    List<MovieDto> main(MovieDto parameter);
+    List<CodeDto> main();
     void getTmdbMovieData();
 
     List<MovieDto> gets(MovieDto parameter);

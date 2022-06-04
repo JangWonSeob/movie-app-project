@@ -1,8 +1,10 @@
 package com.website.movie.web.controller.api;
 
+import com.website.movie.biz.dto.CodeDto;
 import com.website.movie.biz.dto.MovieDto;
 import com.website.movie.biz.model.JsonResult;
 import com.website.movie.biz.service.BoardService;
+import com.website.movie.biz.service.CodeService;
 import com.website.movie.biz.service.MovieService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.Map;
 public class ApiMovieController {
 
     private final MovieService movieService;
+    private final CodeService codeService;
 
 
     @PostMapping("/api/movie/get.api")
@@ -37,6 +40,16 @@ public class ApiMovieController {
     @PostMapping("/api/movie/gets.api")
     @ApiOperation(value = "영화 리스트 조회 API", notes = "영화 리스트 조회가 가능합니다.")
     public JsonResult gets(@RequestBody MovieDto parameter) {
+
+        if(parameter.getSearchGenre() != null && "".equals(parameter.getSearchGenre())) {
+            parameter.setSearchGenre("12");
+        }
+
+        CodeDto code = codeService.get(CodeDto.builder().id(parameter.getSearchGenre()).build());
+
+        if (code == null) {
+            return JsonResult.fail("올바르지 않은 값입니다.");
+        }
 
         parameter.initPage();
 

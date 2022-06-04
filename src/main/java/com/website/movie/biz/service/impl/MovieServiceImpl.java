@@ -45,9 +45,19 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<MovieDto> main(MovieDto parameter) {
+    public List<CodeDto> main() {
 
-        return movieDao.main(parameter);
+
+        List<CodeDto> result = codeDao.selectList(CodeDto.builder().type(MovieDto.CODE_TYPE).build());
+
+        System.out.println(result);
+
+        for (CodeDto x : result) {
+            x.setMovieList(movieDao.main(MovieDto.builder().searchGenre(x.getId()).build()));
+        }
+
+
+        return result;
     }
 
 

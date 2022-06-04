@@ -17,9 +17,10 @@
 	<select id="selectList" resultType="com.website.movie.biz.dto.CodeDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
-        WHERE 1 = 1
+        WHERE TYPE = #{type}
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
+        ORDER BY T1.SORT_VALUE
     </select>
 
     <select id="selectListCount" resultType="int">

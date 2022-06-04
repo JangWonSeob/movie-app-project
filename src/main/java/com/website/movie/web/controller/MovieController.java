@@ -1,7 +1,8 @@
 package com.website.movie.web.controller;
 
 
-import com.website.movie.biz.dto.MovieDto;
+import com.website.movie.biz.dto.CodeDto;
+import com.website.movie.biz.service.CodeService;
 import com.website.movie.biz.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,29 +14,36 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MovieController {
 
     private final MovieService movieService;
+    private final CodeService codeService;
 
     // 영화 목록 페이지
     @GetMapping("/movie/main")
-    public String boardList(Model model) {
+    public String main(Model model) {
 
-        MovieDto parameter = new MovieDto();
-        // 액션
-        parameter.setSearchGenre("28");
-        model.addAttribute("actionList",movieService.main(parameter));
-        // 로맨스
-        parameter.setSearchGenre("10749");
-        model.addAttribute("romanceList",movieService.main(parameter));
-        // 코미디
-        parameter.setSearchGenre("35");
-        model.addAttribute("comedyList",movieService.main(parameter));
-        // 판타지
-        parameter.setSearchGenre("14");
-        model.addAttribute("fantasyList",movieService.main(parameter));
-        // 스릴러
-        parameter.setSearchGenre("53");
-        model.addAttribute("thrillerList",movieService.main(parameter));
+        model.addAttribute("codeList", movieService.main());
 
         return "movie/main";
+    }
+
+    // 영화 목록 페이지
+    @GetMapping("/movie/list")
+    public String list(Model model,CodeDto parameter) {
+
+        if(parameter.getId() == null) {
+            parameter.setId("12");
+        }
+
+        CodeDto codeDto = codeService.get(parameter);
+
+        if(codeDto != null) {
+            // 값이 없으면 어드벤처로 세팅
+            parameter.setId("12");
+            codeDto = codeService.get(parameter);
+        }
+
+        model.addAttribute("code", codeDto);
+
+        return "movie/list";
     }
 
 

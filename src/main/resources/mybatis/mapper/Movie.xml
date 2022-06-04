@@ -10,7 +10,8 @@
     </sql>
 
     <sql id="WHERE">
-        <if test="searchType != null and searchValue != null">
+        <if test="searchGenre != null and  searchGenre != ''">
+             AND T1.GENRE_IDS LIKE CONCAT('%', #{searchGenre}, '%')
         </if>
     </sql>
 
@@ -19,7 +20,7 @@
         FROM <include refid="TABLE"/> T1
         WHERE T1.GENRE_IDS LIKE CONCAT('%', #{searchGenre}, '%')
         ORDER BY T1.POPULARITY DESC
-        LIMIT 5
+        LIMIT 10
     </select>
 
 	<select id="selectList" resultType="com.website.movie.biz.dto.MovieDto">

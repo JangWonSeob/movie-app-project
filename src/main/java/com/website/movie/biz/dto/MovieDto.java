@@ -17,6 +17,8 @@ import java.util.List;
 @AllArgsConstructor
 public class MovieDto extends BaseDto {
 
+    public static final String CODE_TYPE = "MOVIE_GENRE";
+
     @JsonIgnore
     private final String IMG_BASE_URL = "https://image.tmdb.org/t/p/w300";
 

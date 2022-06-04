@@ -32,73 +32,22 @@
         </header>
     </div>
 
-
-    <div class="d-flex justify-content-between" style="margin-left:150px; margin-right: 175px;">
-        <span> # 액션</span>
-         <a href="#">+ 더보기</a>
-    </div>
-    <div class="row mb-5 justify-content-center">
-        <div th:each="action : ${actionList}" class="col-lg-2">
-            <div class="card" style="width: 15rem;">
-                <img th:src="${action.fullPosterPath}" class="card-img-top" alt="...">
+    <div th:each="code : ${codeList}">
+        <div class="d-flex justify-content-between" style="margin-left:150px; margin-right: 175px;">
+            <span th:text="${code.movieTitle}"></span>
+            <a href="#">+ 더보기</a>
+        </div>
+        <div class="row mb-5 justify-content-center">
+            <div th:each="movie : ${code.movieList}" class="col-lg-2">
+                <div class="card" style="width: 15rem;">
+                    <img th:src="${movie.fullPosterPath}" class="card-img-top" alt="...">
+                </div>
+                <div th:text="${movie.title}"></div>
             </div>
-            <div th:text="${action.title}"></div>
         </div>
     </div>
 
 
-    <div class="row" style="margin-left:150px; margin-right: 175px;">
-        <div class="col"> # 로맨스</div>
-          <a href="#" class="col d-flex justify-content-end align-items-center">+ 더보기</a>
-    </div>
-    <div class="row mb-5 justify-content-center">
-        <div th:each="romance : ${romanceList}" class="col-lg-2">
-            <div class="card" style="width: 15rem;">
-                <img th:src="${romance.fullPosterPath}" class="card-img-top" alt="...">
-            </div>
-            <div th:text="${romance.title}"></div>
-        </div>
-    </div>
-
-    <div class="row" style="margin-left:150px; margin-right: 175px;">
-        <div class="col"> # 코미디</div>
-             <a href="#" class="col d-flex justify-content-end align-items-center">+ 더보기</a>
-    </div>
-    <div class="row mb-5 justify-content-center">
-        <div th:each="comedy : ${comedyList}" class="col-lg-2">
-            <div class="card" style="width: 15rem;">
-                <img th:src="${comedy.fullPosterPath}" class="card-img-top" alt="...">
-            </div>
-            <div th:text="${comedy.title}"></div>
-        </div>
-    </div>
-
-    <div class="row" style="margin-left:150px; margin-right: 175px;">
-        <div class="col"> # 판타지</div>
-             <a href="#" class="col d-flex justify-content-end align-items-center">+ 더보기</a>
-    </div>
-    <div class="row mb-5 justify-content-center">
-        <div th:each="fantasy : ${fantasyList}" class="col-lg-2">
-            <div class="card" style="width: 15rem;">
-                <img th:src="${fantasy.fullPosterPath}" class="card-img-top" alt="...">
-            </div>
-            <div th:text="${fantasy.title}"></div>
-        </div>
-    </div>
-
-    <div class="row" style="margin-left:150px; margin-right: 175px;">
-        <div class="col"> # 스릴러</div>
-          <a href="#" class="col d-flex justify-content-end align-items-center">+ 더보기</a>
-    </div>
-    <div class="row mb-5 justify-content-center">
-        <div th:each="thriller : ${thrillerList}" class="col-lg-2">
-            <div class="card" style="width: 15rem;">
-                <img th:src="${thriller.fullPosterPath}" class="card-img-top" alt="...">
-            </div>
-            <div th:text="${thriller.title}"></div>
-        </div>
-    </div>
-    </div>
 
     <script>
 
