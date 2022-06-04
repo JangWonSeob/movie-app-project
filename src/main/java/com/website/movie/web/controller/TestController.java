@@ -19,4 +19,18 @@ public class TestController {
 
         return "movie/main";
     }
+    @GetMapping("/home")
+    public String home(Model model) {
+
+        model.addAttribute("home", movieService.main());
+
+        return "test/1_home";
+    }
+    @GetMapping("/login")
+    public String login(Model model) {
+
+        model.addAttribute("login", movieService.main());
+
+        return "test/login";
+    }
 }
