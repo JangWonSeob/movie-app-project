@@ -17,5 +17,10 @@ public class CodeServiceImpl implements CodeService {
         return codeDao.selectOne(parameter);
     }
 
+    @Override
+    public CodeDto getBySubId(CodeDto parameter) {
+        return codeDao.selectOneBySubId(parameter);
+    }
+
 
 }

@@ -14,8 +14,8 @@
     </ul>
 
     <div class="col-md-3 text-end">
-      <button type="button" class="btn btn-outline-primary me-2" sec:authorize="isAnonymous()" href="/login">로그인</button>
-      <button type="button" class="btn btn-outline-primary me-2" sec:authorize="isAuthenticated()" href="/logout">로그아웃</button>
+      <button type="button" class="btn btn-outline-primary me-2" sec:authorize="isAnonymous()" onclick="location.href='/login'">로그인</button>
+      <button type="button" class="btn btn-outline-primary me-2" sec:authorize="isAuthenticated()" onclick="location.href='/logout'">로그아웃</button>
       <!--            <button type="button" class="btn btn-outline-primary me-2">로그인</button>-->
     </div>
   </header>

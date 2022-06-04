@@ -23,15 +23,18 @@ public class MovieServiceImpl implements MovieService {
     private final MovieComponent movieComponent;
 
     private void setGenre(String[] ids, MovieDto parameter) {
-        if (ids.length > 1) {
+
+
+        if (ids.length > 0) {
             String idStr = "";
             String nameStr = "";
             for (int i = 0; i < ids.length; i++) {
-                if(!StringUtils.isEmpty(ids[i])) {
-                    CodeDto code = codeDao.selectOne(CodeDto.builder().id(ids[i]).build());
-                    if(code != null) {
+                if (!StringUtils.isEmpty(ids[i])) {
+                    System.out.println(ids[i]);
+                    CodeDto code = codeDao.selectOneBySubId(CodeDto.builder().subId(ids[i]).type("MOVIE_GENRE").build());
+                    if (code != null) {
                         idStr += ids[i];
-                        nameStr += code.getName();
+                        nameStr += code.getDescription();
                         if (i < ids.length - 1) {
                             idStr += ",";
                             nameStr += ",";
@@ -46,17 +49,11 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<CodeDto> main() {
-
-
         List<CodeDto> result = codeDao.selectList(CodeDto.builder().type(MovieDto.CODE_TYPE).build());
 
-        System.out.println(result);
-
         for (CodeDto x : result) {
-            x.setMovieList(movieDao.main(MovieDto.builder().searchGenre(x.getId()).build()));
+            x.setMovieList(movieDao.main(MovieDto.builder().searchGenre(x.getSubId()).build()));
         }
-
-
         return result;
     }
 
@@ -64,8 +61,8 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public void getTmdbMovieData() {
 
-        for (int i = 1; i < 11; i++) {
-            List<MovieData> list = movieComponent.getMovieList(i);
+        for (int i = 0; i < 10; i++) {
+            List<MovieData> list = movieComponent.getMovieList(i + 1);
             for (MovieData movieData : list) {
                 MovieDto parameter = MovieDto.toDto(movieData);
                 movieDao.delete(parameter);

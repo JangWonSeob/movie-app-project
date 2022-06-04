@@ -5,5 +5,6 @@ import com.website.movie.biz.dto.CodeDto;
 public interface CodeService {
 
     CodeDto get(CodeDto parameter);
+    CodeDto getBySubId(CodeDto parameter);
 
 }

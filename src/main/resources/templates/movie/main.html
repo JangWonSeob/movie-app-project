@@ -20,14 +20,14 @@
 <div th:each="code : ${codeList}">
         <div class="d-flex justify-content-between" style="margin-left:150px; margin-right: 175px; color: white" >
             <span th:text="${code.movieTitle}"></span>
-            <a href="#">+ 더보기</a>
+            <a th:href="@{/movie/list(subId=${code.subId})}">+ 더보기</a>
         </div>
         <div class="row mb-5 justify-content-center">
             <div th:each="movie : ${code.movieList}" class="col-lg-2">
                 <div class="card" style="width: 15rem;">
                     <img th:src="${movie.fullPosterPath}" class="card-img-top" alt="...">
                 </div>
-                <div th:text="${movie.title}"></div>
+                <div style="color: white" th:text="${movie.title}"></div>
             </div>
         </div>
     </div>

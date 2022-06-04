@@ -14,18 +14,21 @@ import java.util.List;
 @AllArgsConstructor
 public class CodeDto extends BaseDto {
 
-    private String id;
+    private int id;
+    private String subId;
     private String type;
+    private String description;
     private String name;
     private int sortValue;
+    private String imgPath;
 
     private List<MovieDto> movieList;
 
     public String getMovieTitle() {
         String result = "";
 
-        if(!StringUtils.isEmpty(name)) {
-            result = " # " + name;
+        if(!StringUtils.isEmpty(description)) {
+            result = " # " + description;
 
         }
         return result;

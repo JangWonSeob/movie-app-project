@@ -3,7 +3,7 @@
 
 <mapper namespace="com.website.movie.biz.dao.CodeDao">
 
-	<sql id="TABLE">code</sql>
+	<sql id="TABLE">code2</sql>
 
     <sql id="WHERE_REQUIRED">
         AND T1.DEL_YN = 0
@@ -38,6 +38,35 @@
         <include refid="WHERE_REQUIRED"/>
         LIMIT 1
     </select>
+
+    <select id="selectOneBySubId" resultType="com.website.movie.biz.dto.CodeDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE T1.SUB_ID = #{subId}
+        <include refid="WHERE_REQUIRED"/>
+        LIMIT 1
+    </select>
+
+    <insert id="insert">
+        INSERT INTO <include refid="TABLE"/>
+        (
+            SUB_ID
+            , TYPE
+            , NAME
+            , DESCRIPTION
+            , SORT_VALUE
+            , IMG_PATH
+        )
+        VALUES
+        (
+            #{subId}
+            , #{type}
+            , #{name}
+            , #{description}
+            , #{sortValue}
+            , #{imgPath}
+        )
+    </insert>
 
     <delete id="delete">
         DELETE FROM <include refid="TABLE"/>
