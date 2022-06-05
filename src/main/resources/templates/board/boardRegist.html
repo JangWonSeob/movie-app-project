@@ -15,16 +15,23 @@
         <input type="text" name="writer" style="width: 20%;" th:value="${nickname}" placeholder="작성자" disabled/><br>
         <input type="text" name="title" style="width: 40%;" placeholder="제목"/> <br>
         <input type="hidden" name="loginUserId" style="width: 20%;" th:value="${loginUserId}" placeholder="작성자ID"/><br>
-        <input type="text" name="category" style="width: 40%;" placeholder="카테고리"/>
+<!--        <input type="text" name="category" style="width: 40%;" placeholder="카테고리"/>-->
+        <select name="category">
+            <option value="영화리뷰">영화리뷰</option>
+            <option value="시사회">시사회</option>
+            <option value="토론, 견해">토론, 견해</option>
+            <option value="유머">유머</option>
+            <option value="자유" selected>자유</option>
+            <option value="극장맛집">극장맛집</option>
+            <option value="굿즈">굿즈</option>
+            <option value="극장볼거리">극장볼거리</option>
+        </select>
         <br><br>
         <textarea id="summernote" name="contents"></textarea>
         <input id="subBtn" type="button" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/>
     </form>
 </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
         $('#summernote').summernote({
