@@ -43,12 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin() //아래내용은 로그인하는 경우에 대한 설정이다.
                 .loginPage("/user/login")  //로그인 페이지는 /login 이다.
                 .usernameParameter("email")
-                .loginProcessingUrl("/login")  //로그인 버튼을 클릭했을시 action의 경로(기본적으로 post)
+                .loginProcessingUrl("/user/login")  //로그인 버튼을 클릭했을시 action의 경로(기본적으로 post)
                 .defaultSuccessUrl("/user/login/result")
                 .permitAll()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/user/logout")) //로그아웃 설정
                 .logoutSuccessUrl("/user/logout/result").invalidateHttpSession(true)
+                .invalidateHttpSession(true).deleteCookies("JSESSIONID") //로그아웃 세션처리
                 .and()
                 .exceptionHandling().accessDeniedPage("/denied") // 403 예외처리 핸들링
                 .and()
