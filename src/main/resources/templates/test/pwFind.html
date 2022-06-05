@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <div th:replace="/fragments/head :: fragment-head"></div>
+</head>
+<style>
+  div { position: static; }
+</style>
+<body>
+
+<div th:replace="/fragments/commonNav :: commonNav"></div>
+
+<main class="form-signin w-100 m-auto text-center">
+  <form>
+    <h1 class="h3 mb-5 fw-normal">비밀번호 찾기</h1>
+
+    <div class="form-floating justify-conetent-between">
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <label for="floatingInput">이메일 주소</label>
+      <button class="btn btn-primary me-md-2 justify-conetent-end" type="button">인증</button>
+    </div>
+    <div class="form-floating justify-conetent-between">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">인증코드</label>
+      <button class="btn btn-primary me-md-2 justify-content-end" type="button">확인</button>
+      <div id="passwordlHelp" class="form-text">인증번호를 다시 확인해주세요</div>
+    </div>
+  </form>
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>
