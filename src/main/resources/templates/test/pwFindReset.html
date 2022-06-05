@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <div th:replace="/fragments/head :: fragment-head"></div>
+</head>
+<style>
+  div { position: static; }
+</style>
+<body>
+
+<div th:replace="/fragments/commonNav :: commonNav"></div>
+
+<main class="form-signin w-100 m-auto text-center">
+  <form>
+    <h1 class="h3 mb-5 fw-normal">비밀번호 재설정</h1>
+    <form>
+        <div class="d-flex justify-content-center form-floating">
+            <label for="floatingInput" class="col-sm-4">비밀번호</label>
+            <input type="password" class="w-50 form-control col-sm-8" id="floatingInput" placeholder="name@example.com">
+        </div>
+        <div id="passwordlLabel" class="form-text mb-5">비밀번호는 #자리 이상이어야하며 영문과 숫자를 반드시 포함해야함</div>
+        <div class="d-flex justify-content-center form-floating mb-5">
+            <label for="floatingPassword" class="col-sm-4">비밀번호 확인</label>
+            <input type="password" class="w-50 form-control col-sm-8" id="floatingPassword" placeholder="Password">
+        </div>
+        <button class="w-30 btn btn-lg btn-primary" type="submit">변경</button>
+    </form>
+  </form>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>
