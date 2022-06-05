@@ -1,0 +1,76 @@
+let PAGE_INDEX = 1;
+let PAGE_SIZE = 10;
+let SEARCH_GENRE = '';
+
+let LIST = [];
+let TOTAL_COUNT = 0;
+
+var getGenre = function () {
+
+    let queryString = location.search;
+
+    if(queryString != undefined && queryString != '') {
+        queryString = queryString.replaceAll('?', '');
+        queryString = queryString.split("&");
+        for (let i = 0; i < queryString.length; i++) {
+            if ((queryString[i].indexOf('subId') + queryString[i].indexOf('='))  > 1) {
+                SEARCH_GENRE = queryString[i].split('=')[1];
+                break;
+            }
+        }
+    }
+}
+
+var getList = function() {
+    const url = '/api/movie/gets.api';
+    const param = {
+        pageIndex: PAGE_INDEX,
+        pageSize: PAGE_SIZE,
+        searchGenre: SEARCH_GENRE,
+    };
+
+    API_CALL.post(url, param, function (result, message, data) {
+        if(!result) {
+            alert(message);
+            return false;
+        }
+        let movieList = data.list || [];
+        TOTAL_COUNT = data.totalCount || 0;
+
+        for (let i = 0; i < movieList.length; i++) {
+
+            // <div className="col-lg-2">
+            //     <div className="card" style="width: 15rem;">
+            //         <!--                    <img src="test/test.png" class="card-img-top" alt="...">-->
+            //     </div>
+            //     <div>제목</div>
+            // </div>
+
+            let append = '';
+            append += '<div class="col-lg-2">';
+            append += '<div class="card" style="width: 15rem;">';
+            append += '<img src=" ' + movieList[i].fullPosterPath +  ' " class="card-img-top" alt="...">';
+            append += '</div>';
+            append += '<div>' + movieList[i].title + '</div>';
+            append += '</div>';
+
+            $('#movieList').append(append);
+        }
+    })
+}
+
+$(function(){
+    getGenre();
+    getList();
+
+    $('#moreList').on('click', function () {
+        PAGE_INDEX += 1;
+
+        if ((PAGE_INDEX - 1) * PAGE_SIZE > TOTAL_COUNT) {
+            alert('더 이상 데이터가 없습니다.');
+            return false;
+        }
+
+        getList();
+    })
+});
