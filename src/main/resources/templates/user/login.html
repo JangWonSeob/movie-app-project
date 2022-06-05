@@ -2,8 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="/fragments/head :: fragment-head"></div>
-
-    <link href="/css/style.css" type="text/css" rel="stylesheet">
 </head>
 <style>
     div {
@@ -14,7 +12,7 @@
 
 <div th:replace="/fragments/commonNav :: commonNav"></div>
 
-<main class="form-signin w-100 m-auto">
+<main class="form-signin w-100 m-auto text-center">
     <form action="/user/login" method="post">
         <h1 class="h3 mb-5 fw-normal">로그인</h1>
         <div class="d-flex justify-content-center form-floating mb-4">
