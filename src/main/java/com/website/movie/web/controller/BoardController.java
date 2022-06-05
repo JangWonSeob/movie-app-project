@@ -107,7 +107,7 @@ public class BoardController {
     }
 
     @GetMapping("/board/communityList")
-    public String community() {
+    public String communityList() {
         return "/board/communityList";
     }
 
