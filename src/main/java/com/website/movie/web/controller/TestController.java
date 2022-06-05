@@ -26,11 +26,20 @@ public class TestController {
 
         return "test/1_home";
     }
-    @GetMapping("/login")
-    public String login(Model model) {
-
-        model.addAttribute("login", movieService.main());
-
-        return "test/login";
+    @GetMapping("/test/login")
+    public String testLogin() {
+        return "/test/login";
+    }
+    @GetMapping("/test/pwFind")
+    public String testPwFind() {
+        return "/test/pwFind";
+    }
+    @GetMapping("/test/pwFindReset")
+    public String testPwFindReset() {
+        return "/test/pwFindReset";
+    }
+    @GetMapping("/test/signUp")
+    public String testSignUp() {
+        return "/test/signUp";
     }
 }
