@@ -5,34 +5,41 @@
 </head>
 <style>
   div { position: static; }
+  body{
+      margin: 0 auto;
+      width: 1200px;
+  }
+  ul {
+      list-style: none;
+  }
 </style>
 <body>
 
-<div th:replace="/fragments/commonNav :: commonNav"></div>
+<div th:replace="/fragments/commonNav :: commonNav" style="color: white"></div>
 
-      <div class="row mb-5">
+      <div class="row mb-5" style="color: white">
         <div class="col-md-12">
           <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-black"># 커뮤니티</strong>
-                <a href="#" class="justify-content-between">+ 더보기</a>
-              <ol>
+            <div class="col p-3 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-black col-sm-10"># 커뮤니티</strong>
+                <a href="#" class="justify-content-between col-sm-2">+ 더보기</a>
+              <ul>
                   <a href="#">
-                      <li>커뮤니티 첫번째</li>
+                      1. <li>커뮤니티 첫번째 제목 : 동해물과 백두산이 마르고 닳도록</li>
                   </a>
                   <a href="#">
-                      <li>커뮤니티 두번째</li>
+                      2. <li>커뮤니티 두번째 제목 : 하느님이 보우하사 우리나라 만세</li>
                   </a>
                   <a href="#">
-                      <li>커뮤니티 세번째</li>
+                      3. <li>커뮤니티 세번째 제목 : 무궁화 삼천리 화려강산</li>
                   </a>
                   <a href="#">
-                      <li>커뮤니티 네번째</li>
+                      4. <li>커뮤니티 네번째 제목 : 대한 사람 대한으로 길이 보전하세</li>
                   </a>
                   <a href="#">
-                      <li>커뮤니티 다섯번째</li>
+                      5. <li>커뮤니티 다섯번째 제목 : 남산 위에 저 소나무 철갑을 두른 듯</li>
                   </a>
-              </ol>
+              </ul>
             </div>
           </div>
         </div>
