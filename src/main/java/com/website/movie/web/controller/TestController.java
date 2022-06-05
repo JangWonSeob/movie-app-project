@@ -42,4 +42,8 @@ public class TestController {
     public String testSignUp() {
         return "/test/signUp";
     }
+    @GetMapping("/test/communityList")
+    public String testCommunityList() {
+        return "/test/communityList";
+    }
 }
