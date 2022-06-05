@@ -24,10 +24,12 @@
         </div>
         <div class="row mb-5 justify-content-center">
             <div th:each="movie : ${code.movieList}" class="col-lg-2">
-                <div class="card" style="width: 15rem;">
-                    <img th:src="${movie.fullPosterPath}" class="card-img-top" alt="...">
-                </div>
-                <div style="color: white" th:text="${movie.title}"></div>
+                <a th:href="@{/movie/detail/{id}(id=${movie.id})}">
+                    <div class="card" style="width: 15rem;">
+                        <img th:src="${movie.fullPosterPath}" class="card-img-top" alt="...">
+                    </div>
+                    <div style="color: white" th:text="${movie.title}"></div>
+                </a>
             </div>
         </div>
     </div>

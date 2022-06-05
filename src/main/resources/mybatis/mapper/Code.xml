@@ -3,7 +3,7 @@
 
 <mapper namespace="com.website.movie.biz.dao.CodeDao">
 
-	<sql id="TABLE">code2</sql>
+	<sql id="TABLE">code</sql>
 
     <sql id="WHERE_REQUIRED">
         AND T1.DEL_YN = 0

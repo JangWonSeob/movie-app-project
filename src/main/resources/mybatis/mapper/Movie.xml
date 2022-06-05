@@ -29,6 +29,7 @@
         WHERE 1 = 1
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
+        ORDER BY T1.POPULARITY DESC
         LIMIT #{startIndex}, #{pageSize}
     </select>
 
@@ -65,9 +66,12 @@
             , BACKDROP_PATH
             , POSTER_PATH
             , RELEASE_DATE
+            , RUNTIME
             , VOTE_AVERAGE
             , VOTE_COUNT
             , POPULARITY
+            , BUDGET
+            , REVENUE
             , VIEW_COUNT
             , DISPLAY_YN
         )
@@ -87,9 +91,12 @@
             , #{backdropPath}
             , #{posterPath}
             , #{releaseDate}
+            , #{runtime}
             , #{voteAverage}
             , #{voteCount}
             , #{popularity}
+            , #{budget}
+            , #{revenue}
             , #{viewCount}
             , #{displayYn}
         )

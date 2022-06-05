@@ -4,7 +4,6 @@ import com.website.movie.biz.component.MovieComponent;
 import com.website.movie.biz.dto.CodeDto;
 import com.website.movie.biz.dto.MovieDto;
 import com.website.movie.biz.model.JsonResult;
-import com.website.movie.biz.service.BoardService;
 import com.website.movie.biz.service.CodeService;
 import com.website.movie.biz.service.MovieService;
 import io.swagger.annotations.ApiOperation;
@@ -75,6 +74,11 @@ public class ApiMovieController {
     @PostMapping("/api/movie/provider.api")
     public void getProviders() {
         movieComponent.getProviders();
+    }
+
+    @PostMapping("/api/movie/detail.api")
+    public void getDetail() {
+        movieComponent.getMovieDetail("675353");
     }
 
 

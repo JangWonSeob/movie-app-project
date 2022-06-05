@@ -3,13 +3,17 @@ package com.website.movie.biz.service.impl;
 import com.website.movie.biz.component.MovieComponent;
 import com.website.movie.biz.dao.CodeDao;
 import com.website.movie.biz.dao.MovieDao;
+import com.website.movie.biz.dao.MovieWatchProviderDao;
 import com.website.movie.biz.dto.CodeDto;
 import com.website.movie.biz.dto.MovieDto;
+import com.website.movie.biz.dto.MovieWatchProvidersDto;
 import com.website.movie.biz.model.movie.MovieData;
+import com.website.movie.biz.model.movie.detail.MovieGenres;
+import com.website.movie.biz.model.movie.detail.MovieKrBuyRent;
+import com.website.movie.biz.model.movie.detail.MovieResultDetail;
 import com.website.movie.biz.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -19,32 +23,27 @@ import java.util.List;
 public class MovieServiceImpl implements MovieService {
 
     private final MovieDao movieDao;
+    private final MovieWatchProviderDao movieWatchProviderDao;
     private final CodeDao codeDao;
     private final MovieComponent movieComponent;
 
-    private void setGenre(String[] ids, MovieDto parameter) {
+    private void setGenre(List<MovieGenres> genreList, MovieDto parameter) {
 
-
-        if (ids.length > 0) {
+        if (genreList != null) {
             String idStr = "";
             String nameStr = "";
-            for (int i = 0; i < ids.length; i++) {
-                if (!StringUtils.isEmpty(ids[i])) {
-                    System.out.println(ids[i]);
-                    CodeDto code = codeDao.selectOneBySubId(CodeDto.builder().subId(ids[i]).type("MOVIE_GENRE").build());
-                    if (code != null) {
-                        idStr += ids[i];
-                        nameStr += code.getDescription();
-                        if (i < ids.length - 1) {
-                            idStr += ",";
-                            nameStr += ",";
-                        }
-                    }
+            for (int i = 0; i < genreList.size(); i++) {
+                idStr += genreList.get(i).getId();
+                nameStr += genreList.get(i).getName();
+                if (i < genreList.size() - 1) {
+                    idStr += ",";
+                    nameStr += ",";
                 }
             }
             parameter.setGenreIds(idStr);
             parameter.setGenreNames(nameStr);
         }
+
     }
 
     @Override
@@ -63,11 +62,34 @@ public class MovieServiceImpl implements MovieService {
 
         for (int i = 0; i < 10; i++) {
             List<MovieData> list = movieComponent.getMovieList(i + 1);
-            for (MovieData movieData : list) {
-                MovieDto parameter = MovieDto.toDto(movieData);
+            for (MovieData x : list) {
+                MovieResultDetail movieDetail = movieComponent.getMovieDetail(x.getId());
+                MovieDto parameter = MovieDto.toDto(movieDetail);
+                // 삭제
                 movieDao.delete(parameter);
-                setGenre(movieData.getGenreIds(), parameter);
+                // 공급자 삭제
+                movieWatchProviderDao.deleteByMovieId(MovieWatchProvidersDto.builder().movieId(parameter.getId()).build());
+                // 장르 세팅
+                setGenre(movieDetail.getGenres(), parameter);
+                // 영화 추가
                 movieDao.insert(parameter);
+                if (movieDetail.getWatchProviders() != null && movieDetail.getWatchProviders().getResults() != null
+                        && movieDetail.getWatchProviders().getResults().getKR() != null) {
+                    if (movieDetail.getWatchProviders().getResults().getKR().getBuy() != null && movieDetail.getWatchProviders().getResults().getKR().getBuy().size() > 0) {
+                        // 공급자 추가(buy)
+                        for (MovieKrBuyRent y : movieDetail.getWatchProviders().getResults().getKR().getBuy()) {
+                            movieWatchProviderDao.insert(MovieWatchProvidersDto.toDto(movieDetail.getId(), y, MovieWatchProvidersDto.TYPE_BUY));
+                        }
+                    }
+                    if (movieDetail.getWatchProviders().getResults().getKR().getRent() != null && movieDetail.getWatchProviders().getResults().getKR().getRent().size() > 0) {
+                        // 공급자 추가(rent)
+                        for (MovieKrBuyRent z : movieDetail.getWatchProviders().getResults().getKR().getRent()) {
+                            movieWatchProviderDao.insert(MovieWatchProvidersDto.toDto(movieDetail.getId(), z, MovieWatchProvidersDto.TYPE_RENT));
+                        }
+                    }
+
+                }
+
             }
         }
     }
@@ -87,7 +109,23 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public MovieDto get(MovieDto parameter) {
 
-        return movieDao.selectOne(parameter);
+        MovieDto result = movieDao.selectOne(parameter);
+
+        MovieWatchProvidersDto watchProvidersDto = MovieWatchProvidersDto.builder()
+                .movieId(result.getId())
+                .searchProviderType(MovieWatchProvidersDto.TYPE_BUY)
+                .build();
+
+        // buy
+        result.setWatchProvidersBuyList(movieWatchProviderDao.selectList(watchProvidersDto));
+
+        // rent
+        watchProvidersDto.setSearchProviderType(MovieWatchProvidersDto.TYPE_RENT);
+        result.setWatchProvidersRentList(movieWatchProviderDao.selectList(watchProvidersDto));
+
+        System.out.println(result);
+
+        return result;
     }
 
 

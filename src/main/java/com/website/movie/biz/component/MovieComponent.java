@@ -1,12 +1,9 @@
 package com.website.movie.biz.component;
 
 import com.website.movie.biz.dao.CodeDao;
-import com.website.movie.biz.dao.MovieDao;
 import com.website.movie.biz.dto.CodeDto;
-import com.website.movie.biz.model.movie.MovieData;
-import com.website.movie.biz.model.movie.MovieProviderDetail;
-import com.website.movie.biz.model.movie.MovieProviders;
-import com.website.movie.biz.model.movie.MovieResult;
+import com.website.movie.biz.model.movie.*;
+import com.website.movie.biz.model.movie.detail.MovieResultDetail;
 import com.website.movie.common.properties.TmdbProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -25,32 +22,68 @@ public class MovieComponent {
 
     public List<MovieData> getMovieList(int pageNo) {
 
-//      https://api.themoviedb.org/3/movie/popular?api_key={{api_key}}&language=ko-Kr&page=1
+        MovieResult result = new MovieResult();
 
-        String url = tmdbProperties.getMovieUrl();
-        url += "api_key=" + tmdbProperties.getApiKey();
-        url += "&language=ko-Kr";
-        url += "&page=" + pageNo;
+        try{
+            //      https://api.themoviedb.org/3/movie/popular?api_key={{api_key}}&language=ko-Kr&page=1
 
-        MovieResult result = restTemplate.getForObject(url, MovieResult.class);
+            String url = tmdbProperties.getMovieUrl() + "popular?";
+            url += "api_key=" + tmdbProperties.getApiKey();
+            url += "&language=ko-Kr";
+            url += "&page=" + pageNo;
 
-        System.out.println(result);
+            result = restTemplate.getForObject(url, MovieResult.class);
+
+            System.out.println(result);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         return result.getResults();
     }
 
+    public MovieResultDetail getMovieDetail(String id) {
+
+        MovieResultDetail result = new MovieResultDetail();
+
+        try {
+            //      https://api.themoviedb.org/3/movie/popular?api_key={{api_key}}&language=ko-Kr&page=1
+
+            String url = tmdbProperties.getMovieUrl() + id + "?";
+            url += "api_key=" + tmdbProperties.getApiKey();
+            url += "&language=ko-KR";
+            url += "&append_to_response=videos,images,watch/providers,credits";
+
+            System.out.println(url);
+
+            result = restTemplate.getForObject(url, MovieResultDetail.class);
+
+            System.out.println(result);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return result;
+    }
+
     public List<MovieData> getTvList(int pageNo) {
 
-//      https://api.themoviedb.org/3/movie/popular?api_key={{api_key}}&language=ko-Kr&page=1
+        MovieResult result = new MovieResult();
 
-        String url = tmdbProperties.getTvUrl();
-        url += "api_key=" + tmdbProperties.getApiKey();
-        url += "&language=ko-Kr";
-        url += "&page=" + pageNo;
+        try {
+            //      https://api.themoviedb.org/3/movie/popular?api_key={{api_key}}&language=ko-Kr&page=1
 
-        MovieResult result = restTemplate.getForObject(url, MovieResult.class);
+            String url = tmdbProperties.getTvUrl();
+            url += "api_key=" + tmdbProperties.getApiKey();
+            url += "&language=ko-KR";
+            url += "&page=" + pageNo;
 
-        System.out.println(result);
+            result = restTemplate.getForObject(url, MovieResult.class);
+
+            System.out.println(result);
+        } catch (Exception e) {
+
+        }
 
         return result.getResults();
     }

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.website.movie.biz.dao.MovieWatchProviderDao">
+
+	<sql id="TABLE">movie_watch_providers</sql>
+
+    <sql id="WHERE_REQUIRED">
+        AND T1.DEL_YN = 0
+    </sql>
+
+    <sql id="WHERE">
+        <if test="searchProviderType != null and searchProviderType != ''">
+            AND T1.TYPE = #{searchProviderType}
+        </if>
+    </sql>
+
+	<select id="selectList" resultType="com.website.movie.biz.dto.MovieWatchProvidersDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE MOVIE_ID = #{movieId}
+        <include refid="WHERE_REQUIRED"/>
+        <include refid="WHERE"/>
+        GROUP BY T1.PROVIDER_ID
+        ORDER BY T1.DISPLAY_PRIORITY
+    </select>
+
+    <select id="selectListCount" resultType="int">
+        SELECT COUNT(*)
+        FROM <include refid="TABLE"/> T1
+        WHERE 1 = 1
+        <include refid="WHERE_REQUIRED"/>
+        <include refid="WHERE"/>
+    </select>
+
+    <select id="selectOne" resultType="com.website.movie.biz.dto.MovieWatchProvidersDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE T1.ID = #{id}
+        <include refid="WHERE_REQUIRED"/>
+        LIMIT 1
+    </select>
+
+    <insert id="insert">
+        INSERT INTO <include refid="TABLE"/>
+        (
+            REG_DT
+            , DEL_YN
+
+            , MOVIE_ID
+            , PROVIDER_ID
+            , PROVIDER_NAME
+            , DISPLAY_PRIORITY
+            , LOGO_PATH
+            , TYPE
+        )
+        VALUES
+        (
+            NOW()
+            , 0
+
+            , #{movieId}
+            , #{providerId}
+            , #{providerName}
+            , #{displayPriority}
+            , #{logoPath}
+            , #{type}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE <include refid="TABLE"/>
+        SET
+        <choose>
+            <when test="sqlUpdateType != null and sqlUpdateType eq 'VIEW_COUNT_UP'">
+                VIEW_COUNT = VIEW_COUNT + 1
+            </when>
+            <otherwise>
+                UDT_DT = NOW()
+                , MOVIE_ID = #{movieId}
+                , PROVIDER_ID = #{providerId}
+                , PROVIDER_NAME = #{providerName}
+                , DISPLAY_PRIORITY = #{displayPriority}
+                , LOGO_PATH = #{logoPath}
+                , TYPE = #{type}
+            </otherwise>
+        </choose>
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM <include refid="TABLE"/>
+        WHERE ID = #{id}
+    </delete>
+
+    <delete id="deleteByMovieId">
+        DELETE FROM <include refid="TABLE"/>
+        WHERE MOVIE_ID = #{movieId}
+    </delete>
+
+</mapper>

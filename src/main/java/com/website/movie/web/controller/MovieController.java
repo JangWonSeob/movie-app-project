@@ -2,6 +2,7 @@ package com.website.movie.web.controller;
 
 
 import com.website.movie.biz.dto.CodeDto;
+import com.website.movie.biz.dto.MovieDto;
 import com.website.movie.biz.service.CodeService;
 import com.website.movie.biz.service.MovieService;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +46,22 @@ public class MovieController {
 
         return "movie/list";
     }
+
+    // 영화 목록 페이지
+    @GetMapping("/movie/detail/{id}")
+    public String detail(Model model, MovieDto parameter) {
+
+        MovieDto result = movieService.get(parameter);
+
+        if (result == null) {
+            return "redirect:/error";
+        }
+
+        model.addAttribute("movie", result);
+
+        return "movie/detail";
+    }
+
 
 
 }
