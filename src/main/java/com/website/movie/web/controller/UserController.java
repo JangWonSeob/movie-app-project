@@ -57,10 +57,16 @@ public class UserController {
         return "/user/authorithy/user";
     }
 
-    // 로그아웃 결과 페이지
-    @GetMapping("/logout/result")
+    // 로그아웃 처리
+    @GetMapping("/user/logout")
     public String logout() {
-        return "logout";
+        return "index";
+    }
+
+    // 로그아웃 결과 페이지
+    @GetMapping("/user/logout/result")
+    public String logoutResult() {
+        return "index";
     }
 
     // 접근 거부 페이지

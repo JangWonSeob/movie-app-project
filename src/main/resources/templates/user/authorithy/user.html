@@ -1,6 +1,6 @@
 <!doctype html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-  <head>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -8,54 +8,57 @@
     <meta name="generator" content="Hugo 0.98.0">
     <title>유저 페이지</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- Favicons -->
-<link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#712cf9">
-  <link href="signin.css" rel="stylesheet">
-  </head>
-  <body class="text-center">
-    <div class="container">
-      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#712cf9">
+    <link href="signin.css" rel="stylesheet">
+</head>
+<body class="text-center">
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                <use xlink:href="#bootstrap"/>
+            </svg>
         </a>
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2 link-secondary">영화소개</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">커뮤니티</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">게시판</a></li>
-          <li><a href="/user/user" class="nav-link px-2 link-dark">마이페이지</a></li>
+            <li><a href="#" class="nav-link px-2 link-secondary">영화소개</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">커뮤니티</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">게시판</a></li>
+            <li><a href="/user/user" class="nav-link px-2 link-dark">마이페이지</a></li>
         </ul>
         <div class="col-md-3 text-end">
-          <button type="button" class="btn btn-outline-primary me-2" sec:authorize="isAnonymous()">로그인</button>
-          <form action="/logout" method="POST" sec:authorize="isAuthenticated()">
-            <button  type="button" class="btn btn-outline-primary me-2" >로그아웃</button>
-          </form>
+            <button type="button" class="btn btn-outline-primary me-2" sec:authorize="isAnonymous()">로그인</button>
+            <form action="/logout" method="POST" sec:authorize="isAuthenticated()">
+                <button type="button" class="btn btn-outline-primary me-2">로그아웃</button>
+            </form>
         </div>
-      </header>
-    </div>
+    </header>
+</div>
 
-    <p>
-      <a sec:authorize="isAnonymous()" href="/user/loginPage">로그인</a>
-      <a sec:authorize="isAuthenticated()" href="/user/logout">로그아웃</a>
-      <sec:authorize access="isAuthenticated()">
-    <div sec:authentication="principal.name"></div>
-    <div sec:authentication="principal"></div>
-    <div sec:authentication="principal.nickname"></div>
-    <div sec:authentication="principal.authorities"></div>
-    </sec:authorize>
-
-    </p>
-    <a sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" href="/user/info">내정보</a><br>
-    <a sec:authorize="hasAuthority('ADMIN')" href="/user/admin">admin</a><br>
-
+<p>
+    <a sec:authorize="isAnonymous()" href="/user/loginPage">로그인</a>
+    <a sec:authorize="isAuthenticated()" href="/user/logout">로그아웃</a>
+    <sec:authorize access="isAuthenticated()">
+<div sec:authentication="principal.name"></div>
+<div sec:authentication="principal"></div>
+<div sec:authentication="principal.nickname"></div>
+<div sec:authentication="principal.authorities"></div>
+</sec:authorize>
+</p>
+<a sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" href="/user/info">내정보</a><br>
+<a sec:authorize="hasAuthority('ADMIN')" href="/user/admin">admin</a><br>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-  </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+</body>
 </html>
