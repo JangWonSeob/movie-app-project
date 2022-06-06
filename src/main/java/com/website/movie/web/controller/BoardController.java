@@ -117,7 +117,7 @@ public class BoardController {
         request.setCharacterEncoding("utf-8");
 
         String category = request.getParameter("category");
-        int startIndex = Integer.parseInt(request.getParameter("startIndex"));
+//        int startIndex = Integer.parseInt(request.getParameter("startIndex"));
         System.out.println("category 출력 : " + category);
         if (category == null) {
             category = "";
@@ -143,7 +143,7 @@ public class BoardController {
             System.out.println("예외 카테고리로 넘어옴");
             parameter.setCategory("자유");
         }
-        parameter.setStartIndex(startIndex);
+//        parameter.setStartIndex(startIndex);
         parameter.setPageSize(10);
         parameter.setSqlSelectType("FRONT");  // DISPLAY_YN 구별
 
