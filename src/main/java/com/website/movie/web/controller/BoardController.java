@@ -2,6 +2,7 @@ package com.website.movie.web.controller;
 
 
 import com.website.movie.biz.dto.BoardDto;
+import com.website.movie.biz.dto.MovieDto;
 import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.service.BoardService;
 import com.website.movie.biz.service.UserService;
@@ -31,14 +32,15 @@ public class BoardController {
     @GetMapping("/board/boardRegist")
     public String boardRegistGet(@AuthenticationPrincipal UserDto user, Model model) {
 
-        System.out.println("user 정보"+ user);
-        System.out.println("user 닉네임"+ user.getNickname());
+        System.out.println("user 정보" + user);
+        System.out.println("user 닉네임" + user.getNickname());
 
-        model.addAttribute("loginUserId",user.getId());
-        model.addAttribute("nickname",user.getNickname());
+        model.addAttribute("loginUserId", user.getId());
+        model.addAttribute("nickname", user.getNickname());
 
         return "/board/boardRegist";
     }
+
     @PostMapping("/board/boardRegist")
     public String boardRegistPost(HttpServletRequest request) throws UnsupportedEncodingException {
         request.setCharacterEncoding("utf-8");
@@ -49,15 +51,16 @@ public class BoardController {
         String category = request.getParameter("category");
         String contents = request.getParameter("contents");
 
-        System.out.println("title"+title);
+        System.out.println("title" + title);
 
-        System.out.println("loginUserId"+loginUserId);
+        System.out.println("loginUserId" + loginUserId);
 
         BoardDto board = new BoardDto();
         board.setTitle(title);
         board.setLoginUserId(Integer.parseInt(loginUserId));
         board.setCategory(category);
         board.setContents(contents);
+        board.setDisplayYn(true);
 
         System.out.println("게시판 정보" + board);
         boardService.set(board);
@@ -68,7 +71,7 @@ public class BoardController {
     public String boardContent(HttpServletRequest request, Model model) throws UnsupportedEncodingException {
         request.setCharacterEncoding("utf-8");
 
-        System.out.println("bdId값  "+request.getParameter("bdId"));
+        System.out.println("bdId값  " + request.getParameter("bdId"));
         int bdId = Integer.parseInt(request.getParameter("bdId"));
         BoardDto parameter = new BoardDto();
 
@@ -92,24 +95,76 @@ public class BoardController {
 //        http://localhost:8080/boardContents?bdId=11
         return "/board/boardContents";
     }
+
     @GetMapping("/board/boardList")
     public String boardList(Model model) {
         BoardDto parameter = new BoardDto();
         parameter.setCategory("자유");
         parameter.setStartIndex(0);
         parameter.setPageSize(12);
+
+
         List<BoardDto> list = boardService.gets(parameter);
-        System.out.println("list :"+list);
-        model.addAttribute("boardList",boardService.gets(parameter));
+        System.out.println("list :" + list);
+        model.addAttribute("boardList", boardService.gets(parameter));
 
 
         return "/board/boardList";
     }
 
     @GetMapping("/board/communityList")
-    public String communityList() {
+    public String communityList(HttpServletRequest request, Model model) throws UnsupportedEncodingException {
+        request.setCharacterEncoding("utf-8");
+
+        String category = request.getParameter("category");
+        int startIndex = Integer.parseInt(request.getParameter("startIndex"));
+        System.out.println("category 출력 : " + category);
+        if (category == null) {
+            category = "";
+        }
+        BoardDto parameter = new BoardDto();
+        System.out.println("parameter 출력 : " + parameter);
+
+        if (category.equals("영화리뷰")) {
+            parameter.setCategory("영화리뷰");
+        } else if (category.equals("시사회")) {
+            parameter.setCategory("시사회");
+        } else if (category.equals("토론")) {
+            parameter.setCategory("토론");
+        } else if (category.equals("유머")) {
+            parameter.setCategory("유머");
+        } else if (category.equals("극장맛집")) {
+            parameter.setCategory("극장맛집");
+        } else if (category.equals("굿즈")) {
+            parameter.setCategory("굿즈");
+        } else if (category.equals("극장볼거리")) {
+            parameter.setCategory("극장볼거리");
+        } else {
+            System.out.println("예외 카테고리로 넘어옴");
+            parameter.setCategory("자유");
+        }
+        parameter.setStartIndex(startIndex);
+        parameter.setPageSize(10);
+        parameter.setSqlSelectType("FRONT");  // DISPLAY_YN 구별
+
+        System.out.println("set처리이후 parameter 출력 : " + parameter);
+
+        List<BoardDto> list = boardService.gets(parameter);
+        System.out.println("list :" + list);
+        model.addAttribute("boardList", list);
         return "/board/communityList";
     }
+
+//    @GetMapping("/board/detail/{id}")
+//    public String detail(Model model, BoardDto parameter) {
+//
+//        BoardDto result = boardService.get(parameter);
+//        if (result == null) {
+//            return "redirect:/error";
+//        }
+//        model.addAttribute("board", result);
+//        return "board/detail";
+//    }
 
     @GetMapping("/board/notice")
     public String notice() {

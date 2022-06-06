@@ -44,16 +44,10 @@
                 </h6>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text" class="align-text-bottom"></span>
-                            유머
-                        </a>
+                        <a class="nav-link" href="#">유머</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text" class="align-text-bottom"></span>
-                            자유
-                        </a>
+                        <a class="nav-link" href="#">자유</a>
                     </li>
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
                         <span>극장</span>
@@ -85,17 +79,16 @@
         </ul>
     </nav>
 
-
-    <div class="row col-md-9 col-lg-10 p-4 mb-4 text-black rounded bg-light ">
+    <div class="row col-md-9 col-lg-10 p-4 mb-4 text-black bg-light ">
         <div class="px-3">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1">최신</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2">인기</label>
-            </div>
+            <!--            <div class="form-check form-check-inline">-->
+            <!--                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">-->
+            <!--                <label class="form-check-label" for="inlineCheckbox1">최신</label>-->
+            <!--            </div>-->
+            <!--            <div class="form-check form-check-inline">-->
+            <!--                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">-->
+            <!--                <label class="form-check-label" for="inlineCheckbox2">인기</label>-->
+            <!--            </div>-->
             <div class="d-flex justify-content-end align-items-center">
                 <a class="link-secondary" href="#" aria-label="Search">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
@@ -107,65 +100,26 @@
                 </a>
             </div>
             <hr style="border: solid 1px black;">
-            <div class="px-3 row">
-                <div class="col">
-                    <label class="form-label" for="inline">번호</label>
-                </div>
-                <div class="col">
-                    <label class="form-label" for="inline">제목</label>
-                </div>
-                <div class="col">
-                    <label class="form-label" for="inline">등록일</label>
-                </div>
-                <div class="col">
-                    <label class="form-label" for="inline">글쓴이</label>
-                </div>
-            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>등록일</th>
+                    <th>글쓴이</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="board : ${boardList}">
+                    <td th:text="${board.id}">번호</td>
+                    <td th:text="${board.title}">제목</td>
+                    <td th:text="${board.regDt}">등록일</td>
+                    <td th:text="${board.regId}">글쓴이</td>
+                </tr>
+                </tbody>
+            </table>
             <hr style="border: solid 1px black;">
-
-            <div class="px-3 row">
-                <div class="col">
-                    <label class="form-label" for="inline">공지</label>
-                </div>
-                <div class="col">
-                    <label class="form-label" for="inline">닉네임 변경하는 방법</label>
-                </div>
-                <div class="col">
-                    <label class="form-label" for="inline">22.05.05</label>
-                </div>
-                <div class="col">
-                    <label class="form-label" for="inline">지창민</label>
-                </div>
-            </div>
-            <div class="px-3 row">
-                <div class="col">
-                    <label class="form-label" for="inline">HOT</label>
-                </div>
-                <div class="col">
-                    <label class="form-label" for="inline">오늘자 롯데월드 입장상황</label>
-                </div>
-                <div class="col">
-                    <label class="form-label" for="inline">22.05.03</label>
-                </div>
-                <div class="col">
-                    <label class="form-label" for="inline">김영훈</label>
-                </div>
-            </div>
-            <hr style="border: solid 1px black;">
-            <div th:each="board : ${boardList}" class="px-3 row">
-                <div class="col">
-                    <label class="form-label" for="inline" th:text="${board.id}">100</label>
-                </div>
-                <div class="col">
-                    <label class="form-label" for="inline" th:text="${board.title}">동해물과 백두산이</label>
-                </div>
-                <div class="col">
-                    <label class="form-label" for="inline" th:text="${board.regDt}">22.05.05</label>
-                </div>
-                <div class="col">
-                    <label class="form-label" for="inline" th:text="${board.regId}">지창민</label>
-                </div>
-            </div>
+            <a href="/board/boardRegist" class="btn btn-primary float-end" type="button">글쓰기</a>
         </div>
     </div>
 </div>
@@ -193,26 +147,6 @@
 
 <script>
 
-    // const url = '/api/board/gets.api';
-    // const param = {};
-    // API_CALL.post(url, param, function (result, message, data)
-    // .then((response) => {
-    //     console.log(response);
-    // })
-    //     .catch((error) => {
-    //         console.log(error.response);
-    //     });
-    // {
-    //     if(!result) {
-    //         alert(message);
-    //         return false;
-    //     }
-    //     // 리스트 뿌리기
-    //
-    // })
-
-    import {axios} from "../../static/lib/axios.min";
-
     const url = '/api/board/gets.api';
     const param = {};
 
@@ -226,23 +160,6 @@
         }
 
     })
-
-    axios.get(url)
-        .then((response) => {
-            if (response.data.header.result) {
-                this.boardList = response.data.header.result;
-            }
-        })
-
 </script>
-
-
-<script src="/docs/5.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
 </body>
 </html>

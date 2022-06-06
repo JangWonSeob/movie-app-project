@@ -22,6 +22,8 @@ public class BoardDto extends BaseDto {
     private int viewCount;
     private boolean displayYn;
 
+    private String writer;
+
     private boolean myLike;
     private boolean myUnlike;
 
