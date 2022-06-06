@@ -32,6 +32,9 @@ public class BoardDto extends BaseDto {
 
     private boolean myBookMark;
 
+    // 프론트 넘버링
+    private int boardNo;
+
     // join
 //    List<CommentDto> comments;
 //    int commentTotalCount;

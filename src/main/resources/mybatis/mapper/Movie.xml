@@ -20,7 +20,7 @@
         FROM <include refid="TABLE"/> T1
         WHERE T1.GENRE_IDS LIKE CONCAT('%', #{searchGenre}, '%')
         ORDER BY T1.POPULARITY DESC
-        LIMIT 5
+        LIMIT 6
     </select>
 
 	<select id="selectList" resultType="com.website.movie.biz.dto.MovieDto">

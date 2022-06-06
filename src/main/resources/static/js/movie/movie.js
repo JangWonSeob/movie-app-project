@@ -1,5 +1,6 @@
 let PAGE_INDEX = 1;
-let PAGE_SIZE = 10;
+// TODO: 페이지 사이즈 수정
+let PAGE_SIZE = 12;
 let SEARCH_GENRE = '';
 
 let LIST = [];

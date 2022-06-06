@@ -113,7 +113,7 @@ public class BoardController {
     }
 
     @GetMapping("/board/communityList")
-    public String communityList(HttpServletRequest request, Model model) throws UnsupportedEncodingException {
+    public String communityList(HttpServletRequest request, Model model, BoardDto parameter) throws UnsupportedEncodingException {
         request.setCharacterEncoding("utf-8");
 
         String category = request.getParameter("category");
@@ -122,7 +122,6 @@ public class BoardController {
         if (category == null) {
             category = "";
         }
-        BoardDto parameter = new BoardDto();
         System.out.println("parameter 출력 : " + parameter);
 
         if (category.equals("영화리뷰")) {
@@ -144,7 +143,8 @@ public class BoardController {
             parameter.setCategory("자유");
         }
 //        parameter.setStartIndex(startIndex);
-        parameter.setPageSize(10);
+
+        parameter.initPage();
         parameter.setSqlSelectType("FRONT");  // DISPLAY_YN 구별
 
         System.out.println("set처리이후 parameter 출력 : " + parameter);
