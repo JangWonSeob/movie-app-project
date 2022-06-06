@@ -85,16 +85,16 @@
     //이메일 인증
     var code = "";
     $("#emailChk").click(function () {
-        var email = $("#email").val();
-        var yesNo = confirm("인증 메일을 보내시겠습니까?");
-        if (yesNo) {
+        const email = $("#email").val();
+        $('#authEmail').show();
+        if (confirm("인증 메일을 보내시겠습니까?")) {
             $.ajax({
                 type: "GET",
                 url: "/mailCheck?email=" + email,
                 cache: false,
                 success: function (data) {
-
                     if (data == "error") {
+                        $('#authEmail').hidden();
                         alert("이메일 주소가 올바르지 않습니다. 유효한 이메일 주소를 입력해주세요.");
                         $("#email").attr("autofocus", true);
                         $(".successEmailChk").text("유효한 이메일 주소를 입력해주세요.");
@@ -105,7 +105,6 @@
                         $("#emailChk2").css("display", "inline-block");
                         $(".successEmailChk").text("인증번호를 입력한 뒤 이메일 인증을 눌러주십시오.");
                         $(".successEmailChk").css("color", "green");
-                        $('#authEmail').show();
                         code = data;
                     }
                 }
