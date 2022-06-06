@@ -46,4 +46,8 @@ public class TestController {
     public String testCommunityList() {
         return "/test/communityList";
     }
+    @GetMapping("/test/boardList")
+    public String testBoardList() {
+        return "/test/boardList";
+    }
 }

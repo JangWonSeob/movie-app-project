@@ -5,6 +5,10 @@
 </head>
 <style>
     div { position: static; }
+    body{
+        margin: 0 auto;
+        width: 1200px;
+    }
 </style>
 <body>
 
@@ -16,8 +20,8 @@
         </div>
         <form action="/user/signUp" method="post">
             <div class="row mb-5">
-                <label class="col-sm-2 col-form-label">이메일주소</label>
-                <div class="col-sm-10" style="float:right">
+                <label class="col-sm-2 col-form-label" style="display: inline-block">이메일주소</label>
+                <div class="col-sm-10" style="float:right" style="display: inline-block">
                     <input type="email" name="email" class="form-control email_input" id="email" placeholder="">
                     <button onclick="fnEmailCheck()" id="emailChkBtn" class="btn btn-primary me-md-2" type="button">
                         중복확인
