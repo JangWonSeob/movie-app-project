@@ -35,6 +35,9 @@ public class BoardDto extends BaseDto {
     // 프론트 넘버링
     private int boardNo;
 
+    // search
+    private String searchCategory;      // 카테고리 검색
+
     // join
 //    List<CommentDto> comments;
 //    int commentTotalCount;

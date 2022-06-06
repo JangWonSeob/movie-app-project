@@ -18,6 +18,10 @@
     </sql>
 
     <sql id="WHERE">
+        <if test="searchCategory != null and searchCategory != ''">
+            AND T1.CATEGORY = #{searchCategory}
+        </if>
+
         <if test="searchType != null and searchValue != null">
             <choose>
                 <when test="searchType eq 'category'">
@@ -43,7 +47,7 @@
 	<select id="selectList" resultType="com.website.movie.biz.dto.BoardDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
-        WHERE T1.CATEGORY = #{category}
+        WHERE 1 = 1
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
         ORDER BY T1.ID DESC
@@ -53,7 +57,7 @@
     <select id="selectListCount" resultType="int">
         SELECT COUNT(*)
         FROM <include refid="TABLE"/> T1
-        WHERE T1.CATEGORY = #{category}
+        WHERE 1 = 1
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
     </select>
