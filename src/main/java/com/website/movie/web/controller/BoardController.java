@@ -2,7 +2,6 @@ package com.website.movie.web.controller;
 
 
 import com.website.movie.biz.dto.BoardDto;
-import com.website.movie.biz.dto.MovieDto;
 import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.service.BoardService;
 import com.website.movie.biz.service.UserService;
@@ -29,8 +28,8 @@ public class BoardController {
 //        return "/board/boardUpdate";
 //    }
 
-    @GetMapping("/board/boardRegist")
-    public String boardRegistGet(@AuthenticationPrincipal UserDto user, Model model) {
+    @GetMapping("/board/write")
+    public String boardWriteGet(@AuthenticationPrincipal UserDto user, Model model) {
 
         System.out.println("user 정보" + user);
         System.out.println("user 닉네임" + user.getNickname());
@@ -38,11 +37,11 @@ public class BoardController {
         model.addAttribute("loginUserId", user.getId());
         model.addAttribute("nickname", user.getNickname());
 
-        return "/board/boardRegist";
+        return "/board/boardWrite";
     }
 
-    @PostMapping("/board/boardRegist")
-    public String boardRegistPost(HttpServletRequest request) throws UnsupportedEncodingException {
+    @PostMapping("/board/write")
+    public String boardWritePost(HttpServletRequest request) throws UnsupportedEncodingException {
         request.setCharacterEncoding("utf-8");
 
         String title = request.getParameter("title");
@@ -67,7 +66,7 @@ public class BoardController {
         return "redirect:/board/boardList";
     }
 
-    @GetMapping("/board/boardContents")
+    @GetMapping("/board/contents")
     public String boardContent(HttpServletRequest request, Model model) throws UnsupportedEncodingException {
         request.setCharacterEncoding("utf-8");
 
@@ -94,22 +93,6 @@ public class BoardController {
         model.addAttribute("writer_nickname", writer_nickname);
 //        http://localhost:8080/boardContents?bdId=11
         return "/board/boardContents";
-    }
-
-    @GetMapping("/board/boardList")
-    public String boardList(Model model) {
-        BoardDto parameter = new BoardDto();
-        parameter.setCategory("자유");
-        parameter.setStartIndex(0);
-        parameter.setPageSize(12);
-
-
-        List<BoardDto> list = boardService.gets(parameter);
-        System.out.println("list :" + list);
-        model.addAttribute("boardList", boardService.gets(parameter));
-
-
-        return "/board/boardList";
     }
 
     @GetMapping("/board/communityList")
