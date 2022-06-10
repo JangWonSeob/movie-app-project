@@ -24,7 +24,7 @@
                     <span th:text="|${movie.originalTitle},|"></span>
                     <span th:text="| ${#dates.format(movie.releaseDate, 'yyyy')}|"></span>
                 </div>
-                <hr style="border: height 1px;" class="mb-5">
+                <hr style="border: none;height: 1px" class="mb-5">
                 <div>
                     <span><b>장르</b> </span>
                     <span th:text="${movie.genreNames}"></span>
