@@ -21,6 +21,8 @@
 <div th:replace="/fragments/commonNav :: commonNav"></div>
 <div style="width: 60%; margin: auto;">
     <form method="post" action="/board/write">
+        <input type="hidden" name="id" th:value="${detail.id}" placeholder="보드의id"/><br>
+        <input type="hidden" name="loginUserId" th:value="${loginUserId}" placeholder="작성자ID"/><br>
         <!--        <input type="text" name="writer" style="width: 20%;" th:value="${nickname}" placeholder="작성자" disabled/><br>-->
         <div class="row">
             <div class="col-md-1 float-front">
@@ -30,7 +32,6 @@
                 <input th:value="${detail.title}" type="text" name="title" class="w-50 form-control" placeholder="제목" />
             </div>
         </div>
-        <input type="hidden" name="loginUserId" style="width: 20%;" th:value="${loginUserId}" placeholder="작성자ID"/><br>
         <!--        <input type="text" name="category" style="width: 40%;" placeholder="카테고리"/>-->
 
         <div class="row">

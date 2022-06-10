@@ -27,6 +27,7 @@ public class BoardServiceImpl implements BoardService {
 
         int affected;
 
+        System.out.println("set 에 parmeter 전체실행"+parameter);
         System.out.println("set 에 parmeter.getId() 실행"+parameter.getId());
 
         if (parameter.getId() > 0) {

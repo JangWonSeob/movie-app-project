@@ -29,7 +29,7 @@
                     <a href="/board/list" class="">+ 더보기</a>
                 </div>
                 <ul>
-                    <a href="#" th:each="board : ${boardList}">
+                    <a th:href="@{/board/detail/{id}(id=${board.id})}" th:each="board : ${boardList}">
                         <li th:text="${board.title}"></li>
                     </a>
                 </ul>
@@ -60,7 +60,7 @@
                     <a href="/board/list?category=영화리뷰" class="">+ 더보기</a>
                 </div>
                 <ul>
-                    <a href="#" th:each="board : ${movieBoardList}">
+                    <a th:href="@{/board/detail/{id}(id=${board.id})}" th:each="board : ${movieBoardList}">
                         <li th:text="${board.title}"></li>
                     </a>
                 </ul>
@@ -75,7 +75,7 @@
                     <a href="/board/list?category=자유" class="">+ 더보기</a>
                 </div>
                 <ul>
-                    <a href="#" th:each="board : ${freedomBoardList}">
+                    <a th:href="@{/board/detail/{id}(id=${board.id})}" th:each="board : ${freedomBoardList}">
                         <li th:text="${board.title}"></li>
                     </a>
                 </ul>

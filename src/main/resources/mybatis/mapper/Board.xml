@@ -115,8 +115,8 @@
                 VIEW_COUNT = VIEW_COUNT + 1
             </when>
             <otherwise>
-                UDT_DT = NOW()
-                , UDT_ID = #{loginUserId}
+                UPD_DT = NOW()
+                , UPD_ID = #{loginUserId}
                 , CATEGORY = #{category}
                 , TITLE = #{title}
                 , CONTENTS = #{contents}
