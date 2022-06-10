@@ -63,8 +63,16 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<BoardDto> gets(BoardDto parameter) {
-        return boardDao.selectList(parameter);
+    public List<BoardDto> gets(BoardDto parameter, int totalCount) {
+
+        List<BoardDto> list = boardDao.selectList(parameter);
+
+        for(int i = 0; i < list.size(); i++) {
+            BoardDto e = list.get(i);
+            e.setBoardNo(totalCount - (parameter.getPageIndex() - 1) * parameter.getPageSize() - i);
+        }
+
+        return list;
     }
 
     @Override

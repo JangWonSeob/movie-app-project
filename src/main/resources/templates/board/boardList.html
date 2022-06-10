@@ -99,13 +99,13 @@
                 <tr>
                     <th>번호</th>
                     <th>제목</th>
-                    <th>등록일111</th>
+                    <th>등록일</th>
                     <th>글쓴이</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="board : ${boardList}">
-                    <td th:text="${board.id}">번호</td>
+                    <td th:text="${board.boardNo}">번호</td>
                     <td><a class="text-decoration-none" th:href="@{/board/detail/{id}(id=${board.id})}" th:text="${board.title}" style="color: black">제목</a></td>
                     <td th:text="${#dates.format(board.regDt, 'yyyy-MM-dd HH:mm:ss')}">등록일</td>
                     <td th:text="${board.regNm}">글쓴이</td>

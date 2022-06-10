@@ -60,8 +60,8 @@ public class ApiBoardController {
 
         parameter.initPage();
 
-        List<BoardDto> list = boardService.gets(parameter);
         int totalCount = boardService.totalCount(parameter);
+        List<BoardDto> list = boardService.gets(parameter, totalCount);
 
         Map<String, Object> result = new HashMap<>();
 

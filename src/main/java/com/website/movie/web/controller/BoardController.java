@@ -112,9 +112,13 @@ public class BoardController {
 
         System.out.println("set처리이후 parameter 출력 : " + parameter);
 
-        List<BoardDto> list = boardService.gets(parameter);
+
+        int totalCount = boardService.totalCount(parameter);
+        List<BoardDto> list = boardService.gets(parameter, totalCount);
+
         System.out.println("list :" + list);
         model.addAttribute("boardList", list);
+        model.addAttribute("totalCount", totalCount);
         return "/board/boardList";
     }
 

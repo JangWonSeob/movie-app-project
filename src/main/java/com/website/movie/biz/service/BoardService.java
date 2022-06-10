@@ -13,7 +13,7 @@ public interface BoardService {
     boolean set(BoardDto parameter);
 
     BoardDto get(BoardDto parameter);
-    List<BoardDto> gets(BoardDto parameter);
+    List<BoardDto> gets(BoardDto parameter, int totalCount);
     int totalCount(BoardDto parameter);
 
     void viewCountUp(BoardDto parameter);
