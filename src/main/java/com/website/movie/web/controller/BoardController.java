@@ -65,6 +65,10 @@ public class BoardController {
     public String boardWritePost(HttpServletRequest request) throws UnsupportedEncodingException {
         request.setCharacterEncoding("utf-8");
 
+        //null이 아니라면 int 인상황
+        int id = Integer.parseInt(request.getParameter("id"));
+        
+        
         String title = request.getParameter("title");
         String writer = request.getParameter("writer");
         String loginUserId = request.getParameter("loginUserId");
@@ -76,6 +80,7 @@ public class BoardController {
         System.out.println("loginUserId" + loginUserId);
 
         BoardDto board = new BoardDto();
+        board.setId(id);
         board.setTitle(title);
         board.setLoginUserId(Integer.parseInt(loginUserId));
         board.setCategory(category);
