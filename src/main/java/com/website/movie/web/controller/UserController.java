@@ -64,10 +64,10 @@ public class UserController {
     }
 
     // 로그아웃 결과 페이지
-    @GetMapping("/user/logout/result")
-    public String logoutResult() {
-        return "index";
-    }
+//    @GetMapping("/user/logout/result")
+//    public String logoutResult() {
+//        return "index";
+//    }
 
     // 접근 거부 페이지
     @GetMapping("/user/denied")
