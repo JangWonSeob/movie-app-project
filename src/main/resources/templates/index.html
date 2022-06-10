@@ -10,33 +10,23 @@
 
 <div th:replace="/fragments/commonNav :: commonNav"></div>
 
-      <div class="row mb-5">
-        <div class="col-md-12">
-          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-black"># 커뮤니티</strong>
-              <a href="#" class="stretched-link text-end">+ 더보기</a>
-              <ol>
-                  <a href="#">
-                      <li>커뮤니티 첫번째</li>
-                  </a>
-                  <a href="#">
-                      <li>커뮤니티 두번째</li>
-                  </a>
-                  <a href="#">
-                      <li>커뮤니티 세번째</li>
-                  </a>
-                  <a href="#">
-                      <li>커뮤니티 네번째</li>
-                  </a>
-                  <a href="#">
-                      <li>커뮤니티 다섯번째</li>
-                  </a>
-              </ol>
+<div class="row mb-5" style="color: white">
+    <div class="col-md-12">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static w_title">
+                <strong class="d-inline-block mb-2 text-black"># 커뮤니티</strong>
+                <a href="#" class="stretched-link text-end">+ 더보기</a>
+                <ul>
+                    <li><a href="#"> 커뮤니티 첫번째 제목 : 동해물과 백두산이 마르고 닳도록</a></li>
+                    <li><a href="#"> 커뮤니티 두번째 제목 : 하느님이 보우하사 우리나라 만세</a></li><li><a href="#"> 커뮤니티 첫번째 제목 : 동해물과 백두산이 마르고 닳도록</a></li>
+                    <li><a href="#"> 커뮤니티 세번째 제목 : 무궁화 삼천리 화려강산</a></li>
+                    <li><a href="#"> 커뮤니티 네번째 제목 : 대한 사람 대한으로 길이 보전하세</a></li>
+                    <li><a href="#"> 커뮤니티 다섯번째 제목 : 남산 위에 저 소나무 철갑을 두른 듯</a></li>
+                </ul>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+</div>
     
 
       <div class="row mb-2"> &nbsp&nbsp&nbsp&nbsp&nbsp 금주 영화 순위</div>
@@ -46,63 +36,43 @@
                   <div class="card" style="width: 18rem;">
                       <img th:src="${movie.fullPosterPath}" class="card-img-top" alt="...">
                   </div>
-                  <div th:text="${movie.title}"></div>
+                  <div th:text="${movie.title}" style="text-align: center"></div>
               </a>
           </div>
       </div>
 
-      <div class="row mb-2">
-        <div class="col-md-6">
-          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+<div class="row mb-2">
+    <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-black"># 공지사항</strong>
-              <a href="#" class="stretched-link  text-end">+ 더보기</a>
-              <ol>
-                  <a href="#">
-                      <li>공지사항 첫번째</li>
-                  </a>
-                  <a href="#">
-                      <li>공지사항 두번째</li>
-                  </a>
-                  <a href="#">
-                      <li>공지사항 세번째</li>
-                  </a>
-                  <a href="#">
-                      <li>공지사항 네번째</li>
-                  </a>
-                  <a href="#">
-                      <li>공지사항 다섯번째</li>
-                  </a>
-              </ol>
+                <strong class="d-inline-block mb-2 text-black"># 공지사항</strong>
+                <a href="#" class="stretched-link text-end">+ 더보기</a>
+                <ul>
+                    <li><a href="#"> 공지사항 첫번째 제목 : 바람 서리 불변함은 우리 기상일세</a></li>
+                    <li><a href="#"> 공지사항 두번째 제목 : 무궁화 삼천리 화려 강산</a></li>
+                    <li><a href="#"> 공지사항 세번째 제목 : 대한 사람 대한으로 길이 보전하세</a></li>
+                    <li><a href="#"> 공지사항 네번째 제목 : 가을 하늘 공활한데 높고 구름 없이</a></li>
+                    <li><a href="#"> 공지사항 다섯번째 제목 : 밝은 달은 우리 가슴 일편단심일세</a></li>
+                </ul>
             </div>
-          </div>
         </div>
-        <div class="col-md-6">
-          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+    </div>
+    <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-black"># 최신글</strong>
-              <a href="#" class="stretched-link text-end">+ 더보기</a>
-              <ol>
-                  <a href="#">
-                      <li>최신글 첫번째</li>
-                  </a>
-                  <a href="#">
-                      <li>최신글 두번째</li>
-                  </a>
-                  <a href="#">
-                      <li>최신글 세번째</li>
-                  </a>
-                  <a href="#">
-                      <li>최신글 네번째</li>
-                  </a>
-                  <a href="#">
-                      <li>최신글 다섯번째</li>
-                  </a>
-              </ol>
+                <strong class="d-inline-block mb-2 text-black"># 최신글</strong>
+                <a href="#" class="stretched-link text-end">+ 더보기</a>
+                <ul>
+                    <li><a href="#"> 최신글 첫번째 제목 : 무궁화 삼천리 화려 강산</a></li>
+                    <li><a href="#"> 최신글 두번째 제목 : 대한 사람 대한으로 길이 보전하세</a></li>
+                    <li><a href="#"> 최신글 세번째 제목 : 이 기상과 이 맘으로 충성을 다하여</a></li>
+                    <li><a href="#"> 최신글 네번째 제목 : 괴로우나 즐거우나 나라 사랑하세</a></li>
+                    <li><a href="#"> 최신글 다섯번째 제목 : 무궁화 삼천리 화려 강산</a></li>
+                </ul>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
