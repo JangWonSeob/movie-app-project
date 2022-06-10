@@ -106,7 +106,8 @@ public class BoardController {
         if (result == null) {
             return "redirect:/error";
         }
-        model.addAttribute("board", result);
+        boardService.viewCountUp(parameter);
+        model.addAttribute("detail", result);
         return "board/boardContents";
     }
 

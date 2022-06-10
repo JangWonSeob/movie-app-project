@@ -17,55 +17,43 @@
 <!-- 게시물 내용 출력 -->
 <div class="container" style="width: 60%">
     <div class="row">
-        <p class="col-md-10">제목</p>
+        <h3 class="col-md-10" th:text="| ${detail.title}|">제목</h3>
     </div>
     <hr style="border: solid 1px gray" class="mb-3">
 
     <div class="row">
-        <p class="col-md-8">닉네임 게시일 게시시간</p>
-        <p class="col-md-2">조회수</p>
-        <p class="col-md-2">댓글</p>
+        <p class="col-md-8" th:text="| 작성자: ${detail.regNm} / 작성일: ${#dates.format(detail.regDt, 'yyyy-MM-dd')}|">작성자 작성일</p>
+        <p class="col-md-2" th:text="| 조회수 ${detail.viewCount}|">조회수</p>
+<!--        <p class="col-md-2">댓글</p>-->
     </div>
     <hr style="border: solid 1px gray" class="mb-3">
     <div>
-        <div class="row">
-            <div>
-                <button class="btn btn-outline-dark w-30 float-end" type="button">수정</button>
-                <button class="btn btn-outline-dark w-30 float-end" type="button">삭제</button>
-            </div>
+<!--        <div class="row">-->
+<!--            <div>-->
+<!--                <button class="btn btn-outline-dark w-30 float-end" type="button">수정</button>-->
+<!--                <button class="btn btn-outline-dark w-30 float-end" type="button">삭제</button>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="row mb-5" th:utext="${detail.contents}">
         </div>
-        <div class="row mb-5">
-            <p>본문 내용 예시
-
-            스프링 블라썸은 있는 그대로 신선한 느낌을 준 영화입니다.
-            수잔 랭동 감독이 직접 수잔 역을 연기하여 그 의미를 더하고 있고, 수잔의 이야기를 통해
-            청춘의 감성, 소녀의 마음을 표현하고 있습니다.
-            프랑스를 배경으로 하고 있으면서 프렌치 인사, 프랑스식 문화 같은 것을 이 영화를 통해
-            볼 수 있어서 좋았네요.
-
-            또 감독이 연출하면서 연기를 동시에 하고 있는데, 보여줄 것을 딱 잘라서 보여주고 있는
-            시원시원한 컷은 첫 작품이라고 보기 어려울 정도로 대단합니다.
-            각본 역시 영화 내의 수잔의 나이에 만들어지기 시작한 것이라 생생한 느낌을 준 것 같습니
-            다.</p>
+<!--        <div class="row">-->
+<!--            <div class="mb-5 text-center">-->
+<!--                <button class="btn btn-outline-dark w-30" type="button">좋아요</button>-->
+<!--                <button class="btn btn-outline-dark w-30" type="button">싫어요</button>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
-        <div class="row">
-            <div class="mb-5 text-center">
-                <button class="btn btn-outline-dark w-30" type="button">좋아요</button>
-                <button class="btn btn-outline-dark w-30" type="button">싫어요</button>
-            </div>
-        </div>
-    </div>
-    <hr style="border: solid 1px gray" class="mb-3">
+<!--    <hr style="border: solid 1px gray" class="mb-3">-->
 
-    <p>#개의 댓글</p>
+<!--    <p>#개의 댓글</p>-->
 
-    <hr style="border: solid 1px gray" class="mb-3">
-    <div style="justify-content: center">
-        <input type="text" class="w-50 form-control" style="margin: auto;" placeholder="댓글을 입력해주세요."/>
-        <div class="text-center" style="margin: auto;">
-            <button type="button" class="btn btn-light w-30">확인</button>
-        </div>
-    </div>
+<!--    <hr style="border: solid 1px gray" class="mb-3">-->
+<!--    <div style="justify-content: center">-->
+<!--        <input type="text" class="w-50 form-control" style="margin: auto;" placeholder="댓글을 입력해주세요."/>-->
+<!--        <div class="text-center" style="margin: auto;">-->
+<!--            <button type="button" class="btn btn-light w-30">확인</button>-->
+<!--        </div>-->
+<!--    </div>-->
 
 
 
