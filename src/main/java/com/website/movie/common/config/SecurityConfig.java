@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/user/login")  //로그인 페이지는 /login 이다.
                 .usernameParameter("email")
                 .loginProcessingUrl("/user/login")  //로그인 버튼을 클릭했을시 action의 경로(기본적으로 post)
-                .defaultSuccessUrl("/user/login/result")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/user/logout")) //로그아웃 설정
