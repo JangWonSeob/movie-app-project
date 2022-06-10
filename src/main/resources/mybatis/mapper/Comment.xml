@@ -10,11 +10,22 @@
     </sql>
 
     <sql id="WHERE">
-        AND COMMENT_ID IS NULL
+        <if test="searchType != null">
+            <choose>
+                <when test="searchType eq 'PARENTS'">
+                    AND COMMENT_ID <![CDATA[ < ]]> 1
+
+                </when>
+                <when test="searchType eq 'CHILD'">
+                    AND COMMENT_ID <![CDATA[ > ]]> 0
+                </when>
+            </choose>
+        </if>
     </sql>
 
 	<select id="selectList" resultType="com.website.movie.biz.dto.CommentDto">
         SELECT T1.*
+        , (SELECT COUNT(*) FROM <include refid="TABLE"/> T2 WHERE COMMENT_ID <![CDATA[ > ]]> 0 AND T1.ID = T2.COMMENT_ID ) as CHILD_COMMENT_COUNT
         FROM <include refid="TABLE"/> T1
         WHERE T1.BOARD_ID = #{boardId}
         <include refid="WHERE_REQUIRED"/>
@@ -50,9 +61,9 @@
         VALUES
         (
             NOW()
+            , #{loginUserId}
             , #{boardId}
             , #{commentId}
-            , #{title}
             , #{contents}
         )
     </insert>
@@ -64,8 +75,7 @@
         , UDT_ID = #{loginUserId}
         , CONTENTS = #{contents}
         WHERE ID = #{id}
-        <!-- 로그인 로직 추가 시 -->
-        <!-- AND REG_ID = loginUserId -->
+         AND REG_ID = #{loginUserId}
     </update>
 
     <update id="delete">
@@ -74,8 +84,7 @@
         , DEL_ID = #{loginUserId}
         , DEL_YN = 1
         WHERE ID = #{id}
-        <!-- 로그인 로직 추가 시 -->
-        <!-- AND REG_ID = loginUserId -->
+         AND REG_ID = #{loginUserId}
     </update>
 
 </mapper>

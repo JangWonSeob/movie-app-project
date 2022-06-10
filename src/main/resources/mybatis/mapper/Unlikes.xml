@@ -41,6 +41,7 @@
         DELETE
         FROM <include refid="TABLE"/>
         WHERE ID = #{id}
+        AND USER_ID = #{loginUserId}
     </delete>
 
 </mapper>

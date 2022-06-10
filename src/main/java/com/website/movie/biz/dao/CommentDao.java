@@ -13,7 +13,7 @@ public interface CommentDao {
     int delete(CommentDto parameter);
     int update(CommentDto parameter);
 
-    List<CommentDto> selectList(CommentSearchModel model);
-    int selectListCount(CommentSearchModel model);
+    List<CommentDto> selectList(CommentDto parameter);
+    int selectListCount(CommentDto parameter);
 
 }

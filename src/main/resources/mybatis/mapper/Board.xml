@@ -65,8 +65,7 @@
     <select id="selectOne" resultType="com.website.movie.biz.dto.BoardDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
-        WHERE T1.CATEGORY = #{category}
-        AND T1.ID = #{id}
+        WHERE T1.ID = #{id}
         <include refid="WHERE_REQUIRED"/>
         LIMIT 1
     </select>
@@ -111,8 +110,7 @@
             </otherwise>
         </choose>
         WHERE ID = #{id}
-        <!-- 로그인 로직 추가 시 -->
-        <!-- AND REG_ID = #{loginUserId} -->
+        AND REG_ID = #{loginUserId}
     </update>
 
     <update id="delete">
@@ -121,9 +119,7 @@
         , DEL_ID = #{loginUserId}
         , DEL_YN = 1
         WHERE ID = #{id}
-        AND CATEGORY = #{category}
-        <!-- 로그인 로직 추가 시 -->
-        <!-- AND REG_ID = #{loginUserId} -->
+        AND REG_ID = #{loginUserId}
     </update>
 
 </mapper>

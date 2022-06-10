@@ -18,6 +18,8 @@ public class CommentDto extends BaseDto {
     private int commentId;
     private String contents;
 
+    private int childCommentCount;
+
 
     public static CommentDto toDto(CommentInputModel model) {
 
