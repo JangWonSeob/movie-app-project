@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -91,12 +92,17 @@ public class UserController {
         return "index";
     }
 
-    // Security 설정으로 user 필수
+//    @GetMapping("/user/login")
+//    public String login() {
+//        return "/user/login";
+//    }
+    // 로그인페이지
     @GetMapping("/user/login")
-    public String login() {
+    public String login(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "exception", required = false) String exception, Model model) {
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
         return "/user/login";
     }
-
     // 로그인 결과 페이지
     @GetMapping("/user/login/result")
     public String loginResult() {
@@ -119,8 +125,9 @@ public class UserController {
     }
 
     @GetMapping("/user/signUp")
-    public String signUp() {return "/user/signUp";}
-
+    public String signUp() {
+        return "/user/signUp";
+    }
 
 
 }
