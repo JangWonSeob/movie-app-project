@@ -158,6 +158,7 @@ public class BoardController {
         List<BoardDto> list = boardService.gets(parameter, totalCount);
 
         System.out.println("list :" + list);
+        model.addAttribute("boardTitle", parameter.getSearchCategory());
         model.addAttribute("boardList", list);
         model.addAttribute("totalCount", totalCount);
         final PagerUtils pagerUtils = new PagerUtils(parameter.getPageIndex(), parameter.getPageSize(), totalCount);
