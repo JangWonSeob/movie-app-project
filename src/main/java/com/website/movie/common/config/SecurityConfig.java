@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -20,6 +21,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
+    /* 로그인 실패 핸들러 의존성 주입 */
+    private final AuthenticationFailureHandler customFailureHandler;
 
     @Override
     public void configure(WebSecurity web) throws Exception
@@ -44,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/user/login")  //로그인 페이지는 /login 이다.
                 .usernameParameter("email")
                 .loginProcessingUrl("/user/login")  //로그인 버튼을 클릭했을시 action의 경로(기본적으로 post)
+                .failureHandler(customFailureHandler) // 로그인 실패 핸들러
                 .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
