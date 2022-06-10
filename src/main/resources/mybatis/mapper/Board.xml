@@ -124,7 +124,9 @@
             </otherwise>
         </choose>
         WHERE ID = #{id}
-        AND REG_ID = #{loginUserId}
+        <if test="sqlUpdateType != null and sqlUpdateType != 'VIEW_COUNT_UP'">
+            AND REG_ID = #{loginUserId}
+        </if>
     </update>
 
     <update id="delete">
