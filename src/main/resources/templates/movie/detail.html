@@ -17,8 +17,8 @@
 <div class="container">
     <div>
 
-        <div class="d-flex justify-content-between">
-            <div>
+        <div class="row d-flex justify-content-between">
+            <div class="col-md-7 float-right">
                 <h3 th:text="${movie.title}"></h3>
                 <div>
                     <span th:text="|${movie.originalTitle},|"></span>
@@ -65,12 +65,13 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="col-md-5 float-front mb-5">
                 <img th:src="${movie.fullPosterPath}">
             </div>
         </div>
         <br>
-        <div>
+        <hr style="border: solid 1px gray" class="mb-5">
+        <div class="md-5">
             <div th:text="${movie.overview}"></div>
         </div>
 
