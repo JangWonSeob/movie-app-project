@@ -66,32 +66,12 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-    @GetMapping("/board/contents")
-    public String boardContent(HttpServletRequest request, Model model) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("utf-8");
+    @GetMapping("/board/detail/{id}")
+    public String detail(HttpServletRequest request, Model model, BoardDto parameter) throws UnsupportedEncodingException {
 
-        System.out.println("bdId값  " + request.getParameter("bdId"));
-        int bdId = Integer.parseInt(request.getParameter("bdId"));
-        BoardDto parameter = new BoardDto();
+        System.out.println(parameter);
+        model.addAttribute("detail",boardService.get(parameter));
 
-        parameter.setId(bdId);
-        parameter.setCategory("자유");
-
-        System.out.println("\n\n parameter정보 : " + parameter);
-        BoardDto boardOne = boardService.get(parameter);
-        System.out.println("\n\n boardOne정보 : " + boardOne);
-        int write_id = boardOne.getRegId();
-        UserDto userIdDto = new UserDto();
-        userIdDto.setId(write_id);
-        UserDto userOne = new UserDto();
-        userOne = userService.get(userIdDto);
-
-        String writer_nickname = userOne.getNickname();
-
-        System.out.println("writer_nickname :" + writer_nickname);
-        model.addAttribute("boardOne", boardOne);
-        model.addAttribute("writer_nickname", writer_nickname);
-//        http://localhost:8080/boardContents?bdId=11
         return "/board/boardContents";
     }
 
