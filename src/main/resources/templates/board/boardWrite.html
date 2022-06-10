@@ -7,8 +7,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.2.1/js/bootstrap.min.js"></script>
 
     <!-- include summernote css/js -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="/js/summernote/summernote-lite.js"></script>
+    <script src="/js/summernote/lang/summernote-ko-KR.js"></script>
+<!--    <link rel="stylesheet" href="/css/summernote/summernote-lite.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 </head>
 <style>
     div {
@@ -18,7 +20,7 @@
 <body>
 <div th:replace="/fragments/commonNav :: commonNav"></div>
 <div style="width: 60%; margin: auto;">
-    <form method="post" action="/board/boardRegist">
+    <form method="post" action="/board/write">
         <input type="text" name="writer" style="width: 20%;" th:value="${nickname}" placeholder="작성자" disabled/><br>
         <input type="text" name="title" style="width: 40%;" placeholder="제목"/> <br>
         <input type="hidden" name="loginUserId" style="width: 20%;" th:value="${loginUserId}" placeholder="작성자ID"/><br>
