@@ -46,6 +46,7 @@
 
     <select id="index" resultType="com.website.movie.biz.dto.BoardDto">
         SELECT T1.*
+        , (SELECT T2.NAME FROM user T2 WHERE T1.REG_ID = T2.ID) AS REG_NM
         FROM <include refid="TABLE"/> T1
         WHERE 1 = 1
         <if test="searchCategory != null and searchCategory != ''">
@@ -57,6 +58,7 @@
 
 	<select id="selectList" resultType="com.website.movie.biz.dto.BoardDto">
         SELECT T1.*
+        , (SELECT T2.NAME FROM user T2 WHERE T1.REG_ID = T2.ID) AS REG_NM
         FROM <include refid="TABLE"/> T1
         WHERE 1 = 1
         <include refid="WHERE_REQUIRED"/>
@@ -75,6 +77,7 @@
 
     <select id="selectOne" resultType="com.website.movie.biz.dto.BoardDto">
         SELECT T1.*
+        , (SELECT T2.NAME FROM user T2 WHERE T1.REG_ID = T2.ID) AS REG_NM
         FROM <include refid="TABLE"/> T1
         WHERE T1.ID = #{id}
         <include refid="WHERE_REQUIRED"/>

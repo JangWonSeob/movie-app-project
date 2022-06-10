@@ -13,7 +13,7 @@
 <!-- 게시물 내용 출력 -->
 <div class="container">
     <div class="row">
-        <table class="table table-striped" style="text-align: center; border=1px solid #dddddd">
+        <table class="table table-striped" style="text-align: center; border:1px; solid:#dddddd">
             <thead>
             <tr>
                 <th colspan="2" style="background-color: #eeeeee; text-align: center;">게시판 글 보기</th>
@@ -22,15 +22,15 @@
             <tbody>
             <tr>
                 <td style="width: 20%;">글 제목</td>
-                <td th:text="${boardOne.getTitle()}" colspan="2"></td>
+                <td th:text="${detail.title}" colspan="2"></td>
             </tr>
             <tr>
                 <td style="width: 20%;">글 작성자</td>
-                <td th:text="${writer_nickname}" colspan="2">${글제목}</td>
+                <td th:text="${detail.regNm}" colspan="2">${글제목}</td>
             </tr>
             <tr>
                 <td>글 내용</td>
-                <td th:text="${boardOne.getContents()}" colspan="2" style="height: 200px; text-align: left"></td>
+                <td th:utext="${detail.contents}" colspan="2" style="height: 200px; text-align: left"></td>
             </tr>
             </tbody>
         </table>
