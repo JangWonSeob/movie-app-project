@@ -30,6 +30,7 @@
                 <input th:value="${detail.title}" type="text" name="title" class="w-50 form-control" placeholder="제목" />
             </div>
         </div>
+        <input type="hidden" name="loginUserId" style="width: 20%;" th:value="${loginUserId}" placeholder="작성자ID"/><br>
         <!--        <input type="text" name="category" style="width: 40%;" placeholder="카테고리"/>-->
 
         <div class="row">
@@ -49,7 +50,6 @@
                 </select>
             </div>
         </div>
-
         <br><br>
         <textarea id="summernote" name="contents" th:text="${detail.contents}"></textarea>
         <input id="subBtn" type="button" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/>
@@ -71,17 +71,17 @@
 
     function goWrite(frm) {
         var title = frm.title.value;
-        var writer = frm.writer.value;
+        // var writer = frm.writer.value;
         var contents = frm.contents.value;
 
         if (title.trim() == '') {
             alert("제목을 입력해주세요");
             return false;
         }
-        if (writer.trim() == '') {
-            alert("작성자를 입력해주세요");
-            return false;
-        }
+        // if (writer.trim() == '') {
+        //     alert("작성자를 입력해주세요");
+        //     return false;
+        // }
         if (contents.trim() == '') {
             alert("내용을 입력해주세요");
             return false;

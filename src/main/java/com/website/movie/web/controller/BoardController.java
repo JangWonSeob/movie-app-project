@@ -87,6 +87,16 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+    // @RequestParam("id") int id
+    @GetMapping("/board/update/{id}")
+    public String boardUpdate(@AuthenticationPrincipal UserDto user, Model model, BoardDto parameter) throws UnsupportedEncodingException {
+        System.out.println(parameter);
+
+        model.addAttribute("loginUserId", user.getId());
+        model.addAttribute("detail", boardService.get(parameter));
+
+        return "/board/boardUpdate";
+    }
 
     @GetMapping("/board/detail/{id}")
     public String detail(Model model, BoardDto parameter) {
