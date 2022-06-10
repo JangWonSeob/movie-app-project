@@ -63,7 +63,7 @@ public class BoardController {
 
         System.out.println("게시판 정보" + board);
         boardService.set(board);
-        return "redirect:/board/boardList";
+        return "redirect:/board/list";
     }
 
     @GetMapping("/board/contents")

@@ -19,14 +19,14 @@
 
 <div class="d-md-block bg-light">
     <main class="form-signin w-100 m-auto text-center">
-    <form action="/login" method="post">
+    <form action="/user/login" method="post">
         <h1 class="h3 mb-5 fw-normal mb-5">로그인</h1>
         <div class="row d-flex justify-content-center form-floating mb-5" >
             <div class="col-sm-4" style="line-height: 5px">
                 <label for="floatingInput" style="float: right;">이메일 주소</label>
             </div>
             <div class="col-sm-8">
-                <input type="email" name="email" class="w-75 form-control" id="floatingInput" placeholder="name@example.com">
+                <input type="email" name="email" class="w-75 form-control" id="floatingInput" placeholder="name@example.com" required>
             </div>
         </div>
         <div class="row d-flex justify-content-center form-floating mb-4">
@@ -34,7 +34,7 @@
                 <label for="floatingPassword" style="float: right;">비밀번호</label>
             </div>
             <div class="col-sm-8">
-                <input type="password" name="password" class="w-75 form-control" id="floatingPassword" placeholder="Password">
+                <input type="password" name="password" class="w-75 form-control" id="floatingPassword" placeholder="Password" required>
             </div>
         </div>
         <div class="checkbox mb-3">
