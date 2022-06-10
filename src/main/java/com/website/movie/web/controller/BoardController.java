@@ -95,8 +95,8 @@ public class BoardController {
         return "/board/boardContents";
     }
 
-    @GetMapping("/board/communityList")
-    public String communityList(HttpServletRequest request, Model model, BoardDto parameter) throws UnsupportedEncodingException {
+    @GetMapping("/board/list")
+    public String boardList(HttpServletRequest request, Model model, BoardDto parameter) throws UnsupportedEncodingException {
         request.setCharacterEncoding("utf-8");
 
         String category = request.getParameter("category");
@@ -108,22 +108,22 @@ public class BoardController {
         System.out.println("parameter 출력 : " + parameter);
 
         if (category.equals("영화리뷰")) {
-            parameter.setCategory("영화리뷰");
+            parameter.setSearchCategory("영화리뷰");
         } else if (category.equals("시사회")) {
-            parameter.setCategory("시사회");
+            parameter.setSearchCategory("시사회");
         } else if (category.equals("토론")) {
-            parameter.setCategory("토론");
+            parameter.setSearchCategory("토론");
         } else if (category.equals("유머")) {
-            parameter.setCategory("유머");
+            parameter.setSearchCategory("유머");
         } else if (category.equals("극장맛집")) {
-            parameter.setCategory("극장맛집");
+            parameter.setSearchCategory("극장맛집");
         } else if (category.equals("굿즈")) {
-            parameter.setCategory("굿즈");
+            parameter.setSearchCategory("굿즈");
         } else if (category.equals("극장볼거리")) {
-            parameter.setCategory("극장볼거리");
+            parameter.setSearchCategory("극장볼거리");
         } else {
             System.out.println("예외 카테고리로 넘어옴");
-            parameter.setCategory("자유");
+            parameter.setSearchCategory("자유");
         }
 //        parameter.setStartIndex(startIndex);
 
@@ -135,7 +135,7 @@ public class BoardController {
         List<BoardDto> list = boardService.gets(parameter);
         System.out.println("list :" + list);
         model.addAttribute("boardList", list);
-        return "/board/communityList";
+        return "/board/boardList";
     }
 
 //    @GetMapping("/board/detail/{id}")
