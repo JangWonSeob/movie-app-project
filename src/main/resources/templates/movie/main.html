@@ -25,7 +25,7 @@
         <br/>
         <div class="row mb-5 justify-content-center">
             <div th:each="movie : ${code.movieList}" class="col-lg-3">
-                <a class="text-center" th:href="@{/movie/detail/{id}(id=${movie.id})}">
+                <a class="text-center text-decoration-none" th:href="@{/movie/detail/{id}(id=${movie.id})}">
                     <div class="card">
                         <img th:src="${movie.fullPosterPath}" class="card-img-top" alt="...">
                     </div>
