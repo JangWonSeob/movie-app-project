@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface CommentService {
 
-    boolean set(CommentInputModel model);
+    boolean set(CommentDto parameter);
 
-    List<CommentDto> gets(CommentSearchModel model);
-    int totalCount(CommentSearchModel model);
+    List<CommentDto> gets(CommentDto parameter);
+    int totalCount(CommentDto parameter);
 
-    boolean delete(CommentInputModel model);
+    boolean delete(CommentDto parameter);
 
 }

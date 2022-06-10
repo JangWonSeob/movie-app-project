@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .mvcMatchers("/","/css/**","/scripts/**","/plugin/**","/fonts/**")   // 로그인후 css 미적용시
 //                .permitAll()
                 .antMatchers("/user/admin/**").access("hasAuthority('ADMIN')")
-                .antMatchers("/user/authorithy/**").access("hasAuthority('USER')") // 페이지 권한 설정
+                .antMatchers("/user/auth/**").access("hasAuthority('USER')") // 페이지 권한 설정
                 .anyRequest().permitAll()  //위에 설정한 주소가 아니면 누구나 이용가능
                 .and()    //접근권한이 없을때
                 .formLogin() //아래내용은 로그인하는 경우에 대한 설정이다.
@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/user/logout")) //로그아웃 설정
-                .logoutSuccessUrl("/user/logout/result").invalidateHttpSession(true)
+                .logoutSuccessUrl("/").invalidateHttpSession(true)
                 .invalidateHttpSession(true).deleteCookies("JSESSIONID") //로그아웃 세션처리
                 .and()
                 .exceptionHandling().accessDeniedPage("/denied") // 403 예외처리 핸들링

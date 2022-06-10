@@ -18,16 +18,16 @@ public class CommentServiceImpl implements CommentService {
     private final CommentDao commentDao;
 
     @Override
-    public boolean set(CommentInputModel model) {
+    public boolean set(CommentDto parameter) {
 
         int affected;
 
-        if (model.getId() > 0) {
+        if (parameter.getId() > 0) {
             // 수정
-            affected = commentDao.update(CommentDto.toDto(model));
+            affected = commentDao.update(parameter);
         } else {
             // 생성
-            affected = commentDao.insert(CommentDto.toDto(model));
+            affected = commentDao.insert(parameter);
         }
 
         if (affected < 1) {
@@ -38,23 +38,25 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Override
-    public List<CommentDto> gets(CommentSearchModel model) {
-        return commentDao.selectList(model);
+    public List<CommentDto> gets(CommentDto parameter) {
+        parameter.setSearchType("PARENTS");
+
+        return commentDao.selectList(parameter);
     }
 
     @Override
-    public int totalCount(CommentSearchModel model) {
-        return commentDao.selectListCount(model);
+    public int totalCount(CommentDto parameter) {
+        return commentDao.selectListCount(parameter);
     }
 
     @Override
-    public boolean delete(CommentInputModel model) {
+    public boolean delete(CommentDto parameter) {
 
-        if (model.getId() < 1) {
+        if (parameter.getId() < 1) {
             return false;
         }
 
-        int affected = commentDao.delete(CommentDto.toDto(model));
+        int affected = commentDao.delete(parameter);
 
         if (affected < 1) {
             return false;

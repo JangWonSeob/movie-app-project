@@ -1,15 +1,16 @@
 package com.website.movie.web.controller.api;
 
 import com.website.movie.biz.dto.BoardDto;
+import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.model.JsonResult;
-import com.website.movie.biz.model.input.BoardInputModel;
-import com.website.movie.biz.model.search.BoardSearchModel;
 import com.website.movie.biz.service.BoardService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.spring.web.json.Json;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,13 @@ public class ApiBoardController {
 
     @PostMapping("/api/board/set.api")
     @ApiOperation(value = "게시판 등록 및 수정 API", notes = "게시판 등록 및 수정이 가능합니다.")
-    public JsonResult set(@RequestBody BoardDto parameter) {
+    public JsonResult set(@AuthenticationPrincipal UserDto user, @RequestBody BoardDto parameter) {
+
+        if (user == null) {
+            return JsonResult.fail("접근 권한이 없습니다.");
+        }
+
+        parameter.setLoginUserId(user.getId());
 
         boolean result = boardService.set(parameter);
 
