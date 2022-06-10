@@ -15,6 +15,13 @@
         </if>
     </sql>
 
+    <select id="index" resultType="com.website.movie.biz.dto.MovieDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        ORDER BY T1.POPULARITY DESC
+        LIMIT 4
+    </select>
+
     <select id="main" resultType="com.website.movie.biz.dto.MovieDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1

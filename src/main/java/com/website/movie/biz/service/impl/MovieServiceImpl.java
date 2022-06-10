@@ -47,6 +47,12 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<MovieDto> index() {
+
+        return movieDao.index();
+    }
+
+    @Override
     public List<CodeDto> main() {
         List<CodeDto> result = codeDao.selectList(CodeDto.builder().type(MovieDto.CODE_TYPE).build());
 

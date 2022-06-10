@@ -12,6 +12,8 @@ public interface MovieDao {
     int update(MovieDto parameter);
     int delete(MovieDto parameter);
 
+    List<MovieDto> index();
+
     MovieDto selectOne(MovieDto parameter);
 
     List<MovieDto> selectList(MovieDto parameter);

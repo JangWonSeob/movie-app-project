@@ -41,26 +41,14 @@
 
       <div class="row mb-2"> &nbsp&nbsp&nbsp&nbsp&nbsp 금주 영화 순위</div>
       <div class="row mb-5">
-        <div class="col-lg-3">
-            <div class="card" style="width: 18rem;">
-                <img src="https://file2.nocutnews.co.kr/newsroom/image/2022/04/08/202204081311322351_0.jpg" class="card-img-top" alt="...">
-              </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="card" style="width: 18rem;">
-                <img src="https://file2.nocutnews.co.kr/newsroom/image/2022/04/08/202204081311322351_0.jpg" class="card-img-top" alt="...">
-              </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="card" style="width: 18rem;">
-                <img src="https://file2.nocutnews.co.kr/newsroom/image/2022/04/08/202204081311322351_0.jpg" class="card-img-top" alt="...">
-              </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="card" style="width: 18rem;">
-                <img src="https://file2.nocutnews.co.kr/newsroom/image/2022/04/08/202204081311322351_0.jpg" class="card-img-top" alt="...">
-              </div>
-        </div>
+          <div class="col-lg-3" th:each="movie : ${movieList}">
+              <a th:href="@{/movie/detail/{id}(id=${movie.id})}">
+                  <div class="card" style="width: 18rem;">
+                      <img th:src="${movie.fullPosterPath}" class="card-img-top" alt="...">
+                  </div>
+                  <div th:text="${movie.title}"></div>
+              </a>
+          </div>
       </div>
 
       <div class="row mb-2">

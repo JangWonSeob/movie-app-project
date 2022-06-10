@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface MovieService {
 
+    List<MovieDto> index();
     List<CodeDto> main();
     void getTmdbMovieData();
 
