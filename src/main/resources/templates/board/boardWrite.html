@@ -22,8 +22,16 @@
 <div style="width: 60%; margin: auto;">
     <form method="post" action="/board/write">
 <!--        <input type="text" name="writer" style="width: 20%;" th:value="${nickname}" placeholder="작성자" disabled/><br>-->
-        <input type="text" name="title" style="width: 40%;" placeholder="제목"/> <br>
-        <input type="hidden" name="loginUserId" style="width: 20%;" th:value="${loginUserId}" placeholder="작성자ID"/><br>
+        <div class="row">
+                <div class="col-md-1 float-front">
+                <label class="col-form-label">제목</label>
+            </div>
+            <div class="col-md-11 float-front">
+                <input type="text" name="title" class="w-50 form-control" placeholder="제목"/>
+            </div>
+        </div>
+
+            <input type="hidden" name="loginUserId" style="width: 20%;" th:value="${loginUserId}" placeholder="작성자ID"/><br>
 <!--        <input type="text" name="category" style="width: 40%;" placeholder="카테고리"/>-->
         <select name="category">
             <option value="영화리뷰">영화리뷰</option>
