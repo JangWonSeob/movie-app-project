@@ -5,13 +5,14 @@ import com.website.movie.biz.dto.BoardDto;
 import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.service.BoardService;
 import com.website.movie.biz.service.UserService;
+import com.website.movie.common.util.PagerUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -23,6 +24,30 @@ public class BoardController {
 
     private final BoardService boardService;
     private final UserService userService;
+
+
+    public String getSearchParam(BoardDto parameter) {
+        if(parameter == null) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        if(!StringUtils.isEmpty(parameter.getCategory())) {
+            sb.append(String.format("&category=%s",parameter.getCategory()));
+        }
+
+        if(!StringUtils.isEmpty(parameter.getSearchType())) {
+            sb.append(String.format("&searchType=%s",parameter.getSearchType()));
+        }
+
+        if(!StringUtils.isEmpty(parameter.getSearchValue())) {
+            sb.append(String.format("&searchValue=%s",parameter.getSearchValue()));
+        }
+
+        return sb.toString();
+    }
+
 
     @GetMapping("/board/write")
     public String boardWriteGet(@AuthenticationPrincipal UserDto user, Model model) {
@@ -63,23 +88,15 @@ public class BoardController {
     }
 
 
-    // @RequestParam("id") int id
-    @GetMapping("/board/update/{id}")
-    public String boardUpdate(Model model, BoardDto parameter) throws UnsupportedEncodingException {
-        System.out.println(parameter);
-        model.addAttribute("detail", boardService.get(parameter));
-
-        return "/board/boardUpdate";
-    }
-
-
     @GetMapping("/board/detail/{id}")
-    public String detail(HttpServletRequest request, Model model, BoardDto parameter) throws UnsupportedEncodingException {
+    public String detail(Model model, BoardDto parameter) {
 
-        System.out.println(parameter);
-        model.addAttribute("detail", boardService.get(parameter));
-
-        return "/board/boardContents";
+        BoardDto result = boardService.get(parameter);
+        if (result == null) {
+            return "redirect:/error";
+        }
+        model.addAttribute("board", result);
+        return "board/boardContents";
     }
 
     @GetMapping("/board/list")
@@ -126,6 +143,13 @@ public class BoardController {
         System.out.println("list :" + list);
         model.addAttribute("boardList", list);
         model.addAttribute("totalCount", totalCount);
+        final PagerUtils pagerUtils = new PagerUtils(parameter.getPageIndex(), parameter.getPageSize(), totalCount);
+        this.getSearchParam(parameter);
+        final String pager = pagerUtils.printFrontPager("");
+
+        model.addAttribute("pager", pager);
+
+
         return "/board/boardList";
     }
 
