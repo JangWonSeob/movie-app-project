@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -22,11 +23,6 @@ public class BoardController {
 
     private final BoardService boardService;
     private final UserService userService;
-
-//    @GetMapping("/board/boardUpdate")
-//    public String boardUpdate(@RequestParam("id") int id) {
-//        return "/board/boardUpdate";
-//    }
 
     @GetMapping("/board/write")
     public String boardWriteGet(@AuthenticationPrincipal UserDto user, Model model) {
@@ -66,11 +62,22 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+
+    // @RequestParam("id") int id
+    @GetMapping("/board/update/{id}")
+    public String boardUpdate(Model model, BoardDto parameter) throws UnsupportedEncodingException {
+        System.out.println(parameter);
+        model.addAttribute("detail", boardService.get(parameter));
+
+        return "/board/boardUpdate";
+    }
+
+
     @GetMapping("/board/detail/{id}")
     public String detail(HttpServletRequest request, Model model, BoardDto parameter) throws UnsupportedEncodingException {
 
         System.out.println(parameter);
-        model.addAttribute("detail",boardService.get(parameter));
+        model.addAttribute("detail", boardService.get(parameter));
 
         return "/board/boardContents";
     }
