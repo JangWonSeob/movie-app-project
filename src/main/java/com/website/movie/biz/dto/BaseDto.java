@@ -18,9 +18,9 @@ public abstract class BaseDto {
     protected Date regDt;
     protected int regId;
     protected String regNm;
-    protected Date udtDT;
-    protected int udtId;
-    protected String udtNm;
+    protected Date updDT;
+    protected int updId;
+    protected String updNm;
     protected Date delDt;
     protected int delId;
     protected boolean delYn;

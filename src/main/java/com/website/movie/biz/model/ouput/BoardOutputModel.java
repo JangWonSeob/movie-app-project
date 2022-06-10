@@ -36,7 +36,7 @@ public class BoardOutputModel {
                 .displayYn(parameter.isDisplayYn())
                 .regDt(parameter.getRegDt())
                 .regId(parameter.getRegId())
-                .udtDT(parameter.getUdtDT())
+                .udtDT(parameter.getUpdDT())
                 .build();
     }
 
