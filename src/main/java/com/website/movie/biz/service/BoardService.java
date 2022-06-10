@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface BoardService {
 
+    List<BoardDto> index(BoardDto parameter);
+
     boolean set(BoardDto parameter);
 
     BoardDto get(BoardDto parameter);

@@ -18,6 +18,11 @@ public class BoardServiceImpl implements BoardService {
     private final BookMarkDao bookMarkDao;
 
     @Override
+    public List<BoardDto> index(BoardDto parameter) {
+        return boardDao.index(parameter);
+    }
+
+    @Override
     public boolean set(BoardDto parameter) {
 
         int affected;
