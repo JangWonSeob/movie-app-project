@@ -27,11 +27,15 @@ public class BoardServiceImpl implements BoardService {
 
         int affected;
 
+        System.out.println("set 에 parmeter.getId() 실행"+parameter.getId());
+
         if (parameter.getId() > 0) {
             // 수정
+            System.out.println("set 에 update 실행");
             affected = boardDao.update(parameter);
         } else {
             // 생성
+            System.out.println("set 에 insert");
             affected = boardDao.insert(parameter);
         }
 

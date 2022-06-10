@@ -91,6 +91,7 @@ public class BoardController {
     @GetMapping("/board/update/{id}")
     public String boardUpdate(@AuthenticationPrincipal UserDto user, Model model, BoardDto parameter) throws UnsupportedEncodingException {
         System.out.println(parameter);
+        System.out.println("\n\n"+parameter.getId());
 
         model.addAttribute("loginUserId", user.getId());
         model.addAttribute("detail", boardService.get(parameter));
