@@ -1,7 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
     <div th:replace="/fragments/head :: fragment-head"></div>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.2.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.2.1/js/bootstrap.min.js"></script>
+
+    <!-- include summernote css/js -->
+    <script src="/js/summernote/summernote-lite.js"></script>
+    <script src="/js/summernote/lang/summernote-ko-KR.js"></script>
+    <!--    <link rel="stylesheet" href="/css/summernote/summernote-lite.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 </head>
 <style>
     div {
@@ -10,18 +19,75 @@
 </style>
 <body>
 <div th:replace="/fragments/commonNav :: commonNav"></div>
-<h2 style="text-align: center;">글 작성</h2><br><br><br>
 <div style="width: 60%; margin: auto;">
-    <form method="post" action="/write">
-        <input type="text" name="writer" style="width: 20%;" placeholder="작성자"/><br>
-        <input type="text" name="title" style="width: 40%;" placeholder="제목"/>
+    <form method="post" action="/board/write">
+        <!--        <input type="text" name="writer" style="width: 20%;" th:value="${nickname}" placeholder="작성자" disabled/><br>-->
+        <div class="row">
+            <div class="col-md-1 float-front">
+                <label class="col-form-label">제목</label>
+            </div>
+            <div class="col-md-11 float-front">
+                <input th:value="${detail.title}" type="text" name="title" class="w-50 form-control" placeholder="제목" />
+            </div>
+        </div>
+        <!--        <input type="text" name="category" style="width: 40%;" placeholder="카테고리"/>-->
+
+        <div class="row">
+            <div class="col-md-1 float-front">
+                <label class="col-form-label">카테고리</label>
+            </div>
+            <div class="col-md-11 float-front">
+                <select name="category" class="form-select w-50" th:selected="${detail.category}">
+                    <option value="영화리뷰" th:selected="${detail.category}=='영화리뷰'">영화리뷰</option>
+                    <option value="시사회" th:selected="${detail.category}=='시사회'">시사회</option>
+                    <option value="토론, 견해" th:selected="${detail.category}=='토론, 견해'">토론, 견해</option>
+                    <option value="유머" th:selected="${detail.category}=='유머'">유머</option>
+                    <option value="자유" th:selected="${detail.category}=='자유'">자유</option>
+                    <option value="극장맛집" th:selected="${detail.category}=='극장맛집'">극장맛집</option>
+                    <option value="굿즈" th:selected="${detail.category}=='굿즈'">굿즈</option>
+                    <option value="극장볼거리" th:selected="${detail.category}=='극장볼거리'">극장볼거리</option>
+                </select>
+            </div>
+        </div>
+
         <br><br>
-        <textarea id="summernote" name="content"></textarea>
+        <textarea id="summernote" name="contents" th:text="${detail.contents}"></textarea>
         <input id="subBtn" type="button" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/>
     </form>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            placeholder: 'contents',
+            minHeight: 370,
+            maxHeight: null,
+            focus: true,
+            lang: 'ko-KR'
+        });
+        // Summernote에 글 내용 추가하는 코드
+        // $("#summernote").summernote('code',  ${detail.contents});
+    });
+
+    function goWrite(frm) {
+        var title = frm.title.value;
+        var writer = frm.writer.value;
+        var contents = frm.contents.value;
+
+        if (title.trim() == '') {
+            alert("제목을 입력해주세요");
+            return false;
+        }
+        if (writer.trim() == '') {
+            alert("작성자를 입력해주세요");
+            return false;
+        }
+        if (contents.trim() == '') {
+            alert("내용을 입력해주세요");
+            return false;
+        }
+        frm.submit();
+    }
+</script>
 </body>
 </html>
