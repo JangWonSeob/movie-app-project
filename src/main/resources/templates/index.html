@@ -13,8 +13,6 @@
         text-decoration: none;
         color: black;
     }
-
-
 </style>
 <body>
 
@@ -25,8 +23,10 @@
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 w_title">
                 <div class="d-flex justify-content-between">
-                    <strong class="d-inline-block mb-2 text-black"># 최신글</strong>
-                    <a href="/board/list" class="">+ 더보기</a>
+                    <h3>
+                        <strong class="d-inline-block mb-2 text-black"># 최신글</strong>
+                    </h3>
+                    <a style="color: black" class="text-center text-decoration-none" href="/board/list">+ 더보기</a>
                 </div>
                 <ul>
                     <a th:href="@{/board/detail/{id}(id=${board.id})}" th:each="board : ${boardList}">
@@ -39,10 +39,18 @@
 </div>
 
 
-<div class="row mb-2"> &nbsp&nbsp&nbsp&nbsp&nbsp 금주 영화 순위</div>
+<div class="row mb-2">
+    <div class="d-flex justify-content-between">
+        <h3>
+            <strong>금주 영화 순위</strong>
+        </h3>
+        <a href="/movie/main" style="color: black" class="text-center text-decoration-none"><strong>영화 커뮤니티로 이동하기</strong></a>
+    </div>
+
+</div>
 <div class="row mb-5">
     <div class="col-lg-3" th:each="movie : ${movieList}">
-        <a th:href="@{/movie/detail/{id}(id=${movie.id})}">
+        <a style="color: black" class="text-center text-decoration-none" th:href="@{/movie/detail/{id}(id=${movie.id})}">
             <div class="card" style="width: 18rem;">
                 <img th:src="${movie.fullPosterPath}" class="card-img-top" alt="...">
             </div>
@@ -56,8 +64,10 @@
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4">
                 <div class="d-flex justify-content-between">
-                    <strong class="d-inline-block mb-2 text-black"># 영화리뷰</strong>
-                    <a href="/board/list?category=영화리뷰" class="">+ 더보기</a>
+                    <h3>
+                        <strong class="d-inline-block mb-2 text-black"># 영화리뷰</strong>
+                    </h3>
+                    <a style="color: black" class="text-center text-decoration-none" href="/board/list?category=영화리뷰">+ 더보기</a>
                 </div>
                 <ul>
                     <a th:href="@{/board/detail/{id}(id=${board.id})}" th:each="board : ${movieBoardList}">
@@ -71,8 +81,10 @@
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4">
                 <div class="d-flex justify-content-between">
-                    <strong class="d-inline-block mb-2 text-black"># 자유</strong>
-                    <a href="/board/list?category=자유" class="">+ 더보기</a>
+                    <h3>
+                        <strong class="d-inline-block mb-2 text-black"># 자유</strong>
+                    </h3>
+                    <a style="color: black" class="text-center text-decoration-none" href="/board/list?category=자유">+ 더보기</a>
                 </div>
                 <ul>
                     <a th:href="@{/board/detail/{id}(id=${board.id})}" th:each="board : ${freedomBoardList}">

@@ -57,12 +57,12 @@ var getList = function() {
             // </div>
 
             let append = '';
-            append += '<div class="col-lg-2">';
+            append += '<div class="col-lg-3 mb-4">';
             append += '<a href=" /movie/detail/' + movieList[i].id + ' ">';
-            append += '<div class="card" style="width: 15rem;">';
+            append += '<div class="card">';
             append += '<img src=" ' + movieList[i].fullPosterPath +  ' " class="card-img-top" alt="...">';
             append += '</div>';
-            append += '<div>' + movieList[i].title + '</div>';
+            append += '<div style="color: white;">' + movieList[i].title + '</div>';
             append += '</a>';
             append += '</div>';
 
