@@ -13,8 +13,12 @@
     </ul>
 
     <div>
-      <button type="button" class="btn btn-primary me-2" sec:authorize="isAnonymous()" onclick="location.href='/user/login'">로그인</button>
-      <button type="button" class="btn btn-primary me-2" sec:authorize="isAuthenticated()" onclick="location.href='/user/logout'">로그아웃</button>
+      <a href="/user/login">
+        <img src="/pub/img/login.png" style="width: 40px; height: 40px;" sec:authorize="isAnonymous()" onclick="location.href='/user/login'">
+      </a>
+      <a href="/user/logout">
+        <img src="/pub/img/logout.png" style="width: 30px; height: 30px;" sec:authorize="isAuthenticated()" onclick="location.href='/user/logout'">
+      </a>
       <!--            <button type="button" class="btn btn-outline-primary me-2">로그인</button>-->
     </div>
   </header>
