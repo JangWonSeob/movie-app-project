@@ -7,7 +7,8 @@
     div {
         position: static;
     }
-    body{
+
+    body {
         margin: 0 auto;
         width: 1200px;
     }
@@ -24,28 +25,26 @@
             <div class="row mb-5">
                 <label class="col-sm-2 col-form-label" style="text-align: center">이메일주소</label>
                 <div class="col-sm-8" style="float:right">
-                    <input type="email" name="email" class="form-control email_input" id="email" placeholder="이메일을 입력해주세요.">
-
-                    <!--                <span class="emailOverlapNo" style="color: green; display: none;">사용 가능한 이메일입니다.</span>-->
-                    <!--                <span class="emailOverlapYes" style="color: red; display: none;">이메일이 이미 존재합니다.</span>-->
+                    <input type="email" name="email" class="form-control email_input" id="email"
+                           placeholder="이메일을 입력해주세요.">
                 </div>
-                    <div class="col-sm-2 d-grid gap-2 d-md-flex justify-content-center">
-                        <button class="btn btn-primary me-md-2 doubleChk" type="button" id="emailChk">인증</button>
-                    </div>
+                <div class="col-sm-2 d-grid gap-2 d-md-flex justify-content-center">
+                    <button class="btn btn-primary me-md-2 doubleChk" type="button" id="emailChk">인증</button>
+                </div>
 
-                    <!--                    <div id="authEmail" style="display: none;">-->
-                    <div id="authEmail" style="display: none;">
-                        <input type="text" name="certified" class="form-control" id="certified" placeholder=" 인증번호 입력">
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="float:right;"
-                             id="certifiedBut">
-                            <span class="point successEmailChk">인증번호를 보내는 중 입니다.</span> <br>
-                            <button id="certifiedChk" class="btn btn-primary me-md-2 doubleChk" type="button">확인
-                            </button>
-                            <input type="hidden" id="certifiedDoubleChk" value="false"/>
-                            <input type="hidden" id="emailDoubleChk" value="false"/>
-                        </div>
+                <!--                    <div id="authEmail" style="display: none;">-->
+                <div id="authEmail" style="display: none;">
+                    <input type="text" name="certified" class="form-control" id="certified" placeholder=" 인증번호 입력">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="float:right;"
+                         id="certifiedBut">
+                        <span class="point successEmailChk">인증번호를 보내는 중 입니다.</span> <br>
+                        <button id="certifiedChk" class="btn btn-primary me-md-2 doubleChk" type="button">확인
+                        </button>
+                        <input type="hidden" id="certifiedDoubleChk" value="false"/>
+                        <input type="hidden" id="emailDoubleChk" value="false"/>
                     </div>
                 </div>
+            </div>
             <div class="row mb-5">
                 <label class="col-sm-2 col-form-label" style="text-align: center"> 비밀번호</label>
                 <div class="col-sm-8">
@@ -78,12 +77,14 @@
                         <input type="hidden" id="nicknameDoubleChk"/><br>
                     </div>
                 </div>
-                    <div class="col-sm-2" style="text-align: center">
-                        <button onclick="fnNickCheck()" class="btn btn-primary me-md-2" type="button">중복확인</button>
-                    </div>
+                <div class="col-sm-2" style="text-align: center">
+                    <button onclick="fnNickCheck()" class="btn btn-primary me-md-2" type="button">중복확인</button>
+                </div>
             </div>
             <div class="row justify-content-center">
-                <button class="btn btn-lg btn-primary" id="registButton" type="submit" style="width: 130px; height: 50px;">회원가입</button>
+                <button class="btn btn-lg btn-primary" id="registButton" type="submit"
+                        style="width: 130px; height: 50px;">회원가입
+                </button>
             </div>
         </form>
     </main>

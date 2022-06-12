@@ -105,6 +105,19 @@ public class BoardController {
         return "/board/boardUpdate";
     }
 
+    @GetMapping("/board/delete/{id}")
+    public String boardDelete(@AuthenticationPrincipal UserDto user, BoardDto parameter) throws UnsupportedEncodingException {
+        BoardDto board =boardService.get(parameter);
+
+        if (user.getId() == board.getRegId()) {
+            board.setLoginUserId(user.getId());
+            System.out.println("boardService delete");
+            boardService.delete(board);
+        }
+        return "redirect:/board/list";
+    }
+
+
     @GetMapping("/board/detail/{id}")
     public String detail(@AuthenticationPrincipal UserDto user, Model model, BoardDto parameter) {
 
