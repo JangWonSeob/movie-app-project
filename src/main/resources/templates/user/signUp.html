@@ -177,29 +177,29 @@
     }
 
 
-    //비밀번호 유효성 검사
-    $("#password").blur(function () {
-        let pw = $("#password").val();
-        let num = pw.search(/[0-9]/g);
-        let eng = pw.search(/[a-z]/ig);
-        if (pw.length > 8 && pw.length < 20) {
-            $(".successPw").text("8자리 ~ 20자리 이내로 입력해주세요.");
-            $(".successPw").css("color", "red");
-            return false;
-        } else if (pw.search(/\s/) != -1) {
-            $(".successPw").text("비밀번호는 공백 없이 입력해주세요.");
-            $(".successPw").css("color", "red");
-            return false;
-        } else if (num < 0 || eng < 0) {
-            $(".successPw").text("영문,숫자 혼합하여 입력해주세요.");
-            $(".successPw").css("color", "red");
-            return false;
-        } else {
-            $(".successPw").text("유효한 비밀번호입니다.");
-            $(".successPw").css("color", "green");
-            return true;
-        }
-    });
+    // //비밀번호 유효성 검사
+    // $("#password").blur(function () {
+    //     let pw = $("#password").val();
+    //     // let num = pw.search(/[0-9]/g);
+    //     // let eng = pw.search(/[a-z]/ig);
+    //     if (pw.length > 8 && pw.length < 20) {
+    //         $(".successPw").text("8자리 ~ 20자리 이내로 입력해주세요.");
+    //         $(".successPw").css("color", "red");
+    //         return false;
+    //     // } else if (pw.search(/\s/) != -1) {
+    //     //     $(".successPw").text("비밀번호는 공백 없이 입력해주세요.");
+    //     //     $(".successPw").css("color", "red");
+    //     //     return false;
+    //     // } else if (num < 0 || eng < 0) {
+    //     //     $(".successPw").text("영문,숫자 혼합하여 입력해주세요.");
+    //     //     $(".successPw").css("color", "red");
+    //     //     return false;
+    //     } else {
+    //         $(".successPw").text("유효한 비밀번호입니다.");
+    //         $(".successPw").css("color", "green");
+    //         return true;
+    //     }
+    // });
     //비밀번호 확인
     $("#passwordChk").blur(function () {
             if ($("#passwordChk").val() == $("#password").val()) {
@@ -279,7 +279,7 @@
         }
     );
     //최종 틍록하기 버튼 클릭시 각 부분별 입력값 맞는지 확인
-    $("#registButton").click(function () {
+    $("#registButton").submit(function () {
         console.log($("#pwDoubleChk").val() + $("#emailDoubleChk").val() + $("#certifiedDoubleChk").val() + $("#nicknameDoubleChk").val() + $("#name").val() != "");
 
         if ($("#pwDoubleChk").val() == "true" && $("#emailDoubleChk").val() == "true" && $("#certifiedDoubleChk").val() == "true" && $("#nicknameDoubleChk").val() == "true" && $("#name").val() != "") {
