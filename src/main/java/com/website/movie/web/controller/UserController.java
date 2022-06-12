@@ -55,7 +55,7 @@ public class UserController {
     // 마이페이지
     @GetMapping("/user/user")
     public String user() {
-        return "/user/authorithy/user";
+        return "/user/auth/user";
     }
 
     // 로그아웃 처리

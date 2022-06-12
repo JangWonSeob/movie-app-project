@@ -3,7 +3,7 @@
 <div th:fragment="movieNav" class="container">
   <header class="d-flex flex-wrap align-items-center justify-content-between py-3 mb-4 border-bottom">
     <a href="/">
-      <img src="/pub/img/logo.png" width="100px" height="40px">
+      <img src="/pub/img/logoWhite.png" width="100px" height="40px">
     </a>
 
     <ul class="nav">
@@ -14,10 +14,10 @@
 
     <div>
       <a href="/user/login">
-        <img src="/pub/img/login2.png" style="width: 40px; height: 40px;" sec:authorize="isAnonymous()" onclick="location.href='/user/login'">
+        <img src="/pub/img/login2White.png" style="width: 40px; height: 40px;" sec:authorize="isAnonymous()" onclick="location.href='/user/login'">
       </a>
       <a href="/user/logout">
-        <img src="/pub/img/logout2.png" style="width: 40px; height: 40px;" sec:authorize="isAuthenticated()" onclick="location.href='/user/logout'">
+        <img src="/pub/img/logout2White.png" style="width: 40px; height: 40px;" sec:authorize="isAuthenticated()" onclick="location.href='/user/logout'">
       </a>
       <!--            <button type="button" class="btn btn-outline-primary me-2">로그인</button>-->
     </div>
