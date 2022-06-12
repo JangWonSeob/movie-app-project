@@ -7,7 +7,8 @@
     div {
         position: static;
     }
-    body{
+
+    body {
         margin: 0 auto;
         width: 1200px;
     }
@@ -22,39 +23,40 @@
     <hr style="border: solid 1px gray" class="mb-3">
 
     <div class="row">
-        <p class="col-md-8" th:text="| 작성자: ${detail.regNm} / 작성일: ${#dates.format(detail.regDt, 'yyyy-MM-dd')}|">작성자 작성일</p>
+        <p class="col-md-8" th:text="| 작성자: ${detail.regNm} / 작성일: ${#dates.format(detail.regDt, 'yyyy-MM-dd')}|">작성자
+            작성일</p>
         <p class="col-md-2" th:text="| 조회수 ${detail.viewCount}|">조회수</p>
-<!--        <p class="col-md-2">댓글</p>-->
+        <!--        <p class="col-md-2">댓글</p>-->
     </div>
     <hr style="border: solid 1px gray" class="mb-3">
     <div>
-<!--        <div class="row">-->
-<!--            <div>-->
-<!--                <button class="btn btn-outline-dark w-30 float-end" type="button">수정</button>-->
-<!--                <button class="btn btn-outline-dark w-30 float-end" type="button">삭제</button>-->
-<!--            </div>-->
-<!--        </div>-->
-        <div class="row mb-5" th:utext="${detail.contents}" style="height: 500px; weight: 480px;">
+        <div class="row">
+            <div th:if="${writerId == loginUserId}">
+                <a th:href="@{/board/update/{id}(id=${detail.id})}" class="btn btn-outline-dark w-30 float-end"
+                   type="button">수정</a>
+                <button class="btn btn-outline-dark w-30 float-end" type="button">삭제</button>
+            </div>
         </div>
-<!--        <div class="row">-->
-<!--            <div class="mb-5 text-center">-->
-<!--                <button class="btn btn-outline-dark w-30" type="button">좋아요</button>-->
-<!--                <button class="btn btn-outline-dark w-30" type="button">싫어요</button>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="row" th:utext="${detail.contents}" style="min-height: 400px;">
+        </div>
+        <!--        <div class="row">-->
+        <!--            <div class="mb-5 text-center">-->
+        <!--                <button class="btn btn-outline-dark w-30" type="button">좋아요</button>-->
+        <!--                <button class="btn btn-outline-dark w-30" type="button">싫어요</button>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
     <hr style="border: solid 1px gray" class="mb-5">
 
-<!--    <p>#개의 댓글</p>-->
+    <p>#개의 댓글</p>
 
-<!--    <hr style="border: solid 1px gray" class="mb-3">-->
-<!--    <div style="justify-content: center">-->
-<!--        <input type="text" class="w-50 form-control" style="margin: auto;" placeholder="댓글을 입력해주세요."/>-->
-<!--        <div class="text-center" style="margin: auto;">-->
-<!--            <button type="button" class="btn btn-light w-30">확인</button>-->
-<!--        </div>-->
-<!--    </div>-->
-
+    <hr style="border: solid 1px gray" class="mb-3">
+    <div style="justify-content: center">
+        <input type="text" class="w-50 form-control" style="margin: auto;" placeholder="댓글을 입력해주세요."/>
+        <div class="text-center" style="margin: auto;">
+            <button type="button" class="btn btn-light w-30">확인</button>
+        </div>
+    </div>
 
 
 </div>

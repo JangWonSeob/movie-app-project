@@ -64,11 +64,12 @@ public class BoardController {
     @PostMapping("/board/write")
     public String boardWritePost(HttpServletRequest request) throws UnsupportedEncodingException {
         request.setCharacterEncoding("utf-8");
-
-        //null이 아니라면 int 인상황
-        int id = Integer.parseInt(request.getParameter("id"));
-        
-        
+        int id;
+        if (request.getParameter("id") == null) {
+            id = 0;
+        } else {
+            id = Integer.parseInt(request.getParameter("id"));
+        }
         String title = request.getParameter("title");
         String writer = request.getParameter("writer");
         String loginUserId = request.getParameter("loginUserId");
@@ -105,14 +106,19 @@ public class BoardController {
     }
 
     @GetMapping("/board/detail/{id}")
-    public String detail(Model model, BoardDto parameter) {
+    public String detail(@AuthenticationPrincipal UserDto user, Model model, BoardDto parameter) {
 
         BoardDto result = boardService.get(parameter);
         if (result == null) {
             return "redirect:/error";
         }
         boardService.viewCountUp(parameter);
+        System.out.println("result =="+ result);
+        System.out.println("getRegId() =="+ result.getRegId());
         model.addAttribute("detail", result);
+        model.addAttribute("writerId",result.getRegId());
+        model.addAttribute("loginUserId", user.getId());
+
         return "board/boardContents";
     }
 
