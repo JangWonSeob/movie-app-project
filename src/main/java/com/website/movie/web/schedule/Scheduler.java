@@ -12,7 +12,7 @@ public class Scheduler {
 
     private final MovieService movieService;
 
-//    @Scheduled(cron = "")
+//    @Scheduled(cron = "0 0 0 ? * 7")
 //    public void tmdb() {
 //        movieService.getTmdbMovieData();
 //    }
