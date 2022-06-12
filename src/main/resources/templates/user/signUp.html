@@ -26,7 +26,7 @@
                 <label class="col-sm-2 col-form-label" style="text-align: center">이메일주소</label>
                 <div class="col-sm-8" style="float:right">
                     <input type="email" name="email" class="form-control email_input" id="email"
-                           placeholder="이메일을 입력해주세요.">
+                           placeholder="이메일을 입력해주세요." required>
                 </div>
                 <div class="col-sm-2 d-grid gap-2 d-md-flex justify-content-center">
                     <button class="btn btn-primary me-md-2 doubleChk" type="button" id="emailChk">인증</button>
@@ -34,7 +34,7 @@
 
                 <!--                    <div id="authEmail" style="display: none;">-->
                 <div id="authEmail" style="display: none;">
-                    <input type="text" name="certified" class="form-control" id="certified" placeholder=" 인증번호 입력">
+                    <input type="text" name="certified" class="form-control" id="certified" placeholder=" 인증번호 입력" required>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="float:right;"
                          id="certifiedBut">
                         <span class="point successEmailChk">인증번호를 보내는 중 입니다.</span> <br>
@@ -48,7 +48,7 @@
             <div class="row mb-5">
                 <label class="col-sm-2 col-form-label" style="text-align: center"> 비밀번호</label>
                 <div class="col-sm-8">
-                    <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호 입력">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호 입력" minlength="8" maxlength="20">
                     <span class="point successPw"></span>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 <label class="col-sm-2 col-form-label" style="text-align: center">비밀번호 확인</label>
                 <div class="col-sm-8">
                     <input type="password" name="passwordChk" class="form-control" id="passwordChk"
-                           placeholder="비밀번호확인">
+                           placeholder="비밀번호확인" required  minlength="8" maxlength="20">
                     <span class="point successPwChk"></span>
                     <input type="hidden" id="pwDoubleChk"/><br>
                 </div>
@@ -64,14 +64,14 @@
             <div class="row mb-5">
                 <label class="col-sm-2 col-form-label" style="text-align: center">이름</label>
                 <div class="col-sm-8">
-                    <input type="text" id="name" name="name" class="form-control" placeholder="본명"><br>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="본명" required><br>
                 </div>
             </div>
 
             <div class="row mb-5">
                 <label class="col-sm-2 col-form-label" style="text-align: center">닉네임</label>
                 <div class="col-sm-8">
-                    <input type="text" id="nickname" name="nickname" class="form-control" placeholder="닉네임">
+                    <input type="text" id="nickname" name="nickname" class="form-control" placeholder="닉네임" required>
                     <div class="d-grid gap-2 d-md-flex" style="float:left">
                         <span class="point successNicknameChk">닉네임 입력후 중복확인 버튼을 눌러주세요.</span> <br>
                         <input type="hidden" id="nicknameDoubleChk"/><br>
@@ -177,29 +177,29 @@
     }
 
 
-    //비밀번호 유효성 검사
-    $("#password").blur(function () {
-        let pw = $("#password").val();
-        let num = pw.search(/[0-9]/g);
-        let eng = pw.search(/[a-z]/ig);
-        if (pw.length > 8 && pw.length < 20) {
-            $(".successPw").text("8자리 ~ 20자리 이내로 입력해주세요.");
-            $(".successPw").css("color", "red");
-            return false;
-        } else if (pw.search(/\s/) != -1) {
-            $(".successPw").text("비밀번호는 공백 없이 입력해주세요.");
-            $(".successPw").css("color", "red");
-            return false;
-        } else if (num < 0 || eng < 0) {
-            $(".successPw").text("영문,숫자 혼합하여 입력해주세요.");
-            $(".successPw").css("color", "red");
-            return false;
-        } else {
-            $(".successPw").text("유효한 비밀번호입니다.");
-            $(".successPw").css("color", "green");
-            return true;
-        }
-    });
+    // //비밀번호 유효성 검사
+    // $("#password").blur(function () {
+    //     let pw = $("#password").val();
+    //     // let num = pw.search(/[0-9]/g);
+    //     // let eng = pw.search(/[a-z]/ig);
+    //     if (pw.length > 8 && pw.length < 20) {
+    //         $(".successPw").text("8자리 ~ 20자리 이내로 입력해주세요.");
+    //         $(".successPw").css("color", "red");
+    //         return false;
+    //     // } else if (pw.search(/\s/) != -1) {
+    //     //     $(".successPw").text("비밀번호는 공백 없이 입력해주세요.");
+    //     //     $(".successPw").css("color", "red");
+    //     //     return false;
+    //     // } else if (num < 0 || eng < 0) {
+    //     //     $(".successPw").text("영문,숫자 혼합하여 입력해주세요.");
+    //     //     $(".successPw").css("color", "red");
+    //     //     return false;
+    //     } else {
+    //         $(".successPw").text("유효한 비밀번호입니다.");
+    //         $(".successPw").css("color", "green");
+    //         return true;
+    //     }
+    // });
     //비밀번호 확인
     $("#passwordChk").blur(function () {
             if ($("#passwordChk").val() == $("#password").val()) {
@@ -279,7 +279,7 @@
         }
     );
     //최종 틍록하기 버튼 클릭시 각 부분별 입력값 맞는지 확인
-    $("#registButton").click(function () {
+    $("#registButton").submit(function () {
         console.log($("#pwDoubleChk").val() + $("#emailDoubleChk").val() + $("#certifiedDoubleChk").val() + $("#nicknameDoubleChk").val() + $("#name").val() != "");
 
         if ($("#pwDoubleChk").val() == "true" && $("#emailDoubleChk").val() == "true" && $("#certifiedDoubleChk").val() == "true" && $("#nicknameDoubleChk").val() == "true" && $("#name").val() != "") {
