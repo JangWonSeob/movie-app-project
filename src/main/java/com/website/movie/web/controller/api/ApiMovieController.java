@@ -71,15 +71,4 @@ public class ApiMovieController {
         movieService.getTmdbMovieData();
     }
 
-    @PostMapping("/api/movie/provider.api")
-    public void getProviders() {
-        movieComponent.getProviders();
-    }
-
-    @PostMapping("/api/movie/detail.api")
-    public void getDetail() {
-        movieComponent.getMovieDetail("675353");
-    }
-
-
 }
