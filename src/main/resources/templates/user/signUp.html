@@ -182,7 +182,7 @@
         let pw = $("#password").val();
         let num = pw.search(/[0-9]/g);
         let eng = pw.search(/[a-z]/ig);
-        if (pw.length < 8 || pw.length > 20) {
+        if (pw.length > 8 && pw.length < 20) {
             $(".successPw").text("8자리 ~ 20자리 이내로 입력해주세요.");
             $(".successPw").css("color", "red");
             return false;
