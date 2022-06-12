@@ -22,13 +22,14 @@
         </div>
         <form action="/user/signUp" method="post">
             <div class="row mb-5">
-                <label class="col-sm-2 col-form-label">이메일주소</label>
-                <div class="col-sm-10" style="float:right">
+                <label class="col-sm-2 col-form-label" style="text-align: center">이메일주소</label>
+                <div class="col-sm-8" style="float:right">
                     <input type="email" name="email" class="form-control email_input" id="email" placeholder="이메일을 입력해주세요.">
 
                     <!--                <span class="emailOverlapNo" style="color: green; display: none;">사용 가능한 이메일입니다.</span>-->
                     <!--                <span class="emailOverlapYes" style="color: red; display: none;">이메일이 이미 존재합니다.</span>-->
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="float:right">
+                </div>
+                    <div class="col-sm-2 d-grid gap-2 d-md-flex justify-content-center">
                         <button class="btn btn-primary me-md-2 doubleChk" type="button" id="emailChk">인증</button>
                     </div>
 
@@ -45,17 +46,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
             <div class="row mb-5">
-                <label class="col-sm-2 col-form-label"> 비밀번호</label>
-                <div class="col-sm-10">
+                <label class="col-sm-2 col-form-label" style="text-align: center"> 비밀번호</label>
+                <div class="col-sm-8">
                     <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호 입력">
                     <span class="point successPw"></span>
                 </div>
             </div>
             <div class="row mb-5">
-                <label class="col-sm-2 col-form-label">비밀번호 확인</label>
-                <div class="col-sm-10">
+                <label class="col-sm-2 col-form-label" style="text-align: center">비밀번호 확인</label>
+                <div class="col-sm-8">
                     <input type="password" name="passwordChk" class="form-control" id="passwordChk"
                            placeholder="비밀번호확인">
                     <span class="point successPwChk"></span>
@@ -63,24 +63,28 @@
                 </div>
             </div>
             <div class="row mb-5">
-                <label class="col-sm-2 col-form-label">이름</label>
-                <div class="col-sm-10">
+                <label class="col-sm-2 col-form-label" style="text-align: center">이름</label>
+                <div class="col-sm-8">
                     <input type="text" id="name" name="name" class="form-control" placeholder="본명"><br>
                 </div>
             </div>
 
             <div class="row mb-5">
-                <label class="col-sm-2 col-form-label">닉네임</label>
-                <div class="col-sm-10">
+                <label class="col-sm-2 col-form-label" style="text-align: center">닉네임</label>
+                <div class="col-sm-8">
                     <input type="text" id="nickname" name="nickname" class="form-control" placeholder="닉네임">
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="float:right">
+                    <div class="d-grid gap-2 d-md-flex" style="float:left">
                         <span class="point successNicknameChk">닉네임 입력후 중복확인 버튼을 눌러주세요.</span> <br>
                         <input type="hidden" id="nicknameDoubleChk"/><br>
-                        <button onclick="fnNickCheck()" class="btn btn-primary me-md-2" type="button">중복확인</button>
                     </div>
                 </div>
+                    <div class="col-sm-2" style="text-align: center">
+                        <button onclick="fnNickCheck()" class="btn btn-primary me-md-2" type="button">중복확인</button>
+                    </div>
             </div>
-            <button class="w-30 btn btn-lg btn-primary" id="registButton" type="submit">회원가입</button>
+            <div class="row justify-content-center">
+                <button class="btn btn-lg btn-primary" id="registButton" type="submit" style="width: 130px; height: 50px;">회원가입</button>
+            </div>
         </form>
     </main>
 </div>
