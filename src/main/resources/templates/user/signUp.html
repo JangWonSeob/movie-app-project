@@ -33,9 +33,9 @@
             </div>
 
                 <!--                    <div id="authEmail" style="display: none;">-->
-                <div class="row mb-5">
+                <div id="authEmail" class="row mb-5" style="display: none;">
                     <label class="col-sm-2 col-form-label" style="text-align: center">인증번호 입력</label>
-                    <div id="authEmail" style="float: right" class="col-sm-8 ">
+                    <div  style="float: right" class="col-sm-8 ">
                         <input type="text" name="certified" class="form-control" id="certified" placeholder=" 인증번호 입력">
                         <div class="d-grid gap-2 d-md-flex" style="float:left;" id="certifiedBut">
                             <span class="point successEmailChk">인증번호를 보내는 중 입니다.</span> <br>
@@ -52,6 +52,7 @@
                 <div class="col-sm-8">
                     <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호 입력">
                     <span class="point successPw"></span>
+                    <input type="hidden" id="pwDoubleChk"/><br>
                 </div>
             </div>
             <div class="row mb-5">
@@ -59,7 +60,7 @@
                 <div class="col-sm-8">
                     <input type="password" name="passwordChk" class="form-control" id="passwordChk" placeholder="비밀번호확인">
                     <span class="point successPwChk"></span>
-                    <input type="hidden" id="pwDoubleChk"/><br>
+                    <input type="hidden" id="pwDoubleChk2"/><br>
                 </div>
             </div>
             <div class="row mb-5">
@@ -183,21 +184,25 @@
         let pw = $("#password").val();
         let num = pw.search(/[0-9]/g);
         let eng = pw.search(/[a-z]/ig);
-        if (pw.length > 8 && pw.length < 20) {
+        if (pw.length < 8 || pw.length > 20) {
             $(".successPw").text("8자리 ~ 20자리 이내로 입력해주세요.");
             $(".successPw").css("color", "red");
+            $("#pwDoubleChk").val("false");
             return false;
         } else if (pw.search(/\s/) != -1) {
             $(".successPw").text("비밀번호는 공백 없이 입력해주세요.");
             $(".successPw").css("color", "red");
+            $("#pwDoubleChk").val("false");
             return false;
         } else if (num < 0 || eng < 0) {
             $(".successPw").text("영문,숫자 혼합하여 입력해주세요.");
             $(".successPw").css("color", "red");
+            $("#pwDoubleChk").val("false");
             return false;
         } else {
             $(".successPw").text("유효한 비밀번호입니다.");
             $(".successPw").css("color", "green");
+            $("#pwDoubleChk").val("true");
             return true;
         }
     });
@@ -206,11 +211,11 @@
             if ($("#passwordChk").val() == $("#password").val()) {
                 $(".successPwChk").text("비밀번호가 일치합니다.");
                 $(".successPwChk").css("color", "green");
-                $("#pwDoubleChk").val("true");
+                $("#pwDoubleChk2").val("true");
             } else {
                 $(".successPwChk").text("비밀번호가 일치하지 않습니다.");
                 $(".successPwChk").css("color", "red");
-                $("#pwDoubleChk").val("false");
+                $("#pwDoubleChk2").val("false");
             }
         }
     );
@@ -283,7 +288,7 @@
     $("#registButton").click(function () {
         console.log($("#pwDoubleChk").val() + $("#emailDoubleChk").val() + $("#certifiedDoubleChk").val() + $("#nicknameDoubleChk").val() + $("#name").val() != "");
 
-        if ($("#pwDoubleChk").val() == "true" && $("#emailDoubleChk").val() == "true" && $("#certifiedDoubleChk").val() == "true" && $("#nicknameDoubleChk").val() == "true" && $("#name").val() != "") {
+        if ($("#pwDoubleChk").val() == "true" && $("#pwDoubleChk2").val() == "true" && $("#emailDoubleChk").val() == "true" && $("#certifiedDoubleChk").val() == "true" && $("#nicknameDoubleChk").val() == "true" && $("#name").val() != "") {
 
             let yesNo = confirm("회원가입을 완료하시겠습니까?");
             if (yesNo) {
@@ -291,7 +296,7 @@
             }
         } else {
             alert("회원가입을 완료할 수 없습니다. 다시한번 확인해주십시오.");
-            if ($("#pwDoubleChk").val() != "true") {
+            if ($("#pwDoubleChk2").val() != "true") {
                 $(".successPwChk").text("비밀번호가 일치하지 않습니다 :)");
                 $(".successPwChk").css("color", "red");
             }
