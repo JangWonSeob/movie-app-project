@@ -125,12 +125,17 @@ public class BoardController {
         if (result == null) {
             return "redirect:/error";
         }
+        int userId = 0;
+        if (user != null) {
+            userId = user.getId();
+        }
+
         boardService.viewCountUp(parameter);
         System.out.println("result =="+ result);
         System.out.println("getRegId() =="+ result.getRegId());
         model.addAttribute("detail", result);
         model.addAttribute("writerId",result.getRegId());
-        model.addAttribute("loginUserId", user.getId());
+        model.addAttribute("loginUserId",userId);
 
         return "board/boardContents";
     }
