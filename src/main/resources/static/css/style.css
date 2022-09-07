@@ -4,6 +4,7 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
+
 }
 
 @media (min-width: 768px) {
@@ -51,4 +52,23 @@
 
 .inactive {
   display: none;
+}
+
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'GmarketSansMedium';
+}
+
+footer {
+  position: relative;
+  padding: 29px 0;
+  border-top: 1px solid #ebebeb;
+  background-color: #B0E0E6;
+  margin-top:100px;
 }

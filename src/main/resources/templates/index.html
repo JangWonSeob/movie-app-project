@@ -19,7 +19,7 @@
 <div th:replace="/fragments/commonNav :: commonNav" style="color: white"></div>
 
 <div class="row mb-5" style="color: white">
-    <div class="col-md-12">
+    <div class="col-md-12" style="padding: 10px 0px 15px 0px">
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 w_title">
                 <div class="d-flex justify-content-between">
@@ -39,7 +39,7 @@
 </div>
 
 
-<div class="row mb-2">
+<div class="row mb-2" style="padding: 0px 0px 15px 0px">
     <div class="d-flex justify-content-between">
         <h3>
             <strong>금주 영화 순위</strong>
@@ -48,7 +48,7 @@
     </div>
 
 </div>
-<div class="row mb-5">
+<div class="row mb-5" style="padding: 0px 0px 15px 0px">
     <div class="col-lg-3" th:each="movie : ${movieList}">
         <a style="color: black" class="text-center text-decoration-none" th:href="@{/movie/detail/{id}(id=${movie.id})}">
             <div class="card" style="width: 18rem;">
@@ -60,9 +60,9 @@
 </div>
 
 <div class="row mb-2">
-    <div class="col-md-6">
+    <div class="col-md-6" style="padding: 0px 3px 12px 0px">
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4">
+            <div class="col p-4" style="padding: 0px 0px 5px 0px">
                 <div class="d-flex justify-content-between">
                     <h3>
                         <strong class="d-inline-block mb-2 text-black"># 영화리뷰</strong>
@@ -77,9 +77,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" style="padding: 0px 0px 12px 3px">
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4">
+            <div class="col p-4" style="padding: 0px 0px 5px 0px">
                 <div class="d-flex justify-content-between">
                     <h3>
                         <strong class="d-inline-block mb-2 text-black"># 자유</strong>
@@ -97,6 +97,21 @@
 </div>
 
 
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
+
+
+    <footer>
+        <nav>
+            <a href='https://cocoder.tistory.com' target='_blank'>Blog</a> |
+            <a href='https://github.com/cocoder16' target='_blank'>Github</a>
+        </nav>
+        <p>
+            <span>저자 : cocoder</span><br/>
+            <span>이메일 : cocoder16@gmail.com</span><br/>
+            <span>Copyright 2020. cocoder. All Rights Reserved.</span>
+        </p>
+    </footer>
+
 </html>
