@@ -77,7 +77,7 @@ public class ApiUserController {
         return authorityDao.selectByEmail(email);
     }
 
-    //email Check axios로 이용
+    //email Check 코드
     @PostMapping("/api/user/emailCheck.api")
     public int emailCheck(UserDto user) {
         int result = userService.emailCheck(user);

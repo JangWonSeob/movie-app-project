@@ -74,17 +74,12 @@
 
     function goWrite(frm) {
         var title = frm.title.value;
-        // var writer = frm.writer.value;
         var contents = frm.contents.value;
 
         if (title.trim() == '') {
             alert("제목을 입력해주세요");
             return false;
         }
-        // if (writer.trim() == '') {
-        //     alert("작성자를 입력해주세요");
-        //     return false;
-        // }
         if (contents.trim() == '') {
             alert("내용을 입력해주세요");
             return false;

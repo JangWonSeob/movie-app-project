@@ -59,18 +59,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDao.insert(user);
         authorityDao.insertAuthority(user);
     }
-    // Security 기본 메서드 나중에 로그인할때 입력 받는 값을 인자로 받아서 로그인했을때 과정을 처리해야함
+    // Security 기본 메서드 로그인 과정을 처리해줌
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.out.println("\n loadUserByUsername실행됨 \n");
         UserDto user = userDao.selectByEmail(email);
-        System.out.println("\n setAuthorities하기전 \n" + user);
         if(user==null) {
-            System.out.println("\n user==null \n");
             throw new UsernameNotFoundException(email);
         }
         user.setAuthorities(getAuthorities(email));
-        System.out.println("\n user \n" + user);
         return user;
     }
 

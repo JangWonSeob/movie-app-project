@@ -119,32 +119,21 @@
             data: {"email": $("#email").val()},
             success: function (data) {
                 if (data == 0) {
-                    // alert("사용 가능한 이메일입니다.")
-                    // var yesNo = confirm("이 이메일을 사용하시겠습니까?");
-                    // if (yesNo) {
                     $("#emailChk").css("display", "inline-block")
-                    // $("#email").attr("disabled", true);
                     $("#emailDoubleChk").val("true");
-                    // $("#emailChkBtn").css("display", "none")
                     emailOverlapResult = 0;
-                    console.log("if안에서 emailOverlapResutl" + emailOverlapResult);
                 } else if (data == 1) {
                     emailOverlapResult = 1;
-                    console.log("if안에서 emailOverlapResutl" + emailOverlapResult);
                     alert("중복된 이메일입니다.");
                 } else if (data == 2) {
                     emailOverlapResult = 1;
-                    console.log("if안에서 emailOverlapResutl" + emailOverlapResult);
-                    console.log("이메일을 입력해주세요");
                     alert("이메일을 입력해주세요.");
                 } else {
                     emailOverlapResult = 1;
-                    console.log("if안에서 emailOverlapResutl" + emailOverlapResult);
                     alert("유효하지 않은 이메일입니다.");
                 }
             }
         });
-        console.log("함수안에서 emailOverlapResutl" + emailOverlapResult);
         return emailOverlapResult;
     }
 
