@@ -8,8 +8,8 @@
     body{
         margin: 0 auto;
         width: 1200px;
-        background-color: white;
     }
+
 </style>
 <body>
 
@@ -18,7 +18,7 @@
 
 
 <div th:each="code : ${codeList}">
-        <div class="d-flex justify-content-between" style="color: black" >
+        <div class="d-flex justify-content-between" style="color: black; padding: 10px 0px 15px 0px"  >
             <h4 th:text="${code.movieTitle}"></h4>
             <a class="text-decoration-none" th:href="@{/movie/list(subId=${code.subId})}" style="color: black">+ 더보기</a>
         </div>
