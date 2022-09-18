@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="/fragments/head :: fragment-head"></div>
+
 </head>
 <style>
     div { position: static; }
@@ -10,10 +11,19 @@
         width: 1200px;
         background-color: #E1F6FA;
     }
-    footer{
-        margin: 0;
-        padding: 0;
+    footer {
+        color: white;
+        background: teal;
+        padding: 10px 0;
+        font-weight: bold;
     }
+    .wrapper {
+        max-width: 1200px;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+
     ul > a{
         text-decoration: none;
         color: black;
@@ -51,7 +61,6 @@
         </h3>
         <a href="/movie/main" style="color: black" class="text-center text-decoration-none"><strong>영화 소개로 이동하기</strong></a>
     </div>
-
 </div>
 <div class="row mb-5" style="padding: 0px 0px 15px 0px">
     <div class="col-lg-3" th:each="movie : ${movieList}">
@@ -102,21 +111,18 @@
 </div>
 
 
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
 
 
-    <footer>
-        <nav>
-            <a href='https://cocoder.tistory.com' target='_blank'>Blog</a> |
-            <a href='https://github.com/cocoder16' target='_blank'>Github</a>
-        </nav>
+<footer>
+    <div class="wrapper">
         <p>
-            <span>저자 : cocoder</span><br/>
-            <span>이메일 : cocoder16@gmail.com</span><br/>
+            <span>팀명 : 12수 2022</span><br/>
+            <span>팀원 : 장원섭 / 김민수 / 이수현</span><br/>
             <span>Copyright 2020. cocoder. All Rights Reserved.</span>
         </p>
-    </footer>
+    </div>
+</footer>
 
 </html>
