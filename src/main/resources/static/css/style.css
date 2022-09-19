@@ -72,3 +72,5 @@ footer {
   background-color: #B0E0E6;
   margin-top:100px;
 }
+
+@media (min-width: 768px) {}
