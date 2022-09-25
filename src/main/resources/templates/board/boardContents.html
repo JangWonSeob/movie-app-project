@@ -11,12 +11,14 @@
     body {
         margin: 0 auto;
         width: 1200px;
+        background-color: #E1F6FA;
     }
+
 </style>
 <body>
 <div th:replace="/fragments/commonNav :: commonNav"></div>
 <!-- 게시물 내용 출력 -->
-<div class="container" style="width: 60%">
+<div class="container1" style="width: 60%">
     <div class="row">
         <h3 class="col-md-10" th:text="| ${detail.title}|">제목</h3>
     </div>

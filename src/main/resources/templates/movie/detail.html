@@ -8,14 +8,21 @@
     body{
         margin: 0 auto;
         width: 1200px;
+        background-color: #E1F6FA;
+    }
+    .container1{
+        margin-right: 30px;
+        margin-left: 30px;
+        margin-top: 30px;
+        margin-bottom: 30px;
     }
 </style>
 <body>
 
 <div th:replace="/fragments/commonNav :: commonNav"></div>
 
-<div class="container">
-    <div style="width: 75%; margin: auto;">
+<div class="container1">
+    <div style="width: 85%; margin: auto; background-color: white">
 
         <div class=" d-flex justify-content-between">
             <div>
@@ -25,34 +32,34 @@
                     <span th:text="| ${#dates.format(movie.releaseDate, 'yyyy')}|"></span>
                 </div>
                 <hr style="border: none;height: 1px" class="mb-5">
-                <div>
+                <div class="mb-3">
                     <span><b>장르</b> </span>
                     <span th:text="${movie.genreNames}"></span>
                 </div>
-                <div>
+                <div class="mb-3">
                     <span><b>평점</b> </span>
                     <span th:text="${movie.voteAverage}"></span>
                 </div>
-                <div>
+                <div class="mb-3">
                     <span><b>성인 여부</b> </span>
                     <span th:if="${movie.isAdult()}">해당</span>
                     <span th:unless="${movie.isAdult()}">해당없음</span>
                 </div>
-                <div>
+                <div class="mb-3">
                     <span><b>개봉일</b> </span>
                     <span th:text="| ${#dates.format(movie.releaseDate, 'yyyy-MM-dd')}|"></span>
                 </div>
-                <div>
+                <div class="mb-3">
                     <span><b>상영시간</b> </span>
                     <span th:text="| ${movie.runtime} 분|"></span>
                 </div>
-                <div>
+                <div class="mb-3">
                     <div><b>구매</b> </div>
                     <span th:each="logo : ${movie.watchProvidersBuyList}">
                         <img style="width: 50px; height: 50px;" th:src="${logo.fullLogPath}">
                     </span>
                 </div>
-                <div>
+                <div class="mb-3">
                     <div><b>대여</b> </div>
                     <span th:each="logo : ${movie.watchProvidersRentList}">
                         <img style="width: 50px; height: 50px;" th:src="${logo.fullLogPath}">
