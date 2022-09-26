@@ -275,15 +275,14 @@
         }
     );
     //최종 틍록하기 버튼 클릭시 각 부분별 입력값 맞는지 확인
-    $("#registButton").click(function () {
+    $("#registButton").submit(function () {
         console.log($("#pwDoubleChk").val() + $("#emailDoubleChk").val() + $("#certifiedDoubleChk").val() + $("#nicknameDoubleChk").val() + $("#name").val() != "");
 
         if ($("#pwDoubleChk").val() == "true" && $("#pwDoubleChk2").val() == "true" && $("#emailDoubleChk").val() == "true" && $("#certifiedDoubleChk").val() == "true" && $("#nicknameDoubleChk").val() == "true" && $("#name").val() != "") {
-
-            let yesNo = confirm("회원가입을 완료하시겠습니까?");
-            if (yesNo) {
-                alert($('#nickname').val() + "님 환영합니다. :)");
+            if (!confirm("회원가입을 완료하시겠습니까?")) {
+                return false;
             }
+            alert($('#nickname').val() + "님 환영합니다. :)");
         } else {
             alert("회원가입을 완료할 수 없습니다. 다시한번 확인해주십시오.");
             if ($("#pwDoubleChk2").val() != "true") {
