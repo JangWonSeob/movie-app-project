@@ -69,8 +69,9 @@ footer {
   position: relative;
   padding: 29px 0;
   border-top: 1px solid #ebebeb;
-  background-color: #B0E0E6;
+  background-color: #e0e0e0;
   margin-top:100px;
+  margin-bottom: auto;
 }
 
 @media (min-width: 768px) {}

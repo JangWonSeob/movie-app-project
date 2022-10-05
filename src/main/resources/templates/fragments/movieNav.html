@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<div th:fragment="movieNav" class="container">
-  <header class="d-flex flex-wrap align-items-center justify-content-between py-3 mb-4 border-bottom">
-    <a href="/">
-      <img src="/pub/img/logo_transparent.png" width="100px" height="60px">
+<div th:fragment="movieNav" class="rounded" style="background-color: #FFDF65; text-alignt: center; width: 100%">
+  <header class="d-flex flex-wrap align-items-center py-3 mb-4 border-bottom justify-content-center justify-content-md-between">
+    <a href="/" style="padding-left: 30px">
+      <img src="/pub/img/low-res-logo.png" width="120px" height="60px">
     </a>
 
-    <ul class="nav">
-      <li><a href="/movie/main" class="nav-link px-2 link-secondary text-dark">영화소개</a></li>
-      <li><a href="/board/list" class="nav-link px-2 link-dark text-dark">커뮤니티</a></li>
+    <ul class="nav mb-3" style="color: white">
+        <li><a href="/movie/main" class="nav-link px-2 link-dark text-dark">영화소개</a></li>
+        <li><a href="/board/list" class="nav-link px-2 link-dark text-dark">커뮤니티</a></li>
 <!--      <li><a href="#" class="nav-link px-2 link-dark">마이페이지</a></li>-->
     </ul>
 
-    <div>
+    <div style="padding-right: 50px">
       <a href="/user/login">
-        <img src="/pub/img/login2White.png" style="width: 40px; height: 40px;" sec:authorize="isAnonymous()" onclick="location.href='/user/login'">
+        <img src="/pub/img/login2.png" style="width: 40px; height: 40px;" sec:authorize="isAnonymous()" onclick="location.href='/user/login'">
       </a>
       <a href="/user/logout">
-        <img src="/pub/img/logout2White.png" style="width: 40px; height: 40px;" sec:authorize="isAuthenticated()" onclick="location.href='/user/logout'">
+        <img src="/pub/img/logout2.png" style="width: 40px; height: 40px;" sec:authorize="isAuthenticated()" onclick="location.href='/user/logout'">
       </a>
       <!--            <button type="button" class="btn btn-outline-primary me-2">로그인</button>-->
     </div>
