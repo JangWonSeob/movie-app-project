@@ -8,39 +8,47 @@
     <select id="selectMyBookMark" resultType="boolean">
         SELECT COUNT(*) > 0
         FROM <include refid="TABLE"/> T1
-        WHERE T1.BOARD_ID = ${boardId} AND T1.USER_ID = ${loginUserId}
+        WHERE T1.TABLE_ID = ${tableId}
+        AND T1.TABLE_NAME = #{tableName}
+        AND T1.USER_ID = ${loginUserId}
     </select>
 
     <select id="selectListCount" resultType="int">
         SELECT COUNT(*)
         FROM <include refid="TABLE"/> T1
-        WHERE T1.BOARD_ID = ${boardId}
+        WHERE T1.TABLE_ID = ${tableId}
+        AND T1.TABLE_NAME = #{tableName}
     </select>
 
     <select id="selectOne" resultType="com.website.movie.biz.dto.BookMarkDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
-        WHERE T1.BOARD_ID = ${boardId} AND T1.USER_ID = ${loginUserId}
+        WHERE T1.TABLE_ID = ${tableId}
+        AND T1.TABLE_NAME = #{tableName}
+        AND T1.USER_ID = ${loginUserId}
         LIMIT 1
     </select>
 
     <insert id="insert">
         INSERT INTO <include refid="TABLE"/>
         (
-             USER_ID
-             , BOARD_ID
+        USER_ID
+        , TABLE_ID
+        , TABLE_NAME
         )
         VALUES
         (
-             #{loginUserId}
-             , #{boardId}
+        #{loginUserId}
+        , #{tableId}
+        , #{tableName}
         )
     </insert>
 
     <delete id="delete">
         DELETE
         FROM <include refid="TABLE"/>
-        WHERE BOARD_ID = #{boardId}
+        WHERE TABLE_ID = #{tableId}
+        AND TABLE_NAME = #{tableName}
         AND USER_ID = #{loginUserId}
     </delete>
 

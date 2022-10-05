@@ -3,9 +3,11 @@ package com.website.movie.web.controller;
 
 import com.website.movie.biz.dto.CodeDto;
 import com.website.movie.biz.dto.MovieDto;
+import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.service.CodeService;
 import com.website.movie.biz.service.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +51,11 @@ public class MovieController {
 
     // 영화 목록 페이지
     @GetMapping("/movie/detail/{id}")
-    public String detail(Model model, MovieDto parameter) {
+    public String detail(@AuthenticationPrincipal UserDto user, Model model, MovieDto parameter) {
+
+        if (user != null) {
+            parameter.setLoginUserId(user.getId());
+        }
 
         MovieDto result = movieService.get(parameter);
 

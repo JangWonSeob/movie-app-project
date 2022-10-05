@@ -16,6 +16,20 @@
         margin-top: 30px;
         margin-bottom: 30px;
     }
+
+    .youtube-wrap {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 */
+        padding-top: 25px;
+        height: 0;
+    }
+    .youtube-wrap iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 </style>
 <body>
 
@@ -31,6 +45,7 @@
                     <span th:text="|${movie.originalTitle},|"></span>
                     <span th:text="| ${#dates.format(movie.releaseDate, 'yyyy')}|"></span>
                 </div>
+                <button th:style="${movie.bookMarkYn ? 'background-color:yellow' : 'background-color:white'}" id="movie-bookmark">즐겨찾기</button>
                 <hr style="border: none;height: 1px" class="mb-5">
                 <div class="mb-3">
                     <span><b>장르</b> </span>
@@ -75,6 +90,9 @@
         <div class="mb-5">
             <div th:text="${movie.overview}"></div>
         </div>
+        <div class="youtube-wrap" th:each="youtube : ${movie.watchYoutubeList}">
+            <iframe width="100%" height="100%" th:src="${youtube.youtubeUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
 
     </div>
 
@@ -82,5 +100,5 @@
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-<!--<script th:src="@{/js/movie/movie.js(v=${#dates.createNow().getTime()})}"></script>-->
+<script th:src="@{/js/movie/detail.js(v=${#dates.createNow().getTime()})}"></script>
 </html>

@@ -1,16 +1,13 @@
 package com.website.movie.biz.service.impl;
 
 import com.website.movie.biz.component.MovieComponent;
-import com.website.movie.biz.dao.CodeDao;
-import com.website.movie.biz.dao.MovieDao;
-import com.website.movie.biz.dao.MovieWatchProviderDao;
-import com.website.movie.biz.dto.CodeDto;
-import com.website.movie.biz.dto.MovieDto;
-import com.website.movie.biz.dto.MovieWatchProvidersDto;
+import com.website.movie.biz.dao.*;
+import com.website.movie.biz.dto.*;
 import com.website.movie.biz.model.movie.MovieData;
 import com.website.movie.biz.model.movie.detail.MovieGenres;
 import com.website.movie.biz.model.movie.detail.MovieKrBuyRent;
 import com.website.movie.biz.model.movie.detail.MovieResultDetail;
+import com.website.movie.biz.model.movie.detail.MovieVideos;
 import com.website.movie.biz.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,8 +21,13 @@ public class MovieServiceImpl implements MovieService {
 
     private final MovieDao movieDao;
     private final MovieWatchProviderDao movieWatchProviderDao;
+    private final MovieYoutubeDao movieYoutubeDao;
     private final CodeDao codeDao;
+    private final BookMarkDao bookMarkDao;
+
+
     private final MovieComponent movieComponent;
+
 
     private void setGenre(List<MovieGenres> genreList, MovieDto parameter) {
 
@@ -75,6 +77,9 @@ public class MovieServiceImpl implements MovieService {
                 movieDao.delete(parameter);
                 // 공급자 삭제
                 movieWatchProviderDao.deleteByMovieId(MovieWatchProvidersDto.builder().movieId(parameter.getId()).build());
+                // YOUTUBE 삭제
+                movieYoutubeDao.deleteByMovieId(MovieYoutubeDto.builder().movieId(parameter.getId()).build());
+
                 // 장르 세팅
                 setGenre(movieDetail.getGenres(), parameter);
                 // 영화 추가
@@ -93,9 +98,18 @@ public class MovieServiceImpl implements MovieService {
                             movieWatchProviderDao.insert(MovieWatchProvidersDto.toDto(movieDetail.getId(), z, MovieWatchProvidersDto.TYPE_RENT));
                         }
                     }
-
                 }
 
+                int j = 1;
+                if (movieDetail.getVideos() != null && movieDetail.getVideos().getResults() != null
+                        && !movieDetail.getVideos().getResults().isEmpty()) {
+                    // YOUTUBE 추가
+                    for (MovieVideos y : movieDetail.getVideos().getResults()) {
+                        if ("YouTube".equals(y.getSite())) {
+                            movieYoutubeDao.insert(MovieYoutubeDto.toDto(y, movieDetail.getId(), j++));
+                        }
+                    }
+                }
             }
         }
     }
@@ -128,6 +142,13 @@ public class MovieServiceImpl implements MovieService {
         // rent
         watchProvidersDto.setSearchProviderType(MovieWatchProvidersDto.TYPE_RENT);
         result.setWatchProvidersRentList(movieWatchProviderDao.selectList(watchProvidersDto));
+
+        // YOUTUBE
+        result.setWatchYoutubeList(movieYoutubeDao.selectList(MovieYoutubeDto.builder().movieId(result.getId()).build()));
+
+        if (parameter.getLoginUserId() > 0) {
+            result.setBookMarkYn(bookMarkDao.selectMyBookMark(BookMarkDto.builder().tableId(result.getId()).tableName(BookMarkDto.TABLE_NAME_MOVIE).loginUserId(parameter.getLoginUserId()).build()));
+        }
 
         System.out.println(result);
 

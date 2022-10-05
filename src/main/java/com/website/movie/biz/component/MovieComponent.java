@@ -47,7 +47,7 @@ public class MovieComponent {
         MovieResultDetail result = new MovieResultDetail();
 
         try {
-            //      https://api.themoviedb.org/3/movie/popular?api_key={{api_key}}&language=ko-Kr&page=1
+            //      https://api.themoviedb.org/3/movie/popular?api_key={{api_key}}&language=ko-Kr&page=1&append_to_response=videos,images,watch/providers,credits
 
             String url = tmdbProperties.getMovieUrl() + id + "?";
             url += "api_key=" + tmdbProperties.getApiKey();

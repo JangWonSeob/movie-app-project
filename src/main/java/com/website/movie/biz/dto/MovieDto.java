@@ -47,6 +47,9 @@ public class MovieDto extends BaseDto {
     private List<MovieGenreDto> genreList;
     private List<MovieWatchProvidersDto> watchProvidersBuyList;
     private List<MovieWatchProvidersDto> watchProvidersRentList;
+    private List<MovieYoutubeDto> watchYoutubeList;
+
+    private boolean bookMarkYn;             // 즐겨찾기 여부
 
     // search
     private String searchGenre;

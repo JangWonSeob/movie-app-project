@@ -107,7 +107,7 @@ public class BoardController {
 
     @GetMapping("/board/delete/{id}")
     public String boardDelete(@AuthenticationPrincipal UserDto user, BoardDto parameter) throws UnsupportedEncodingException {
-        BoardDto board =boardService.get(parameter);
+        BoardDto board = boardService.get(parameter);
 
         if (user.getId() == board.getRegId()) {
             board.setLoginUserId(user.getId());
