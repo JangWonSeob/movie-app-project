@@ -9,15 +9,17 @@
     }
     body{
         margin: 0 auto;
-        width: 1200px;
-        background-color: #E1F6FA;
+        width: auto;
+        background-color: black;
     }
     .row{
         background-color: white;
     }
 </style>
-<body>
 <div th:replace="/fragments/commonNav :: commonNav"></div>
+
+<main style="margin: 0 auto; width: 75%">
+<body>
 <div class="main">
 <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
@@ -166,5 +168,6 @@
 </script>
 </div>
 </body>
+</main>
 <script th:src="@{/js/board/board.js(v=${#dates.createNow().getTime()})}"></script>
 </html>
