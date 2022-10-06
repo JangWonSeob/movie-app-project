@@ -28,11 +28,11 @@ public class ApiLikesController {
         parameter.setLoginUserId(user.getId());
 
 //        로그인 유저 추가 로직
-        parameter.setLoginUserId(1);
+//        parameter.setLoginUserId(1);
 
         boolean result = likesService.set(parameter);
 
-        if(!result) {
+        if (!result) {
             return JsonResult.fail(" 데이터 처리 중 문제가 발생하였습니다. ");
         }
 

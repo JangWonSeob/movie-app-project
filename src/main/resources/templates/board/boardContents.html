@@ -34,31 +34,32 @@
     <div>
         <div class="row">
             <div th:if="${writerId == loginUserId}">
-                <a th:href="@{/board/update/{id}(id=${detail.id})}" class="btn btn-outline-dark w-30 float-end" type="button">수정</a>
+                <a th:href="@{/board/update/{id}(id=${detail.id})}" class="btn btn-outline-dark w-30 float-end"
+                   type="button">수정</a>
                 <a th:href="@{/board/delete/{id}(id=${detail.id})}" onclick="return confirm('이 글을 정말 삭제하시겠습니까?')"
-                class="btn btn-outline-dark w-30 float-end" type="button">삭제</a>
+                   class="btn btn-outline-dark w-30 float-end" type="button">삭제</a>
             </div>
         </div>
         <div class="row" th:utext="${detail.contents}" style="min-height: 400px;">
         </div>
-        <!--        <div class="row">-->
-        <!--            <div class="mb-5 text-center">-->
-        <!--                <button class="btn btn-outline-dark w-30" type="button">좋아요</button>-->
-        <!--                <button class="btn btn-outline-dark w-30" type="button">싫어요</button>-->
-        <!--            </div>-->
-        <!--        </div>-->
+        <div class="row">
+            <div class="mb-5 text-center">
+                <button class="btn btn-outline-dark w-30" id="board-like" type="button">좋아요</button>
+                <button class="btn btn-outline-dark w-30" id="board-unlike" type="button">싫어요</button>
+            </div>
+        </div>
     </div>
     <hr style="border: solid 1px gray" class="mb-5">
 
-<!--    <p>#개의 댓글</p>-->
+    <!--    <p>#개의 댓글</p>-->
 
-<!--    <hr style="border: solid 1px gray" class="mb-3">-->
-<!--    <div style="justify-content: center">-->
-<!--        <input type="text" class="w-50 form-control" style="margin: auto;" placeholder="댓글을 입력해주세요."/>-->
-<!--        <div class="text-center" style="margin: auto;">-->
-<!--            <button type="button" class="btn btn-light w-30">확인</button>-->
-<!--        </div>-->
-<!--    </div>-->
+    <!--    <hr style="border: solid 1px gray" class="mb-3">-->
+    <!--    <div style="justify-content: center">-->
+    <!--        <input type="text" class="w-50 form-control" style="margin: auto;" placeholder="댓글을 입력해주세요."/>-->
+    <!--        <div class="text-center" style="margin: auto;">-->
+    <!--            <button type="button" class="btn btn-light w-30">확인</button>-->
+    <!--        </div>-->
+    <!--    </div>-->
 
 
 </div>

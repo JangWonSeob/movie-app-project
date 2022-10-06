@@ -60,9 +60,10 @@ public class BoardServiceImpl implements BoardService {
             result.setMyBookMark(bookMarkDao.selectMyBookMark(BookMarkDto.builder().tableId(String.valueOf(result.getId())).tableName(BookMarkDto.TABLE_NAME_BOARD).loginUserId(parameter.getLoginUserId()).build()));
         }
         // 좋아요 갯수
+        //
         result.setLikeTotalCount(likesDao.selectListCount(LikesDto.builder().boardId(result.getId()).build()));
         // 싫어요 갯수
-        result.setUnlikeTotalCount(unlikesDao.selectListCount(UnlikesDto.builder().boardId(result.getId()).build()));
+//        result.setUnlikeTotalCount(unlikesDao.selectListCount(UnlikesDto.builder().boardId(result.getId()).build()));
 
         return result;
     }
