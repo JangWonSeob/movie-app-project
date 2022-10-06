@@ -45,54 +45,54 @@ var getGenre = function () {
     }
 }
 
-var getList = function() {
-    const url = '/api/movie/gets.api';
-    const param = {
-        pageIndex: PAGE_INDEX,
-        pageSize: PAGE_SIZE,
-        searchGenre: SEARCH_GENRE,
-    };
-
-    API_CALL.post(url, param, function (result, message, data) {
-        if(!result) {
-            alert(message);
-            return false;
-        }
-        let movieList = data.list || [];
-        TOTAL_COUNT = data.totalCount || 0;
-
-        for (let i = 0; i < movieList.length; i++) {
-
-            // <div className="col-lg-2">
-            //     <div className="card" style="width: 15rem;">
-            //         <!--                    <img src="test/test.png" class="card-img-top" alt="...">-->
-            //     </div>
-            //     <div>제목</div>
-            // </div>
-
-            // <div th:each="movie : ${code.movieList}" className="col-lg-2">
-            //     <a th:href="@{/movie/detail/{id}(id=${movie.id})}">
-            //         <div className="card" style="width: 15rem;">
-            //             <img th:src="${movie.fullPosterPath}" className="card-img-top" alt="...">
-            //         </div>
-            //         <div style="color: white" th:text="${movie.title}"></div>
-            //     </a>
-            // </div>
-
-            let append = '';
-            append += '<div class="col-lg-2">';
-            append += '<a href=" /movie/detail/' + movieList[i].id + ' ">';
-            append += '<div class="card" style="width: 15rem;">';
-            append += '<img src=" ' + movieList[i].fullPosterPath +  ' " class="card-img-top" alt="...">';
-            append += '</div>';
-            append += '<div>' + movieList[i].title + '</div>';
-            append += '</a>';
-            append += '</div>';
-
-            $('#movieList').append(append);
-        }
-    })
-}
+// var getList = function() {
+//     const url = '/api/movie/gets.api';
+//     const param = {
+//         pageIndex: PAGE_INDEX,
+//         pageSize: PAGE_SIZE,
+//         searchGenre: SEARCH_GENRE,
+//     };
+//
+//     API_CALL.post(url, param, function (result, message, data) {
+//         if(!result) {
+//             alert(message);
+//             return false;
+//         }
+//         let movieList = data.list || [];
+//         TOTAL_COUNT = data.totalCount || 0;
+//
+//         for (let i = 0; i < movieList.length; i++) {
+//
+//             // <div className="col-lg-2">
+//             //     <div className="card" style="width: 15rem;">
+//             //         <!--                    <img src="test/test.png" class="card-img-top" alt="...">-->
+//             //     </div>
+//             //     <div>제목</div>
+//             // </div>
+//
+//             // <div th:each="movie : ${code.movieList}" className="col-lg-2">
+//             //     <a th:href="@{/movie/detail/{id}(id=${movie.id})}">
+//             //         <div className="card" style="width: 15rem;">
+//             //             <img th:src="${movie.fullPosterPath}" className="card-img-top" alt="...">
+//             //         </div>
+//             //         <div style="color: white" th:text="${movie.title}"></div>
+//             //     </a>
+//             // </div>
+//
+//             let append = '';
+//             append += '<div class="col-lg-2">';
+//             append += '<a href=" /movie/detail/' + movieList[i].id + ' ">';
+//             append += '<div class="card" style="width: 15rem;">';
+//             append += '<img src=" ' + movieList[i].fullPosterPath +  ' " class="card-img-top" alt="...">';
+//             append += '</div>';
+//             append += '<div>' + movieList[i].title + '</div>';
+//             append += '</a>';
+//             append += '</div>';
+//
+//             $('#movieList').append(append);
+//         }
+//     })
+// }
 
 $(function(){
     getGenre();
