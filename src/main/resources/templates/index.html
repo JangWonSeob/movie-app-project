@@ -48,7 +48,7 @@
             <div class="col-lg-3" th:each="movie : ${movieList}">
                 <a style="color: black" class="text-center text-decoration-none" th:href="@{/movie/detail/{id}(id=${movie.id})}">
                     <div style="width: 18rem; display: block; margin: auto;">
-                        <img th:src="${movie.fullPosterPath}" style="width: 200px;" class="card-img-top" alt="...">
+                        <img th:src="${movie.fullPosterPath}" class="card-img-top" alt="...">
                     </div>
                     <div th:text="${movie.title}"></div>
                 </a>
