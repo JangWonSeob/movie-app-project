@@ -1,15 +1,11 @@
 package com.website.movie.common.util;
 
-
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
-/**
- * PagerUtils 클래스
- */
 @Data
 @Component
 public class PagerUtils {
