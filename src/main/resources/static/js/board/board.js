@@ -45,9 +45,11 @@ var setBookMark = function() {
         console.log(data);
         // 원하는 색깔을 넣어주세요.
         if (data.bookMarkYn) {
-            $('#board-bookmark').css('background-color', 'yellow');
+            $('#board-bookmark').css('background-color', 'black');
+            $('#board-bookmark').css('color', 'white');
         } else {
             $('#board-bookmark').css('background-color', 'white');
+            $('#board-bookmark').css('color', 'black');
         }
     })
 }
