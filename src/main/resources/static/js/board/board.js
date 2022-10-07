@@ -5,12 +5,42 @@ let SEARCH_GENRE = '';
 let LIST = [];
 let TOTAL_COUNT = 0;
 
+// BOARD_ID
+// http://localhost:8080/board/detail/118
+// split('/')[3] == 118
+const BOARD_ID = location.pathname.split('/')[3];
+
 var setLikes = function() {
     const url = '/api/likes/set.api';
 
+    const param = {
+        boardId: BOARD_ID,
+    };
+
+    console.log("boardId",BOARD_ID)
+
+    API_CALL.post(url, param, function (result, message, data) {
+        if(!result) {
+            alert(message);
+            return false;
+        }
+        console.log(data);
+        // 원하는 색깔을 넣어주세요.
+        if (data.bookMarkYn) {
+            $('#board-like').css('background-color', 'black');
+            $('#board-like').css('color', 'white');
+        } else {
+            $('#board-like').css('background-color', 'white');
+            $('#board-like').css('color', 'black');
+        }
+    })
+}
+
+var setUnlikes = function() {
+    const url = '/api/likes/set.api';
 
     const param = {
-        tableId: MOVIE_ID
+        boardId: BOARD_ID
     };
 
     API_CALL.post(url, param, function (result, message, data) {
@@ -19,18 +49,18 @@ var setLikes = function() {
             return false;
         }
         console.log(data);
+        // 원하는 색깔을 넣어주세요.
         if (data.bookMarkYn) {
-            $('#movie-bookmark').css('background-color', 'yellow');
+            $('#board-bookmark').css('background-color', 'black');
+            $('#board-bookmark').css('color', 'white');
         } else {
-            $('#movie-bookmark').css('background-color', 'white');
+            $('#board-bookmark').css('background-color', 'white');
+            $('#board-bookmark').css('color', 'black');
         }
     })
 }
 
-// BOARD_ID
-// http://localhost:8080/board/detail/118
-// split('/')[3] == 118
-const BOARD_ID = location.pathname.split('/')[3];
+
 var setBookMark = function() {
     const url = '/api/book-mark/board/set.api';
     console.log(BOARD_ID);
@@ -53,7 +83,6 @@ var setBookMark = function() {
         }
     })
 }
-
 
 var getGenre = function () {
 
