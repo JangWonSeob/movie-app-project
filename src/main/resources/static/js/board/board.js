@@ -27,6 +27,30 @@ var setLikes = function() {
     })
 }
 
+// BOARD_ID
+// http://localhost:8080/board/detail/118
+// split('/')[3] == 118
+const BOARD_ID = location.pathname.split('/')[3];
+var setBookMark = function() {
+    const url = '/api/book-mark/board/set.api';
+    console.log(BOARD_ID);
+    const param = {
+        tableId: BOARD_ID
+    };
+    API_CALL.post(url, param, function (result, message, data) {
+        if(!result) {
+            alert(message);
+            return false;
+        }
+        console.log(data);
+        // 원하는 색깔을 넣어주세요.
+        if (data.bookMarkYn) {
+            $('#board-bookmark').css('background-color', 'yellow');
+        } else {
+            $('#board-bookmark').css('background-color', 'white');
+        }
+    })
+}
 
 
 var getGenre = function () {
@@ -93,10 +117,9 @@ var getGenre = function () {
 //         }
 //     })
 // }
-
 $(function(){
     getGenre();
-    getList();
+    // getList();
 
     $('#moreList').on('click', function () {
         PAGE_INDEX += 1;
@@ -112,6 +135,9 @@ $(function(){
     //원하는 html id와 axios 함수 연결
     $('#board-like').on('click', function () {
         setLikes();
+    })
+    $('#board-bookmark').on('click', function () {
+        setBookMark();
     })
 
     // $('#board-unlike').on('click', function () {
