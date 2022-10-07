@@ -26,7 +26,7 @@ var setLikes = function() {
         }
         console.log(data);
         // 원하는 색깔을 넣어주세요.
-        if (data.bookMarkYn) {
+        if (data.likesYn) {
             $('#board-like').css('background-color', 'black');
             $('#board-like').css('color', 'white');
         } else {
@@ -37,7 +37,7 @@ var setLikes = function() {
 }
 
 var setUnlikes = function() {
-    const url = '/api/likes/set.api';
+    const url = '/api/unlikes/set.api';
 
     const param = {
         boardId: BOARD_ID
@@ -50,7 +50,7 @@ var setUnlikes = function() {
         }
         console.log(data);
         // 원하는 색깔을 넣어주세요.
-        if (data.bookMarkYn) {
+        if (data.unLikesYn) {
             $('#board-bookmark').css('background-color', 'black');
             $('#board-bookmark').css('color', 'white');
         } else {
@@ -167,13 +167,16 @@ $(function(){
     $('#board-like').on('click', function () {
         setLikes();
     })
+
+    $('#board-unlike').on('click', function () {
+        setUnlikes();
+    })
+
     $('#board-bookmark').on('click', function () {
         setBookMark();
     })
 
-    // $('#board-unlike').on('click', function () {
-    //     setUnlikes();
-    // })
+
 
 });
 

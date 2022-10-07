@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 @RestController
 @RequiredArgsConstructor
 public class ApiUnlikesController {
@@ -24,15 +26,13 @@ public class ApiUnlikesController {
         if (user == null) {
             return JsonResult.fail("접근 권한이 없습니다.");
         }
-
         parameter.setLoginUserId(user.getId());
 
-        boolean result = unlikesService.set(parameter);
+        boolean unLikesYn = unlikesService.set(parameter);
 
-        if(!result) {
-            return JsonResult.fail(" 데이터 처리 중 문제가 발생하였습니다. ");
-        }
+        HashMap<String, Boolean> result = new HashMap<>();
+        result.put("unLikesYn", unLikesYn);
 
-        return JsonResult.success();
+        return JsonResult.success(result);
     }
 }

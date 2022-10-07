@@ -15,20 +15,18 @@ public class BookMarkServiceImpl implements BookMarkService {
     @Override
     public boolean set(BookMarkDto parameter) {
 
+        boolean result = false;
+
         BookMarkDto bookMarkDto = bookMarkDao.selectOne(parameter);
 
-        int affected;
-
         if(bookMarkDto == null) {
-            affected = bookMarkDao.insert(parameter);
-            return true;
+            bookMarkDao.insert(parameter);
+            result = true;
         } else {
-            affected = bookMarkDao.delete(parameter);
-            return false;
+            bookMarkDao.delete(parameter);
         }
-//        if (affected < 1) {
-//        }
 
+        return result;
     }
 
 
