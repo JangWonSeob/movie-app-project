@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -98,10 +100,20 @@ public class UserController {
         return "/user/pwFind";
     }
 
+    @PostMapping("/user/pwFind")
+    public String pwFindResetPost(HttpServletRequest request) throws UnsupportedEncodingException {
+        request.setCharacterEncoding("utf-8");
+
+        request.getParameter("email");
+
+        return "/user/pwFindReset";
+    }
+
     @GetMapping("/user/pwFindReset")
     public String pwFindReset() {
         return "/user/pwFindReset";
     }
+
 
     @GetMapping("/user/signUp")
     public String signUp() {
