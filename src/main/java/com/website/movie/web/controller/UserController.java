@@ -30,6 +30,8 @@ public class UserController {
         authorities.add(new SimpleGrantedAuthority("USER"));
         user.setAuthorities(authorities);
         userService.createUser(user);
+
+
         return "redirect:/user/login";
     }
 
@@ -101,13 +103,32 @@ public class UserController {
     }
 
     @PostMapping("/user/pwFind")
-    public String pwFindResetPost(HttpServletRequest request) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("utf-8");
+    public String pwFindResetPost(UserDto user) {
 
-        request.getParameter("email");
+        System.out.println("user=");
+        System.out.println(user);
 
-        return "/user/pwFindReset";
+        userService.updatePassword(user);
+
+
+        return "redirect:/user/login";
     }
+
+//    @PostMapping("/user/pwFind")
+//    public String pwFindResetPost(HttpServletRequest request, UserDto user) throws UnsupportedEncodingException {
+//        request.setCharacterEncoding("utf-8");
+//
+//        request.getParameter("email");
+//        request.getParameter("password");
+//
+//
+//        userService.updateUser(user);
+//
+//        System.out.println("user=");
+//        System.out.println(user);
+//
+//        return "redirect:/user/login";
+//    }
 
     @GetMapping("/user/pwFindReset")
     public String pwFindReset() {

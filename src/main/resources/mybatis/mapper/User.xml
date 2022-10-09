@@ -92,9 +92,9 @@
 
     <!--비밀번호변경-->
     <update id="updatePassword">
-        UPDATE FROM <include refid="TABLE"/>
+        UPDATE <include refid="TABLE"/>
         SET PASSWORD = #{password}
-        WHERE id = #{id}
+        WHERE EMAIL = #{email}
     </update>
 
 
