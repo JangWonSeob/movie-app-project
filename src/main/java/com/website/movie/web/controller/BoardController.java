@@ -216,4 +216,9 @@ public class BoardController {
         return "/board/noticeList";
     }
 
+    @GetMapping("/board/mypage")
+    public String mypage() {
+        return "/board/mypage";
+    }
+
 }
