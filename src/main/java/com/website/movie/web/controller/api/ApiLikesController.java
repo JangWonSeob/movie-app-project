@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 @RestController
 @RequiredArgsConstructor
 public class ApiLikesController {
@@ -24,18 +26,13 @@ public class ApiLikesController {
         if (user == null) {
             return JsonResult.fail("접근 권한이 없습니다.");
         }
-
         parameter.setLoginUserId(user.getId());
 
-//        로그인 유저 추가 로직
-        parameter.setLoginUserId(1);
+        boolean likesYn = likesService.set(parameter);
 
-        boolean result = likesService.set(parameter);
+        HashMap<String, Boolean> result = new HashMap<>();
+        result.put("likesYn", likesYn);
 
-        if(!result) {
-            return JsonResult.fail(" 데이터 처리 중 문제가 발생하였습니다. ");
-        }
-
-        return JsonResult.success();
+        return JsonResult.success(result);
     }
 }

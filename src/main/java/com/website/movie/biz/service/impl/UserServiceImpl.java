@@ -113,4 +113,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return result;
     }
 
+    @Override
+    public int updatePassword(UserDto user) {
+//        int result = userDao.
+
+        String rawPassword = user.getPassword();
+        String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
+        user.setPassword(encodedPassword);
+        int result = userDao.updatePassword(user);
+
+        return result;
+    }
+
+
 }

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -28,6 +30,8 @@ public class UserController {
         authorities.add(new SimpleGrantedAuthority("USER"));
         user.setAuthorities(authorities);
         userService.createUser(user);
+
+
         return "redirect:/user/login";
     }
 
@@ -98,10 +102,39 @@ public class UserController {
         return "/user/pwFind";
     }
 
+    @PostMapping("/user/pwFind")
+    public String pwFindResetPost(UserDto user) {
+
+        System.out.println("user=");
+        System.out.println(user);
+
+        userService.updatePassword(user);
+
+
+        return "redirect:/user/login";
+    }
+
+//    @PostMapping("/user/pwFind")
+//    public String pwFindResetPost(HttpServletRequest request, UserDto user) throws UnsupportedEncodingException {
+//        request.setCharacterEncoding("utf-8");
+//
+//        request.getParameter("email");
+//        request.getParameter("password");
+//
+//
+//        userService.updateUser(user);
+//
+//        System.out.println("user=");
+//        System.out.println(user);
+//
+//        return "redirect:/user/login";
+//    }
+
     @GetMapping("/user/pwFindReset")
     public String pwFindReset() {
         return "/user/pwFindReset";
     }
+
 
     @GetMapping("/user/signUp")
     public String signUp() {

@@ -8,7 +8,9 @@ public interface LikesDao {
 
     int insert(LikesDto parameter);
     int delete(LikesDto parameter);
+
     LikesDto selectOne(LikesDto parameter);
+    LikesDto selectOneByBoardIdAndUserID(LikesDto parameter);
 
     int selectListCount(LikesDto parameter);
 

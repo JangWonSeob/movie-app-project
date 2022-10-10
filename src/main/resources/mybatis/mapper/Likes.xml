@@ -24,6 +24,14 @@
         LIMIT 1
     </select>
 
+    <select id="selectOneByBoardIdAndUserID" resultType="com.website.movie.biz.dto.LikesDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE T1.BOARD_ID = ${boardId} AND T1.USER_ID = ${loginUserId}
+        ORDER BY ID DESC
+        LIMIT 1
+    </select>
+
     <insert id="insert">
         INSERT INTO <include refid="TABLE"/>
         (

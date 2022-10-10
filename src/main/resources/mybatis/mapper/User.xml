@@ -90,6 +90,12 @@
         WHERE NICKNAME = #{nickname}
     </select>
 
+    <!--비밀번호변경-->
+    <update id="updatePassword">
+        UPDATE <include refid="TABLE"/>
+        SET PASSWORD = #{password}
+        WHERE EMAIL = #{email}
+    </update>
 
 
 </mapper>

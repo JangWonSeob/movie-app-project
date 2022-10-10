@@ -19,27 +19,28 @@ public class UnlikesServiceImpl implements UnlikesService {
     @Override
     public boolean set(UnlikesDto parameter) {
 
-        LikesDto likes = likesDao.selectOne(LikesDto.builder().boardId(parameter.getBoardId()).loginUserId(parameter.getLoginUserId()).build());
-        UnlikesDto unlikes = unlikesDao.selectOne(parameter);
+        boolean result = false;
 
-        int affected;
+        LikesDto likes = likesDao.selectOneByBoardIdAndUserID(LikesDto.builder().boardId(parameter.getBoardId()).loginUserId(parameter.getLoginUserId()).build());
+        UnlikesDto unlikes = unlikesDao.selectOneByBoardIdAndUserID(parameter);
+
 
         if(unlikes == null) {
             // 싫어요가 없으면
             if(likes != null) {
                 // 좋아요가 있으면
+                likes.setLoginUserId(parameter.getLoginUserId());
                 likesDao.delete(likes);
             }
-            affected =unlikesDao.insert(parameter);
+            unlikesDao.insert(parameter);
+            result = true;
         } else {
             // 싫어요가 있으면
-            affected =unlikesDao.delete(unlikes);
+            unlikes.setLoginUserId(parameter.getLoginUserId());
+            unlikesDao.delete(unlikes);
         }
 
-        if (affected < 1) {
-            return false;
-        }
-        return true;
+        return result;
     }
 
 

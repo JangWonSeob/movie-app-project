@@ -15,4 +15,8 @@ public class LikesDto extends BaseDto {
     private int userId;
     private int boardId;
 
+    // 민수
+    private boolean likeYn;             // 좋아요 여부
+
+
 }

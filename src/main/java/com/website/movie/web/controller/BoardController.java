@@ -131,8 +131,8 @@ public class BoardController {
         }
 
         boardService.viewCountUp(parameter);
-        System.out.println("result =="+ result);
-        System.out.println("getRegId() =="+ result.getRegId());
+//        System.out.println("result =="+ result);
+//        System.out.println("getRegId() =="+ result.getRegId());
         model.addAttribute("detail", result);
         model.addAttribute("writerId",result.getRegId());
         model.addAttribute("loginUserId",userId);

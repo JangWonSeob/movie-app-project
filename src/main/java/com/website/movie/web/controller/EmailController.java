@@ -14,7 +14,7 @@ public class EmailController {
 
     private final JavaMailSender mailSender;
 
-    @GetMapping("/mailCheck")
+    @GetMapping(value = {"/mailCheck" , "/password/mailCheck"})
     @ResponseBody
     public String mailCheck(@RequestParam("email") String email) throws Exception{
         System.out.println("\n mailCheck \n"+ email);

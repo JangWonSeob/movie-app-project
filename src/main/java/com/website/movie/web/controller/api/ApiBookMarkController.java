@@ -32,13 +32,22 @@ public class ApiBookMarkController {
 
         parameter.setLoginUserId(user.getId());
 
+        System.out.println("bookmark parameter.getLoginUserId()");
+        System.out.println(parameter.getLoginUserId());
+
 //        로그인 유저 추가 로직
 //        parameter.setLoginUserId();
+        System.out.println("BookMark parameter");
+        System.out.println(parameter);
 
         parameter.setTableName(BookMarkDto.TABLE_NAME_BOARD);
-        boolean bookMarkYn = bookMarkService. set(parameter);
+        boolean bookMarkYn = bookMarkService.set(parameter);
         HashMap<String, Boolean> result = new HashMap<>();
         result.put("bookMarkYn", bookMarkYn);
+
+        System.out.println("BookMark parameter");
+        System.out.println(parameter);
+
         return JsonResult.success(result);
     }
 

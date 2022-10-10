@@ -15,4 +15,5 @@ public interface UserDao {
     //존재하면 1 존재하지 않으면 0
     int emailCheck(UserDto user);
     int nicknameCheck(UserDto user);
+    int updatePassword(UserDto user);
 }
