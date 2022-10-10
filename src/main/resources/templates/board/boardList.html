@@ -12,18 +12,24 @@
         width: auto;
         background-color: black;
     }
-    .row{
-        background-color: white;
+    td_a:link{
+        color: black;
     }
+    td_a:visited{
+        color: purple;
+    }
+    td_a:hover{
+        color: blue;
+    }
+
 </style>
 <div th:replace="/fragments/commonNav :: commonNav"></div>
 
-<main style="margin: 0 auto; width: 75%">
+<main style="margin: 0 auto; width: 75%; padding-top: 50px">
 <body>
-<div class="main">
 <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: #e0e0e0">
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
             <span>영화관련</span>
         </h6>
         <ul class="nav flex-column mb-2">
@@ -79,7 +85,7 @@
             </li>
         </ul>
     </nav>
-    <div class="row col-md-9 col-lg-10 p-4 mb-4 text-black ">
+    <div class="row col-md-9 col-lg-10 p-4 text-black" style="background-color: white">
         <div>
             <h2 th:text="${boardTitle}"></h2>
             <div class="px-3 d-flex justify-content-between">
@@ -116,21 +122,21 @@
                 </div>
             </div>
             <hr style="border: solid 1px black;">
-            <table class="table table-striped">
+            <table class="table table-striped" style="text-align: center">
                 <thead>
                 <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>등록일</th>
-                    <th>글쓴이</th>
+                    <th style="width: 5%">번호</th>
+                    <th style="width: 60%">제목</th>
+                    <th style="width: 20%">등록일</th>
+                    <th style="width: 15%">글쓴이</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:if="${totalCount > 0}" th:each="board : ${boardList}">
-                    <td th:text="${board.boardNo}">번호</td>
-                    <td><a class="text-decoration-none" th:href="@{/board/detail/{id}(id=${board.id})}" th:text="${board.title}" style="color: black">제목</a></td>
-                    <td th:text="${#dates.format(board.regDt, 'yyyy-MM-dd HH:mm:ss')}">등록일</td>
-                    <td th:text="${board.regNm}">글쓴이</td>
+                    <td th:text="${board.boardNo}" style="width: 5%">번호</td>
+                    <td><a class="text-decoration-none" th:href="@{/board/detail/{id}(id=${board.id})}" th:text="${board.title} "style="color: black; width: 60%">제목</a></td>
+                    <td th:text="${#dates.format(board.regDt, 'yyyy-MM-dd HH:mm:ss')}" style="width: 20%">등록일</td>
+                    <td th:text="${board.regNm}" style="width: 15%">글쓴이</td>
                 </tr>
                 <tr th:unless="${totalCount > 0}">
                     <td class="text-center" colspan="4">검색결과가 없습니다.</td>
@@ -140,10 +146,9 @@
             <hr style="border: solid 1px black;">
             <a sec:authorize="isAuthenticated()" href="/board/write" class="btn btn-primary float-end" type="button">글쓰기</a>
         </div>
+        <div th:utext="${pager}" style="padding-bottom: 20px"></div>
     </div>
 </div>
-
-<div th:utext="${pager}"></div>
 
 </div>
 <script>

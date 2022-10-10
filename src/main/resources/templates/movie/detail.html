@@ -31,6 +31,10 @@
         width: 100%;
         height: 60%;
     }
+    .swiper {
+        width: 600px;
+        height: 300px;
+    }
 </style>
 
 <div th:replace="/fragments/commonNav :: commonNav"></div>
@@ -88,11 +92,13 @@
         </div>
         <br>
         <hr style="border: solid 1px gray" class="mb-5">
-        <h3 class="mb-3">줄거리</h3>
-        <div class="mb-5" style="padding-left: 5px">
+        <h3 class="mb-3" style="padding: 50px 5px 0px 70px">줄거리</h3>
+        <div class="mb-5" style="padding: 5px 70px 0px 70px">
             <div th:text="${movie.overview}"></div>
         </div>
-        <h3 class="mb-3">동영상</h3>
+        <h3 class="mb-3" style="padding: 25px 70px 0px 70px">동영상</h3>
+
+
         <div class="row">
             <div class="youtube-wrap col-md-6" th:each="youtube : ${movie.watchYoutubeList}" >
                 <iframe width="100%" height="100%" th:src="${youtube.youtubeUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
