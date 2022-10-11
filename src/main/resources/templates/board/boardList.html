@@ -28,7 +28,7 @@
 <main style="margin: 0 auto; width: 75%; padding-top: 50px">
 <body>
 <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: #e0e0e0">
+    <nav id="sidebarMenu" class="col-md-2 col-lg-1 d-md-block sidebar collapse" style="background-color: #e0e0e0; height: 75%;">
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
             <span>영화관련</span>
         </h6>
@@ -49,6 +49,8 @@
                 </a>
             </li>
         </ul>
+        <hr style="border: solid 1px gray" class="mb-3">
+
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
             <span>커뮤니티</span>
         </h6>
@@ -64,6 +66,8 @@
                 </a>
             </li>
         </ul>
+        <hr style="border: solid 1px gray" class="mb-3">
+
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
             <span>극장</span>
         </h6>
@@ -85,6 +89,7 @@
             </li>
         </ul>
     </nav>
+    <div class="col-md-auto"> </div>
     <div class="row col-md-9 col-lg-10 p-4 text-black" style="background-color: white">
         <div>
             <h2 th:text="${boardTitle}"></h2>
