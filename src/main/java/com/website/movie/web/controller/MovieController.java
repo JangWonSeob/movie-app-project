@@ -53,10 +53,6 @@ public class MovieController {
     @GetMapping("/movie/detail/{id}")
     public String detail(@AuthenticationPrincipal UserDto user, Model model, MovieDto parameter) {
 
-        if (user != null) {
-            parameter.setLoginUserId(user.getId());
-        }
-
         MovieDto result = movieService.get(parameter);
 
         if (result == null) {
@@ -64,6 +60,7 @@ public class MovieController {
         }
 
         model.addAttribute("movie", result);
+        model.addAttribute("loginYn", user != null);
 
         return "movie/detail";
     }

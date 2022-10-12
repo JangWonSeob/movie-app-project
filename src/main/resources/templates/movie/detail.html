@@ -40,9 +40,9 @@
 <div th:replace="/fragments/commonNav :: commonNav"></div>
 
 <main style="margin: 0 auto; width: 75%">
-<body>
+    <body>
 
-<div class="container1 rounded  " style="background-color: white; padding: 30px 50px 0px 50px" >
+    <div class="container1 rounded  " style="background-color: white; padding: 30px 50px 0px 50px" >
         <div class=" d-flex justify-content-between" style="padding: 50px 70px 0px 70px" >
             <div>
                 <h2 th:text="${movie.title}"></h2>
@@ -105,11 +105,34 @@
             </div>
         </div>
 
+        <hr/>
+        <div>
+            <h3>댓글</h3>
+            <div th:if="${loginYn}">
+                <textarea style="height: 10%; width: 90%" id="comment_contents" ></textarea>
+                <button id="comment_set">등록</button>
+            </div>
+        </div>
+
+
+<!--        <div class="pager">-->
+<!--            <a @click="goPageIndex(mxPage.firstPageIndex)" :disabled="mxIsFirstPageIndex" href="javascript:;" class="btn_first"></a>-->
+<!--            <a @click="goPageIndex(mxPage.prevPageIndex)" :disabled="mxIsPrevPageIndex" href="javascript:;" class="btn_prev"></a>-->
+<!--            <a v-for="(x, index) in mxPageRange" :disabled="search.pageIndex == x" :key="index" v-text="x" @click="goPageIndex(x)" href="javascript:;" :class="{ 'on': mxPage.pageIndex == x}">1</a>-->
+<!--            <a @click="goPageIndex(mxPage.nextPageIndex)" :disabled="mxIsNextPageIndex" href="javascript:;" class="btn_next"></a>-->
+<!--            <a @click="goPageIndex(mxPage.finalPageIndex)" :disabled="mxIsFinalPageIndex" href="javascript:;" class="btn_last"></a>-->
+<!--        </div>-->
+
+
+        <nav id="pager" aria-label="Page navigation example">
+
+        </nav>
+
     </div>
 
 
-</div>
-</body>
+    </div>
+    </body>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 <script th:src="@{/js/movie/detail.js(v=${#dates.createNow().getTime()})}"></script>

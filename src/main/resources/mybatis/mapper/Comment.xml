@@ -54,7 +54,8 @@
         (
             REG_DT
             , REG_ID
-            , BOARD_ID
+            , TABLE_NAME
+            , TABLE_ID
             , COMMENT_ID
             , CONTENTS
         )
@@ -62,7 +63,8 @@
         (
             NOW()
             , #{loginUserId}
-            , #{boardId}
+            , #{tableName}
+            , #{tableId}
             , #{commentId}
             , #{contents}
         )

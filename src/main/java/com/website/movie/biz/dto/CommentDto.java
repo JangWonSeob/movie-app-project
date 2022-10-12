@@ -1,6 +1,5 @@
 package com.website.movie.biz.dto;
 
-import com.website.movie.biz.model.input.CommentInputModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,23 +11,16 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class CommentDto extends BaseDto {
 
+    public static final String TABLE_NAME_BOARD = "board";
+    public static final String TABLE_NAME_MOVIE = "movie";
+
     private int id;
     private int userId;
-    private int boardId;
+    private String tableName;
+    private int tableId;
     private int commentId;
     private String contents;
 
     private int childCommentCount;
 
-
-    public static CommentDto toDto(CommentInputModel model) {
-
-        return CommentDto.builder()
-                .id(model.getId())
-                .boardId(model.getBoardId())
-                .commentId(model.getCommentId())
-                .contents(model.getContents())
-                .loginUserId(model.getLoginUserId())
-                .build();
-    }
 }

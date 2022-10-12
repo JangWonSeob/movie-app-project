@@ -1,6 +1,7 @@
 if (typeof (movie) == 'undefined') { movie = {}; }
 if (typeof (movie.app) == 'undefined') { movie.app = {}; }
 if (typeof (movie.app.project) == 'undefined') { movie.app.project = {}; }
+if (typeof (movie.app.project.api) == 'undefined') { movie.app.project.api = {}; }
 
 
 (function (_context_) {
@@ -37,8 +38,8 @@ if (typeof (movie.app.project) == 'undefined') { movie.app.project = {}; }
     };
 
 
-})(movie.app.project);
+})(movie.app.project.api);
 
 
 if (typeof (API_CALL) == 'undefined') { API_CALL = {}; }
-API_CALL = movie.app.project;
+API_CALL = movie.app.project.api;
