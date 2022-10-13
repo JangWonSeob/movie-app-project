@@ -4,18 +4,18 @@ if (typeof (movie.app.project) == 'undefined') { movie.app.project = {}; }
 if (typeof (movie.app.project.pager) == 'undefined') { movie.app.project.pager = {}; }
 
 //     <ul className="pagination justify-content-center">
-//         <li className="page-item"><a className="page-link" href="#">이전</a></li>
-//         <li className="page-item"><a className="page-link" href="#">1</a></li>
-//         <li className="page-item"><a className="page-link" href="#">2</a></li>
-//         <li className="page-item"><a className="page-link" href="#">3</a></li>
-//         <li className="page-item"><a className="page-link" href="#">4</a></li>
-//         <li className="page-item"><a className="page-link" href="#">5</a></li>
-//         <li className="page-item"><a className="page-link" href="#">6</a></li>
-//         <li className="page-item"><a className="page-link" href="#">7</a></li>
-//         <li className="page-item"><a className="page-link" href="#">8</a></li>
-//         <li className="page-item"><a className="page-link" href="#">9</a></li>
-//         <li className="page-item"><a className="page-link" href="#">10</a></li>
-//         <li className="page-item"><a className="page-link" href="#">다음</a></li>
+//         <li className="page-item"><a className="page-link" href="javascript:;">이전</a></li>
+//         <li className="page-item"><a className="page-link" href="javascript:;">1</a></li>
+//         <li className="page-item"><a className="page-link" href="javascript:;">2</a></li>
+//         <li className="page-item"><a className="page-link" href="javascript:;">3</a></li>
+//         <li className="page-item"><a className="page-link" href="javascript:;">4</a></li>
+//         <li className="page-item"><a className="page-link" href="javascript:;">5</a></li>
+//         <li className="page-item"><a className="page-link" href="javascript:;">6</a></li>
+//         <li className="page-item"><a className="page-link" href="javascript:;">7</a></li>
+//         <li className="page-item"><a className="page-link" href="javascript:;">8</a></li>
+//         <li className="page-item"><a className="page-link" href="javascript:;">9</a></li>
+//         <li className="page-item"><a className="page-link" href="javascript:;">10</a></li>
+//         <li className="page-item"><a className="page-link" href="javascript:;">다음</a></li>
 //     </ul>
 
 
@@ -62,28 +62,23 @@ if (typeof (movie.app.project.pager) == 'undefined') { movie.app.project.pager =
         }
 
 
-    // <div class="pager">
-    //     <a @click="goPageIndex(mxPage.firstPageIndex)" :disabled="mxIsFirstPageIndex" href="javascript:;" class="btn_first"></a>
-    //     <a @click="goPageIndex(mxPage.prevPageIndex)" :disabled="mxIsPrevPageIndex" href="javascript:;" class="btn_prev"></a>
-    //     <a v-for="(x, index) in mxPageRange" :disabled="search.pageIndex == x" :key="index" v-text="x" @click="goPageIndex(x)" href="javascript:;" :class="{ 'on': mxPage.pageIndex == x}">1</a>
-    //     <a @click="goPageIndex(mxPage.nextPageIndex)" :disabled="mxIsNextPageIndex" href="javascript:;" class="btn_next"></a>
-    //     <a @click="goPageIndex(mxPage.finalPageIndex)" :disabled="mxIsFinalPageIndex" href="javascript:;" class="btn_last"></a>
-    // </div>
-
-
         const _pager = $('#pager');
 
         _pager.empty();
 
         let _html = '';
-        _html += '<ul className="pagination justify-content-center">';
-        _html += '<li className="page-item"><a className="page-link" href="#">이전</a></li>';
+        _html += '<ul class="pagination justify-content-center">';
+        _html += '<li class="page-item"><a class="page-link" href="javascript:;" onclick="onClickPageIndex(' + _prevPageIndex + ')">이전</a></li>';
 
         _list.forEach(function (i) {
-            _html += '<li className="page-item"><a className="page-link" href="#">' + i + '</a></li>';
+            if (_pageIndex === i) {
+                _html += '<li class="page-item active"><a class="page-link" href="javascript:;" onclick="onClickPageIndex(' + i + ')">' + i + '</a></li>';
+            } else {
+                _html += '<li class="page-item"><a class="page-link" href="javascript:;" onclick="onClickPageIndex(' + i + ')">' + i + '</a></li>';
+            }
         })
 
-        _html += '<li className="page-item"><a className="page-link" href="#">다음</a></li>';
+        _html += '<li class="page-item"><a class="page-link" href="javascript:;" onclick="onClickPageIndex(' + _nextPageIndex + ')">다음</a></li>';
         _html += '</ul>';
 
         console.log(_html);

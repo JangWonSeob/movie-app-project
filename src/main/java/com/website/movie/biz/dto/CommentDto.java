@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -22,5 +25,17 @@ public class CommentDto extends BaseDto {
     private String contents;
 
     private int childCommentCount;
+
+    private String regNickname;
+
+    public String getRegDtText() {
+        String result = "";
+
+        if (regDt != null) {
+            SimpleDateFormat simpleDateFormat =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA);
+            result = simpleDateFormat.format(regDt);
+        }
+        return result;
+    }
 
 }

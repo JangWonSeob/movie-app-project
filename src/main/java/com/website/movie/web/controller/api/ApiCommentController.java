@@ -87,6 +87,7 @@ public class ApiCommentController {
 
         parameter.initPage();
 
+        parameter.setTableName(CommentDto.TABLE_NAME_MOVIE);
         List<CommentDto> list = commentService.gets(parameter);
         int totalCount = commentService.totalCount(parameter);
 

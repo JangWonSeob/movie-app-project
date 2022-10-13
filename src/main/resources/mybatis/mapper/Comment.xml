@@ -14,7 +14,6 @@
             <choose>
                 <when test="searchType eq 'PARENTS'">
                     AND COMMENT_ID <![CDATA[ < ]]> 1
-
                 </when>
                 <when test="searchType eq 'CHILD'">
                     AND COMMENT_ID <![CDATA[ > ]]> 0
@@ -25,17 +24,20 @@
 
 	<select id="selectList" resultType="com.website.movie.biz.dto.CommentDto">
         SELECT T1.*
-        , (SELECT COUNT(*) FROM <include refid="TABLE"/> T2 WHERE COMMENT_ID <![CDATA[ > ]]> 0 AND T1.ID = T2.COMMENT_ID ) as CHILD_COMMENT_COUNT
+        , (SELECT COUNT(*) FROM <include refid="TABLE"/> T2 WHERE T1.ID = T2.COMMENT_ID) as CHILD_COMMENT_COUNT
+        , (SELECT NICKNAME FROM USER U WHERE U.ID = T1.REG_ID) AS REG_NICKNAME
         FROM <include refid="TABLE"/> T1
-        WHERE T1.BOARD_ID = #{boardId}
+        WHERE T1.TABLE_ID = #{tableId} AND T1.TABLE_NAME = #{tableName}
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
+        ORDER BY T1.ID DESC
+        LIMIT #{startIndex}, #{pageSize}
     </select>
 
     <select id="selectListCount" resultType="int">
         SELECT COUNT(*)
         FROM <include refid="TABLE"/> T1
-        WHERE T1.BOARD_ID = #{boardId}
+        WHERE T1.TABLE_ID = #{tableId} AND T1.TABLE_NAME = #{tableName}
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
     </select>
@@ -72,8 +74,7 @@
 
     <update id="update">
         UPDATE <include refid="TABLE"/>
-        SET
-        UDT_DT = NOW()
+        SET UDT_DT = NOW()
         , UDT_ID = #{loginUserId}
         , CONTENTS = #{contents}
         WHERE ID = #{id}

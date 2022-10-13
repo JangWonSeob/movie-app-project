@@ -1,17 +1,56 @@
 const MOVIE_ID = location.pathname.split('/')[3];
 
-var setBookMark = function() {
+var onClickPageIndex = function (pageIndex) {
+    getCommentList(pageIndex);
+}
+
+var getCommentList = function (pageIndex) {
+    const url = '/api/comment/movie/gets.api';
+
+    const param = {
+        tableId: MOVIE_ID,
+        pageIndex: pageIndex
+    };
+
+    API_CALL.post(url, param, function (result, message, data) {
+        if (!result) {
+            alert(message);
+            return false;
+        }
+        console.log(data);
+        drawingCommentList(data.list, data.totalCount, pageIndex);
+    })
+}
+
+var drawingCommentList = function (list, totalCount, pageIndex) {
+    const $comments = $('#comment_list');
+
+    $comments.empty();
+
+    let html = '';
+
+    list.forEach(function (comment) {
+        html += '<div style="margin: 0px 0px;">';
+        html += '   <div style="display: flex; justify-content: space-between"><b>' + comment.regNickname + '</b><span>' + comment.regDtText + '</span></div>';
+        html += '   <div style="margin: 5px 0px">' + comment.contents.replaceAll("\n", "<br/>") + '</div>';
+        html += '</div>';
+        html += '<hr/>';
+    })
+
+    $comments.append(html);
+
+    drawIngPager(totalCount, pageIndex);
+}
+
+var setBookMark = function () {
     const url = '/api/book-mark/movie/set.api';
-
-    console.log(MOVIE_ID);
-
 
     const param = {
         tableId: MOVIE_ID
     };
 
     API_CALL.post(url, param, function (result, message, data) {
-        if(!result) {
+        if (!result) {
             alert(message);
             return false;
         }
@@ -24,7 +63,7 @@ var setBookMark = function() {
     })
 }
 
-var setComment = function(commentId) {
+var setComment = function (commentId) {
     const url = '/api/comment/movie/set.api';
 
     const contents = $('#comment_contents').val() || '';
@@ -33,8 +72,9 @@ var setComment = function(commentId) {
         return false;
     }
 
-    console.log(MOVIE_ID);
-    console.log(contents);
+    if (!confirm(' 댓글을 등록하시겠습니까? ')) {
+        return false;
+    }
 
     const param = {
         tableId: MOVIE_ID,
@@ -43,7 +83,7 @@ var setComment = function(commentId) {
     };
 
     API_CALL.post(url, param, function (result, message, data) {
-        if(!result) {
+        if (!result) {
             alert(message);
             return false;
         }
@@ -52,14 +92,23 @@ var setComment = function(commentId) {
     })
 }
 
-var drawIngPager = function () {
+var notLoginContents = function () {
+    if (!confirm('로그인 후 이용해주세요.\n' +
+                '로그인 페이지로 이동하시겠습니까?')) {
+        return false;
+    }
 
-    PAGER.drawingPager(50, 1);
+    location.href = '/user/login';
+}
+
+var drawIngPager = function (totalCount, pageIndex) {
+
+    PAGER.drawingPager(totalCount, pageIndex);
 
 }
 
-$(function(){
-    drawIngPager();
+$(function () {
+    getCommentList(1);
 
     $('#movie-bookmark').on('click', function () {
         setBookMark();
@@ -67,5 +116,9 @@ $(function(){
 
     $('#comment_set').on('click', function () {
         setComment(0);
+    })
+
+    $('#not_login_contents').on('click', function () {
+        notLoginContents();
     })
 });

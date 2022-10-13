@@ -108,10 +108,17 @@
         <hr/>
         <div>
             <h3>댓글</h3>
-            <div th:if="${loginYn}">
-                <textarea style="height: 10%; width: 90%" id="comment_contents" ></textarea>
-                <button id="comment_set">등록</button>
+            <hr/>
+            <div id="comment_list"></div>
+            <div th:if="${loginYn}" style="display: flex; justify-content: space-between">
+                <textarea style="height: 15%; width: 100%" id="comment_contents" placeholder="댓글을 입력해주세요."></textarea>
+                <button style="min-width: 50px" id="comment_set">등록</button>
             </div>
+            <div th:if="${!loginYn}" style="display: flex; justify-content: space-between">
+                <textarea style="height: 15%; width: 100%;" id="not_login_contents" readonly>로그인 후 이용해주세요.</textarea>
+                <button style="min-width: 50px">등록</button>
+            </div>
+            <br/>
         </div>
 
 
