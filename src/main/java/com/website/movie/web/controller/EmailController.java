@@ -16,13 +16,19 @@ public class EmailController {
 
     @GetMapping(value = {"/mailCheck" , "/password/mailCheck"})
     @ResponseBody
-    public String mailCheck(@RequestParam("email") String email) throws Exception{
+    public String mailCheck(@RequestParam("email") String email, @RequestParam("page") String page) throws Exception{
         System.out.println("\n mailCheck \n"+ email);
         int serti = (int)((Math.random()*(99999 - 10000 + 1)) + 10000);
         String from = "project.movieweb@gmail.com";
         //보내는 이 메일주소
         String to = email;
-        String title = "회원가입시 필요한 인증번호 입니다.";
+        String title = "";
+        if (page.equals("pwFind")) {
+            title = "비밀번호 변경시 필요한 인증번호 입니다.";
+        }
+        else { // page.equals("signUp")
+            title = "회원가입시 필요한 인증번호 입니다.";
+        }
         String content = "[인증번호] "+ serti +" 입니다. <br/> 인증번호 확인란에 기입해주십시오.";
         String num = "";
 //        if (중복된 이메일 존재하면) {num = "overlapError"}  else {정상수행}

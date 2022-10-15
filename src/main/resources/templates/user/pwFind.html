@@ -85,7 +85,7 @@
         if (yesNo) {
             $.ajax({
                 type: "GET",
-                url: "/password/mailCheck?email=" + email,
+                url: "/password/mailCheck?email=" + email + "&" + "page=pwFind",
                 cache: false,
                 success: function (data) {
 
