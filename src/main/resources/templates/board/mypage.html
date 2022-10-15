@@ -52,7 +52,7 @@
             <img src="/pub/img/user.png" style="width: 150px; height: 150px; float: right; margin: 0 auto">
           </div>
           <div class="col-md-10 col-lg-8" style="text-align: center">
-            <h2>예시 : 눈누난나 님</h2>
+            <h2 th:text="${user.getNickname()}">사용자닉네임</h2>
           </div>
         </div>
         <div style="margin: 30px 30px">
@@ -61,7 +61,7 @@
             <p>이름</p>
           </div>
           <div class="col-md-8 col-lg-7">
-            <p>이수현</p>
+            <p th:text="${user.getName()}">사용자이름</p>
           </div>
         </div>
         <div class="row mb-3">
@@ -69,7 +69,7 @@
             <p>이메일 주소</p>
           </div>
           <div class="col-md-8 col-lg-7">
-            <p>test@gmail.com</p>
+            <p th:text="${user.getEmail()}">test1234@gmail.com</p>
           </div>
         </div>
         <div class="row mb-3">
@@ -77,7 +77,7 @@
             <p>비밀번호</p>
           </div>
           <div class="col-md-6 col-lg-5" style="padding-left: 5px">
-            <p>**************</p>
+            <p>***********</p>
           </div>
           <div class="col-md-2 col-lg-2">
             <button type="button" class="btn btn-primary w-30" style="margin-top : 15px; display: block; margin: 0 auto; float: left">변경</button>
