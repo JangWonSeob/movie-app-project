@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <div th:replace="/fragments/head :: fragment-head"></div>
 </head>
@@ -60,7 +60,7 @@
         <p>#개의 댓글</p>
 
         <hr style="border: solid 1px gray" class="mb-3">
-        <div style="justify-content: center">
+        <div sec:authorize="isAuthenticated()" style="justify-content: center">
             <input type="text" class="w-50 form-control" style="margin: auto;" placeholder="댓글을 입력해주세요."/>
             <div class="text-center" style="margin: auto;">
                 <button type="button" class="btn btn-primary w-30" style="margin-top : 15px">등록</button>
