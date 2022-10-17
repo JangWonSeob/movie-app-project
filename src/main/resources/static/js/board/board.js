@@ -26,11 +26,15 @@ var setLikes = function() {
         }
         console.log(data);
         // 원하는 색깔을 넣어주세요.
-        if (data.likesYn) {
+        // 누르기전 기본색은 css나 부트스트랩으로 하시면 됩니다.
+        if (data.likesYn) { // like눌렀을때
+            //배경색
             $('#board-like').css('background-color', 'black');
+            //글씨색
             $('#board-like').css('color', 'white');
         } else {
             $('#board-like').css('background-color', 'white');
+            // $('#board-like').css('background-color', 'white');
             $('#board-like').css('color', 'black');
         }
     })
@@ -51,11 +55,11 @@ var setUnlikes = function() {
         console.log(data);
         // 원하는 색깔을 넣어주세요.
         if (data.unLikesYn) {
-            $('#board-bookmark').css('background-color', 'black');
-            $('#board-bookmark').css('color', 'white');
+            $('#board-unlike').css('background-color', 'black');
+            $('#board-unlike').css('color', 'white');
         } else {
-            $('#board-bookmark').css('background-color', 'white');
-            $('#board-bookmark').css('color', 'black');
+            $('#board-unlike').css('background-color', 'white');
+            $('#board-unlike').css('color', 'black');
         }
     })
 }

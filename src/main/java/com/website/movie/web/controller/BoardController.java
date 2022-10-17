@@ -217,7 +217,10 @@ public class BoardController {
     }
 
     @GetMapping("/board/mypage")
-    public String mypage() {
+    public String mypage(@AuthenticationPrincipal UserDto user, Model model) {
+
+        model.addAttribute("user",user);
+
         return "/board/mypage";
     }
 
