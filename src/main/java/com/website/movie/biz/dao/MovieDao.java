@@ -13,6 +13,7 @@ public interface MovieDao {
     int delete(MovieDto parameter);
 
     List<MovieDto> index();
+    List<MovieDto> index2();
 
     MovieDto selectOne(MovieDto parameter);
 

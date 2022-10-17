@@ -22,6 +22,7 @@ public class IndexController {
 
         model.addAttribute("boardList",boardService.index(parameter));
         model.addAttribute("movieList",movieService.index());
+        model.addAttribute("tvList",movieService.index2());
         parameter.setSearchCategory("영화리뷰");
         model.addAttribute("movieBoardList",boardService.index(parameter));
         parameter.setSearchCategory("자유");
