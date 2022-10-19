@@ -185,6 +185,7 @@ public class BoardController {
         model.addAttribute("boardTitle", parameter.getSearchCategory());
         model.addAttribute("boardList", list);
         model.addAttribute("totalCount", totalCount);
+        // TODO: 페이징 처리
         final PagerUtils pagerUtils = new PagerUtils(parameter.getPageIndex(), parameter.getPageSize(), totalCount);
         this.getSearchParam(parameter);
         final String pager = pagerUtils.printFrontPager("");
