@@ -16,7 +16,7 @@
 </style>
 <div th:replace="/fragments/commonNav :: commonNav"></div>
 
-<main style="width: 75%; margin: 0 auto">
+<main style="width: 50%; margin: 0 auto">
 <body>
 <div class="d-md-block bg-light rounded" style="padding: 30px 15px 15px 15px;">
 <div class="container">
@@ -50,24 +50,54 @@
                     </div>
                 </div>
             </div>
-            <div class="row mb-5" id="passwordDisplay" style="display: none;">
-                <label class="col-sm-2 col-form-label">새 비밀번호</label>
-                <div class="col-sm-10">
-                    <input type="password" name="password" id="password" class="form-control"
-                           placeholder="비밀번호 입력">
-                    <span class="point successPw"></span>
-                </div>
-            </div>
-            <div class="row mb-5" id="passwordChkDisplay" style="display: none;">
-                <label class="col-sm-2 col-form-label">비밀번호 확인</label>
-                <div class="col-sm-10">
-                    <input type="password" name="passwordChk" class="form-control" id="passwordChk"
-                           placeholder="비밀번호확인">
-                    <span class="point successPwChk"></span>
-                    <input type="hidden" id="pwDoubleChk"/><br>
-                </div>
-            </div>
-            <button class="w-30 btn btn-lg btn-primary" id="registButton" type="submit">비밀번호 찾기</button>
+<!--            TODO: 비밀번호 찾기 창 완료-->
+<!--            <div class="row mb-5">-->
+<!--                <label class="col-md-2 col-form-label" style="display: inline-block; text-align: right">이메일주소</label>-->
+<!--                <div class="col-md-8" style="float:right;display: inline-block">-->
+<!--                    <input type="email" name="email" class="form-control email_input" id="email" placeholder="이메일을 입력">-->
+<!--                    &lt;!&ndash;                    <button onclick="fnEmailCheck()" id="emailChkBtn"  class="btn btn-primary me-md-2" type="button">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        중복확인&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    </button>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                <span class="emailOverlapNo" style="color: green; display: none;">사용 가능한 이메일입니다.</span>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                <span class="emailOverlapYes" style="color: red; display: none;">이메일이 이미 존재합니다.</span>&ndash;&gt;-->
+<!--                </div>-->
+<!--                <div class="col-md-2 d-grid gap-2 d-md-flex" style="float:right">-->
+<!--                    <button class="btn btn-primary me-md-2 doubleChk" type="button" id="emailChk">인증</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row mb-5">-->
+<!--                <div class="col-md-2"> </div>-->
+<!--                <div id="authEmail" class="col-md-8">-->
+<!--                    <input type="text" name="certified" class="form-control" id="certified" placeholder="인증번호 입력">-->
+<!--                    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="float:left; padding-top: 10px" id="certifiedBut">-->
+<!--                        <span class="point successEmailChk">이메일 입력후 인증번호 보내기를 해주십시오.</span> <br>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-2">-->
+<!--                    <button id="emailChk2" class="btn btn-primary me-md-2 doubleChk" type="button">확인</button>-->
+<!--                    <input type="hidden" id="emailDoubleChk" value="false"/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row mb-5" id="passwordDisplay" style="display: none;">-->
+<!--                <label class="col-sm-2 col-form-label">새 비밀번호</label>-->
+<!--                <div class="col-sm-10">-->
+<!--                    <input type="password" name="password" id="password" class="form-control"-->
+<!--                           placeholder="비밀번호 입력">-->
+<!--                    <span class="point successPw"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row mb-5" id="passwordChkDisplay" style="display: none;">-->
+<!--                <label class="col-sm-2 col-form-label">비밀번호 확인</label>-->
+<!--                <div class="col-sm-10">-->
+<!--                    <input type="password" name="passwordChk" class="form-control" id="passwordChk"-->
+<!--                           placeholder="비밀번호확인">-->
+<!--                    <span class="point successPwChk"></span>-->
+<!--                    <input type="hidden" id="pwDoubleChk"/><br>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div style="text-align: center; padding : 30px 0px">-->
+<!--                <button class="w-30 btn btn-lg btn-primary" id="registButton" type="submit">비밀번호 찾기</button>-->
+<!--            </div>-->
         </form>
     </div>
 </div>
