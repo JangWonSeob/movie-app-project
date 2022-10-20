@@ -66,13 +66,31 @@
             </div>
         </div>
 
-
-    </div>
+<!--        TODO: 댓글 디자인 구현 완료-->
+<!--        <div style="padding: 0px 30px">-->
+<!--            <h3 style="margin-bottom: 20px">댓글</h3>-->
+<!--            <div class="row mb-5" style="padding-left: 10px;">-->
+<!--                <input id="comment_contents" class="col-md-11" style="padding-left : 15px; display: flex; justify-content: space-between" placeholder="댓글을 입력해주세요.">-->
+<!--                <div class="col-md-1" style="text-align: left;">-->
+<!--                    <button id="comment_set" class="w-20 btn btn-lg btn-primary">등록</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div id="comment_list"></div>-->
+<!--&lt;!&ndash;            <div class="row mb-5" style="padding-left: 10px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div th:if="${!loginYn}" style="display: flex; justify-content: space-between">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input class="col-md-11" style="padding-left : 15px; display: flex; justify-content: space-between"" id="not_login_contents" readonly>로그인 후 이용해주세요.&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-md-1" style="text-align: left;">&ndash;&gt;-->
+<!--&lt;!&ndash;                <button style="min-width: 50px">등록</button>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--        </div>-->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
             crossorigin="anonymous"></script>
     <script th:src="@{/js/board/board.js(v=${#dates.createNow().getTime()})}"></script>
+    </div>
     </body>
 </main>
 </html>
