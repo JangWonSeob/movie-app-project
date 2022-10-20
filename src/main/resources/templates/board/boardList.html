@@ -138,8 +138,8 @@
                 </thead>
                 <tbody>
                 <tr th:if="${totalCount > 0}" th:each="board : ${boardList}">
-                    <td th:text="${board.boardNo}" style="width: 5%">번호</td>
-                    <td><a class="text-decoration-none" th:href="@{/board/detail/{id}(id=${board.id})}" th:text="${board.title} "style="color: black; width: 60%">제목</a></td>
+                    <td th:text="${board.boardNo}" style="width: 10%">번호</td>
+                    <td style="text-align: left; padding-left: 60px"><a class="text-decoration-none" th:href="@{/board/detail/{id}(id=${board.id})}" th:text="${board.title} "style="color: black; width: 55%;">제목</a></td>
                     <td th:text="${#dates.format(board.regDt, 'yyyy-MM-dd HH:mm:ss')}" style="width: 20%">등록일</td>
                     <td th:text="${board.regNm}" style="width: 15%">글쓴이</td>
                 </tr>
