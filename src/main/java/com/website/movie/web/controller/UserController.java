@@ -4,6 +4,7 @@ import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -103,15 +104,34 @@ public class UserController {
     }
 
     @PostMapping("/user/pwFind")
-    public String pwFindResetPost(UserDto user) {
+    public String pwFindPost(UserDto user) {
 
         System.out.println("user=");
         System.out.println(user);
 
         userService.updatePassword(user);
-
-
         return "redirect:/user/login";
+    }
+
+    @GetMapping("/user/myPwReset")
+    public String pwFindReset(@AuthenticationPrincipal UserDto user) {
+
+        System.out.println("pwFindReset user=");
+        System.out.println(user);
+        userService.updatePassword(user);
+
+
+        return "/user/myPwReset";
+    }
+
+    @PostMapping("/user/myPwReset")
+    public String pwFindResetPost(UserDto user) {
+
+        System.out.println("pwFindReset user=");
+        System.out.println(user);
+
+//        userService.updatePassword(user);
+        return "redirect:/board/mypage";
     }
 
 //    @PostMapping("/user/pwFind")
@@ -129,12 +149,6 @@ public class UserController {
 //
 //        return "redirect:/user/login";
 //    }
-
-    @GetMapping("/user/pwFindReset")
-    public String pwFindReset() {
-        return "/user/pwFindReset";
-    }
-
 
     @GetMapping("/user/signUp")
     public String signUp() {
