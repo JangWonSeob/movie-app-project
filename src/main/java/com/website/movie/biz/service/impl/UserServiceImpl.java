@@ -115,10 +115,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public int updatePassword(UserDto user) {
-//        int result = userDao.
-
+        
+        // 클라이언트에게 받은 user정보에서 입력받은 비밀번호(raw상태)를 rawPassword에 저장
         String rawPassword = user.getPassword();
+        // 함수로 암호화하여 변수에 저장
         String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
+        // 암호화된 비번을 저장
         user.setPassword(encodedPassword);
         int result = userDao.updatePassword(user);
 
