@@ -188,7 +188,7 @@ public class BoardController {
         // TODO: 페이징 처리
         final PagerUtils pagerUtils = new PagerUtils(parameter.getPageIndex(), parameter.getPageSize(), totalCount);
         this.getSearchParam(parameter);
-        final String pager = pagerUtils.printFrontPager("");
+        final String pager = pagerUtils.printFrontPager("&category=" + category);
 
         model.addAttribute("pager", pager);
 
