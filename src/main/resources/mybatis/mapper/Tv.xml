@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.website.movie.biz.dao.TvDao">
+
+	<sql id="TABLE">tv</sql>
+
+    <sql id="WHERE_REQUIRED">
+        AND T1.DEL_YN = 0
+    </sql>
+
+    <sql id="WHERE">
+        <if test="searchGenre != null and  searchGenre != ''">
+             AND T1.GENRE_IDS LIKE CONCAT('%', #{searchGenre}, '%')
+        </if>
+    </sql>
+
+    <select id="index" resultType="com.website.movie.biz.dto.MovieDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        ORDER BY T1.POPULARITY DESC
+        LIMIT 4
+    </select>
+
+    <select id="index2" resultType="com.website.movie.biz.dto.MovieDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        ORDER BY T1.POPULARITY DESC
+        LIMIT 4, 4
+    </select>
+
+    <select id="main" resultType="com.website.movie.biz.dto.MovieDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE T1.GENRE_IDS LIKE CONCAT('%', #{searchGenre}, '%')
+        ORDER BY T1.POPULARITY DESC
+        LIMIT 4
+    </select>
+
+	<select id="selectList" resultType="com.website.movie.biz.dto.MovieDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE 1 = 1
+        <include refid="WHERE_REQUIRED"/>
+        <include refid="WHERE"/>
+        ORDER BY T1.POPULARITY DESC
+        LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+    <select id="selectListCount" resultType="int">
+        SELECT COUNT(*)
+        FROM <include refid="TABLE"/> T1
+        WHERE 1 = 1
+        <include refid="WHERE_REQUIRED"/>
+        <include refid="WHERE"/>
+    </select>
+
+    <select id="selectOne" resultType="com.website.movie.biz.dto.MovieDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE T1.ID = #{id}
+        <include refid="WHERE_REQUIRED"/>
+        LIMIT 1
+    </select>
+
+    <insert id="insert">
+        INSERT INTO <include refid="TABLE"/>
+        (
+            REG_DT
+            , DEL_YN
+
+            , ID
+            , TITLE
+            , OVERVIEW
+            , GENRE_IDS
+            , GENRE_NAMES
+            , ADULT
+            , ORIGINAL_LANGUAGE
+            , ORIGINAL_TITLE
+            , BACKDROP_PATH
+            , POSTER_PATH
+            , RELEASE_DATE
+            , RUNTIME
+            , VOTE_AVERAGE
+            , VOTE_COUNT
+            , POPULARITY
+            , BUDGET
+            , REVENUE
+            , VIEW_COUNT
+            , DISPLAY_YN
+        )
+        VALUES
+        (
+            NOW()
+            , 0
+
+            , #{id}
+            , #{title}
+            , #{overview}
+            , #{genreIds}
+            , #{genreNames}
+            , #{adult}
+            , #{originalLanguage}
+            , #{originalTitle}
+            , #{backdropPath}
+            , #{posterPath}
+            , #{releaseDate}
+            , #{runtime}
+            , #{voteAverage}
+            , #{voteCount}
+            , #{popularity}
+            , #{budget}
+            , #{revenue}
+            , #{viewCount}
+            , #{displayYn}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE <include refid="TABLE"/>
+        SET
+        <choose>
+            <when test="sqlUpdateType != null and sqlUpdateType eq 'VIEW_COUNT_UP'">
+                VIEW_COUNT = VIEW_COUNT + 1
+            </when>
+            <otherwise>
+                UDT_DT = NOW()
+                , TITLE = #{title}
+                , OVERVIEW = #{overview}
+                , ADULT = #{adult}
+                , ORIGINAL_LANGUAGE = #{originalLanguage}
+                , ORIGINAL_TITLE = #{originalTitle}
+                , BACKDROP_PATH = #{backdropPath}
+                , POSTER_PATH = #{posterPath}
+                , RELEASE_DATE = #{releaseDate}
+                , VOTE_AVERAGE = #{voteAverage}
+                , VOTE_COUNT = #{voteCount}
+                , POPULARITY = #{popularity}
+                , DISPLAY_YN = #{displayYn}
+            </otherwise>
+        </choose>
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM <include refid="TABLE"/>
+        WHERE ID = #{id}
+    </delete>
+
+</mapper>

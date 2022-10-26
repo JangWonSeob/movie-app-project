@@ -16,9 +16,9 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MovieDto extends BaseDto {
+public class TvDto extends BaseDto {
 
-    public static final String CODE_TYPE_MOVIE_GENRE = "MOVIE_GENRE";
+    public static final String CODE_TYPE_TV_GENRE = "TV_GENRE";
 
     @JsonIgnore
     private final String IMG_BASE_URL = "https://image.tmdb.org/t/p/w300";
@@ -34,7 +34,7 @@ public class MovieDto extends BaseDto {
     private String backdropPath;            // 배경 이미지
     private String posterPath;              // 포스트 이미지
     private Date releaseDate;               // 개봉일
-    private int runtime;                    // 영화 시간
+    private int runtime;                    // 런타임
     private double voteAverage;             // 평점
     private int voteCount;                  // 평점 참여자
     private double popularity;              // 평가 지표
@@ -81,8 +81,8 @@ public class MovieDto extends BaseDto {
     }
 
 
-    public static MovieDto toDto(MovieData module) {
-        return MovieDto.builder()
+    public static TvDto toDto(MovieData module) {
+        return TvDto.builder()
                 .id(module.getId())
                 .title(module.getTitle())
                 .overview(module.getOverview())
@@ -98,8 +98,8 @@ public class MovieDto extends BaseDto {
                 .build();
     }
 
-    public static MovieDto toDto(MovieResultDetail module) {
-        return MovieDto.builder()
+    public static TvDto toDto(MovieResultDetail module) {
+        return TvDto.builder()
                 .id(module.getId())
                 .title(module.getTitle())
                 .overview(module.getOverview())

@@ -1,6 +1,5 @@
 package com.website.movie.web.controller.api;
 
-import com.website.movie.biz.component.MovieComponent;
 import com.website.movie.biz.dto.CodeDto;
 import com.website.movie.biz.dto.MovieDto;
 import com.website.movie.biz.model.JsonResult;
@@ -22,8 +21,6 @@ public class ApiMovieController {
 
     private final MovieService movieService;
     private final CodeService codeService;
-    private final MovieComponent movieComponent;
-
 
     @PostMapping("/api/movie/get.api")
     @ApiOperation(value = "영화 한 건 조회 API", notes = "영화 한 건에 대해서 조회 가능합니다.")

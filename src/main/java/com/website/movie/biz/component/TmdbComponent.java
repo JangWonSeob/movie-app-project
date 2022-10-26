@@ -4,6 +4,9 @@ import com.website.movie.biz.dao.CodeDao;
 import com.website.movie.biz.dto.CodeDto;
 import com.website.movie.biz.model.movie.*;
 import com.website.movie.biz.model.movie.detail.MovieResultDetail;
+import com.website.movie.biz.model.tv.TvData;
+import com.website.movie.biz.model.tv.TvResult;
+import com.website.movie.biz.model.tv.detail.TvResultDetail;
 import com.website.movie.common.properties.TmdbProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,7 +16,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class MovieComponent {
+public class TmdbComponent {
 
     private final TmdbProperties tmdbProperties;
     private final RestTemplate restTemplate;
@@ -34,7 +37,6 @@ public class MovieComponent {
 
             result = restTemplate.getForObject(url, MovieResult.class);
 
-            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -47,18 +49,15 @@ public class MovieComponent {
         MovieResultDetail result = new MovieResultDetail();
 
         try {
-            //      https://api.themoviedb.org/3/movie/popular?api_key={{api_key}}&language=ko-Kr&page=1&append_to_response=videos,images,watch/providers,credits
+            //      https://api.themoviedb.org/3/movie/{{id}}?api_key={{api_key}}&language=ko-Kr&page=1&append_to_response=videos,images,watch/providers,credits
 
             String url = tmdbProperties.getMovieUrl() + id + "?";
             url += "api_key=" + tmdbProperties.getApiKey();
             url += "&language=ko-KR";
             url += "&append_to_response=videos,images,watch/providers,credits";
 
-            System.out.println(url);
-
             result = restTemplate.getForObject(url, MovieResultDetail.class);
 
-            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -66,19 +65,19 @@ public class MovieComponent {
         return result;
     }
 
-    public List<MovieData> getTvList(int pageNo) {
+    public List<TvData> getTvList(int pageNo) {
 
-        MovieResult result = new MovieResult();
+        TvResult result = new TvResult();
 
         try {
-            //      https://api.themoviedb.org/3/movie/popular?api_key={{api_key}}&language=ko-Kr&page=1
+            //      https://api.themoviedb.org/3/tv/popular?api_key={{api_key}}&language=ko-Kr&page=1
 
             String url = tmdbProperties.getTvUrl();
             url += "api_key=" + tmdbProperties.getApiKey();
             url += "&language=ko-KR";
             url += "&page=" + pageNo;
 
-            result = restTemplate.getForObject(url, MovieResult.class);
+            result = restTemplate.getForObject(url, TvResult.class);
 
             System.out.println(result);
         } catch (Exception e) {
@@ -86,6 +85,27 @@ public class MovieComponent {
         }
 
         return result.getResults();
+    }
+
+    public TvResultDetail getTvDetail(String id) {
+
+        TvResultDetail result = new TvResultDetail();
+
+        try {
+            //      https://api.themoviedb.org/3/tv/{{id}}?api_key={{api_key}}&language=ko-Kr&append_to_response=videos,images,watch/providers,credits
+
+            String url = tmdbProperties.getTvUrl() + id + "?";
+            url += "api_key=" + tmdbProperties.getApiKey();
+            url += "&language=ko-KR";
+            url += "&append_to_response=videos,images,watch/providers,credits";
+
+            result = restTemplate.getForObject(url, TvResultDetail.class);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return result;
     }
 
     public void getProviders() {

@@ -5,9 +5,9 @@ import com.website.movie.biz.dto.MovieDto;
 
 import java.util.List;
 
-public interface MovieService {
+public interface TvService {
 
-    void getTmdbMovieData();
+    void getTmdbTvData();
 
     List<MovieDto> index();
     List<MovieDto> index2();
