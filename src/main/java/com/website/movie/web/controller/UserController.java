@@ -6,11 +6,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,12 @@ public class UserController {
 
     private final UserService userService;
 
+    // 회원가입 페이지
+    @GetMapping("/user/signUp")
+    public String signUp() {
+        return "/user/signUp";
+    }
+    
     // 회원가입 처리
     @PostMapping("/user/signUp")
     public String signUpPost(UserDto user) {
@@ -31,7 +41,6 @@ public class UserController {
         authorities.add(new SimpleGrantedAuthority("USER"));
         user.setAuthorities(authorities);
         userService.createUser(user);
-
 
         return "redirect:/user/login";
     }
@@ -54,32 +63,11 @@ public class UserController {
 //        return "index";
 //    }
 
-    // 접근 거부 페이지
-    @GetMapping("/user/denied")
-    public String denied() {
-        return "denied";
-    }
-
-    // @AuthenticationPrincipal은 평소에는 null만 나오지만
-    // 로그인을 하면 userDto의 정보들이 나옵니다.
-//    @GetMapping("/user/authPrincipal")
-//    public String authPrincipal(@AuthenticationPrincipal UserDto user) {
-//
-//        System.out.println("@Authen 사용 user 정보"+ user);
-//        System.out.println("@Authen 사용 user email"+ user.getEmail() + user.getId());
-//        return "index";
-//    }
-    ///////////////////////// 퍼블리싱 연결용 컨트롤러
-
     @GetMapping("/index")
     public String index() {
         return "index";
     }
 
-//    @GetMapping("/user/login")
-//    public String login() {
-//        return "/user/login";
-//    }
     // 로그인페이지
     @GetMapping("/user/login")
     public String login(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "exception", required = false) String exception, Model model) {
@@ -113,25 +101,33 @@ public class UserController {
         return "redirect:/user/login";
     }
 
+    //user -> 비밀번호변경 화면에서 받은 유저
     @GetMapping("/user/myPwReset")
-    public String pwFindReset(@AuthenticationPrincipal UserDto user) {
-
-        System.out.println("pwFindReset user=");
-        System.out.println(user);
-        userService.updatePassword(user);
-
+    public String pwFindReset(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "exception", required = false) String exception, Model model) {
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
 
         return "/user/myPwReset";
     }
 
     @PostMapping("/user/myPwReset")
-    public String pwFindResetPost(UserDto user) {
+    public String pwFindResetPost(HttpServletResponse response, @RequestParam String passwordCurrent, UserDto user, @AuthenticationPrincipal UserDto nowuser) throws IOException {
+        response.setContentType("text/html; charset=euc-kr");
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        System.out.println("pwFindReset user=");
-        System.out.println(user);
-
-//        userService.updatePassword(user);
-        return "redirect:/board/mypage";
+        if (encoder.matches(passwordCurrent, nowuser.getPassword()))
+        {
+            nowuser.setPassword(user.getPassword());
+            System.out.println(nowuser);
+            userService.updatePassword(nowuser);
+            return "redirect:/board/mypage";
+        }
+        else {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('현재 비밀번호가 일치하지 않습니다.');</script>");
+            out.flush();
+        }
+        return "/user/myPwReset";
     }
 
 //    @PostMapping("/user/pwFind")
@@ -150,10 +146,7 @@ public class UserController {
 //        return "redirect:/user/login";
 //    }
 
-    @GetMapping("/user/signUp")
-    public String signUp() {
-        return "/user/signUp";
-    }
+
 
 
 }

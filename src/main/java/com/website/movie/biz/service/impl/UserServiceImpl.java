@@ -123,6 +123,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         // 암호화된 비번을 저장
         user.setPassword(encodedPassword);
         int result = userDao.updatePassword(user);
+        System.out.println("updatePassword result == "+result);
 
         return result;
     }
