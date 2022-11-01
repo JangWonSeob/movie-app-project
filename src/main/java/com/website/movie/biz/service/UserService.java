@@ -27,4 +27,5 @@ public interface UserService extends UserDetailsService {
 
     int nicknameCheck(UserDto user);
     int updatePassword(UserDto user);
+    int updateUser(UserDto user);
 }

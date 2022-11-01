@@ -16,4 +16,5 @@ public interface UserDao {
     int emailCheck(UserDto user);
     int nicknameCheck(UserDto user);
     int updatePassword(UserDto user);
+    int updateByEmail(UserDto user);
 }

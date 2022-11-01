@@ -63,7 +63,24 @@
     </insert>
 
     <update id="update">
-        UPDATE INTO <include refid="TABLE"/>(NAME,NICKNAME,PASSWORD,UPD_DT) VALUES(#{name}, #{nickname}, #{password}, NOW())
+        UPDATE <include refid="TABLE"/>
+        SET
+            NAME = #{name},
+            NICKNAME = #{nickname},
+            PASSWORD = #{password},
+            UPD_DT = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <!--update by email-->
+    <update id="updateByEmail">
+        UPDATE <include refid="TABLE"/>
+        SET
+        NAME = #{name},
+        NICKNAME = #{nickname},
+        PASSWORD = #{password},
+        UPD_DT = NOW()
+        WHERE EMAIL = #{email}
     </update>
 
     <!--회원삭제-->
