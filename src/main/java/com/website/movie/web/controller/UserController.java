@@ -125,6 +125,7 @@ public class UserController {
 
     @PostMapping("/user/myNickReset")
     public String pwNickResetPost(HttpServletResponse response, @RequestParam String passwordCurrent, UserDto user, @AuthenticationPrincipal UserDto loginuser) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         if (encoder.matches(passwordCurrent, loginuser.getPassword())) {
@@ -136,7 +137,7 @@ public class UserController {
             PrintWriter out = response.getWriter();
             out.println("<script>alert('현재 비밀번호가 일치하지 않습니다.');</script>");
             out.flush();
-            return "redirect:/user/myNickReset";
+            return "/user/myNickReset";
         }
     }
 
