@@ -31,6 +31,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         int affected;
 
         if(parameter.getId() > 0){
+            // 인코딩 되어 있다면 false반환
+            boolean isEncode = new BCryptPasswordEncoder().upgradeEncoding(parameter.getPassword());
+            System.out.println("isEncode == "+isEncode);
+            if (parameter.getPassword() != null && isEncode)
+            {
+                String rawPassword = parameter.getPassword();
+                String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
+                parameter.setPassword(encodedPassword);
+            }
             affected = userDao.update(parameter);
         }  else {
             affected = userDao.insert(parameter);
@@ -125,6 +134,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         int result = userDao.updatePassword(user);
         System.out.println("updatePassword result == "+result);
 
+        return result;
+    }
+
+    @Override
+    public int updateUser(UserDto user) {
+        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        int result = userDao.updateByEmail(user);
+
+        System.out.println("updateUser result"+result);
         return result;
     }
 

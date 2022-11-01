@@ -26,12 +26,17 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/index")
+    public String index() {
+        return "index";
+    }
+
     // 회원가입 페이지
     @GetMapping("/user/signUp")
     public String signUp() {
         return "/user/signUp";
     }
-    
+
     // 회원가입 처리
     @PostMapping("/user/signUp")
     public String signUpPost(UserDto user) {
@@ -57,17 +62,6 @@ public class UserController {
         return "index";
     }
 
-    // 로그아웃 결과 페이지
-//    @GetMapping("/user/logout/result")
-//    public String logoutResult() {
-//        return "index";
-//    }
-
-    @GetMapping("/index")
-    public String index() {
-        return "index";
-    }
-
     // 로그인페이지
     @GetMapping("/user/login")
     public String login(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "exception", required = false) String exception, Model model) {
@@ -75,6 +69,7 @@ public class UserController {
         model.addAttribute("exception", exception);
         return "/user/login";
     }
+
     // 로그인 결과 페이지
     @GetMapping("/user/login/result")
     public String loginResult() {
@@ -93,7 +88,6 @@ public class UserController {
 
     @PostMapping("/user/pwFind")
     public String pwFindPost(UserDto user) {
-
         System.out.println("user=");
         System.out.println(user);
 
@@ -101,28 +95,22 @@ public class UserController {
         return "redirect:/user/login";
     }
 
-    //user -> 비밀번호변경 화면에서 받은 유저
     @GetMapping("/user/myPwReset")
-    public String pwFindReset(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "exception", required = false) String exception, Model model) {
-        model.addAttribute("error", error);
-        model.addAttribute("exception", exception);
-
+    public String pwFindReset() {
         return "/user/myPwReset";
     }
 
     @PostMapping("/user/myPwReset")
-    public String pwFindResetPost(HttpServletResponse response, @RequestParam String passwordCurrent, UserDto user, @AuthenticationPrincipal UserDto nowuser) throws IOException {
+    public String pwFindResetPost(HttpServletResponse response, @RequestParam String passwordCurrent, UserDto user, @AuthenticationPrincipal UserDto loginuser) throws IOException {
         response.setContentType("text/html; charset=euc-kr");
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        if (encoder.matches(passwordCurrent, nowuser.getPassword()))
-        {
-            nowuser.setPassword(user.getPassword());
-            System.out.println(nowuser);
-            userService.updatePassword(nowuser);
+        if (encoder.matches(passwordCurrent, loginuser.getPassword())) {
+            loginuser.setPassword(user.getPassword());
+            System.out.println(loginuser);
+            userService.set(loginuser);
             return "redirect:/board/mypage";
-        }
-        else {
+        } else {
             PrintWriter out = response.getWriter();
             out.println("<script>alert('현재 비밀번호가 일치하지 않습니다.');</script>");
             out.flush();
@@ -130,23 +118,40 @@ public class UserController {
         return "/user/myPwReset";
     }
 
-//    @PostMapping("/user/pwFind")
-//    public String pwFindResetPost(HttpServletRequest request, UserDto user) throws UnsupportedEncodingException {
-//        request.setCharacterEncoding("utf-8");
-//
-//        request.getParameter("email");
-//        request.getParameter("password");
-//
-//
-//        userService.updateUser(user);
-//
-//        System.out.println("user=");
-//        System.out.println(user);
-//
-//        return "redirect:/user/login";
-//    }
+    @GetMapping("/user/myNickReset")
+    public String pwNickReset() {
+        return "/user/myNickReset";
+    }
+
+    @PostMapping("/user/myNickReset")
+    public String pwNickResetPost(HttpServletResponse response, @RequestParam String passwordCurrent, UserDto user, @AuthenticationPrincipal UserDto loginuser) throws IOException {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        if (encoder.matches(passwordCurrent, loginuser.getPassword())) {
+            loginuser.setNickname(user.getNickname());
+            System.out.println("pwNickReset loginuser =="+loginuser);
+            userService.set(loginuser);
+            return "redirect:/board/mypage";
+        } else {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('현재 비밀번호가 일치하지 않습니다.');</script>");
+            out.flush();
+            return "redirect:/user/myNickReset";
+        }
+    }
 
 
+    @GetMapping("/user/adminChangeUser")
+    public String adminChangeUser() {
 
+        return "/user/adminChangeUser";
+    }
+
+    @PostMapping("/user/adminChangeUser")
+    public String adminChangeUserPost(UserDto user) {
+        System.out.println("admincChange user == "+user);
+        userService.updateUser(user);
+        return "redirect:/";
+    }
 
 }
