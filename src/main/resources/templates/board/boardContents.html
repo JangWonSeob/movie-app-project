@@ -26,24 +26,24 @@
         </div>
         <hr style="border: solid 1px gray" class="mb-3">
 
-        <div class="row" style="vertical-align: center;">
-            <p class="col-md-10" th:text="| 작성자: ${detail.regNm} / 작성일: ${#dates.format(detail.regDt, 'yyyy-MM-dd')}|">
+        <div class="row" >
+            <p class="col-md-9" style="display: table-cell; vertical-align: middle" th:text="| 작성자: ${detail.regNm} / 작성일: ${#dates.format(detail.regDt, 'yyyy-MM-dd')}|">
                 작성자
                 작성일</p>
-            <p class="col-md-1" style="text-align: center;" th:text="| 조회수 ${detail.viewCount}|">조회수</p>
-            <button class="col-md-1 btn btn-outline-warning w-15 text-center"  id="board-bookmark" type="button">즐겨찾기</button>
+            <p class="col-md-2" style="display: table-cell; vertical-align: middle; text-align: center; text-align: right; padding-right: 30px" th:text="| 조회수 ${detail.viewCount}|">조회수</p>
+            <button class="col-md-1 w-30 btn btn-outline-warning text-center"  id="board-bookmark" type="button" style=" display: table;" >즐겨찾기</button>
         </div>
         <hr style="border: solid 1px gray" class="mb-3">
-        <div style="height: 500px">
+        <div style="height: 500px; padding: 15px 10px">
             <div class="row">
                 <div th:if="${writerId == loginUserId}">
                     <a th:href="@{/board/update/{id}(id=${detail.id})}" class="btn btn-outline-dark w-30 float-end"
                        type="button">수정</a>
                     <a th:href="@{/board/delete/{id}(id=${detail.id})}"
-                       onclick="return confirm('이 글을 정말 삭제하시겠습니까?')" class="btn btn-outline-dark w-30 float-end">삭제</a>
+                       onclick="return confirm('이 글을 정말 삭제하시겠습니까?')" class="btn btn-outline-dark w-30 float-end" style="margin-right: 10px">삭제</a>
                 </div>
             </div>
-            <div class="row" style="padding: 15px 10px" th:utext="${detail.contents}" >
+            <div class="row"  th:utext="${detail.contents}" >
             </div>
 
         </div>
@@ -57,23 +57,27 @@
         </div>
 
         <hr style="border: solid 1px gray" class="mb-3">
-        <div sec:authorize="isAuthenticated()" style="justify-content: center">
-            <input type="text" class="w-50 form-control" style="margin: auto;" placeholder="댓글을 입력해주세요."/>
-            <div class="text-center" style="margin: auto;">
-                <button type="button" class="btn btn-primary w-30" style="margin-top : 15px">등록</button>
+
+        <h3 style="margin: 40px 0px 20px 20px ">댓글</h3>
+        <div class="row mb-5" style="padding-left: 10px;">
+            <input id="comment_contents" class="col-md-11 rounded" style="padding-left : 15px; display: flex; justify-content: space-between" placeholder="댓글을 입력해주세요.">
+            <div class="col-md-1" style="text-align: left;">
+                <button id="comment_set" class="w-20 btn btn-lg btn-primary">등록</button>
             </div>
         </div>
+        <div id="comment_list"></div>
+
 
 
         <div style="padding: 15px 30px">
-            <h3 style="margin-bottom: 20px">댓글</h3>
-            <div class="row mb-5" style="padding-left: 10px;">
-                <input id="comment_contents" class="col-md-11 rounded" style="padding-left : 15px; display: flex; justify-content: space-between" placeholder="댓글을 입력해주세요.">
-                <div class="col-md-1" style="text-align: left;">
-                    <button id="comment_set" class="w-20 btn btn-lg btn-primary">등록</button>
-                </div>
-            </div>
-            <div id="comment_list"></div>
+<!--            <h3 style="margin-bottom: 20px">댓글</h3>-->
+<!--            <div class="row mb-5" style="padding-left: 10px;">-->
+<!--                <input id="comment_contents" class="col-md-11 rounded" style="padding-left : 15px; display: flex; justify-content: space-between" placeholder="댓글을 입력해주세요.">-->
+<!--                <div class="col-md-1" style="text-align: left;">-->
+<!--                    <button id="comment_set" class="w-20 btn btn-lg btn-primary">등록</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div id="comment_list"></div>-->
 
 <!--            <div class="row mb-5" style="padding-left: 10px;">-->
 <!--                <div th:if="${!loginYn}" style="display: flex; justify-content: space-between">-->
