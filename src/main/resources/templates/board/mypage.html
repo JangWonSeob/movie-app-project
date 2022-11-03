@@ -13,11 +13,9 @@
 <div th:replace="/fragments/commonNav :: commonNav"></div>
 <main style="margin: 0 auto; width: 75%">
     <body>
-    <div>
-    </div>
-    <div class="row">
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse"
-             style="background-color: #e0e0e0; height: 50%; padding: 20px; ">
+    <div class="row" >
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse rounded"
+             style="background-color: #e0e0e0; height: 50%; padding: 20px; margin-top: 40px">
             <ul class="nav flex-column mb-2">
                 <li class="nav-item">
                     <a class="nav-link" href="/board/mypage">
@@ -37,7 +35,7 @@
             </ul>
         </nav>
         <div class="col-md-auto"></div>
-        <div class="row col-md-8 col-lg-9 p-4 text-black" style="background-color: white">
+        <div class="row col-md-8 col-lg-9 p-4 text-black rounded" style="background-color: white; margin-top: 40px">
             <div>
                 <h1 style="text-align: center; padding: 10px">회원정보 수정</h1>
 
@@ -47,11 +45,11 @@
                     <div class="col-md-2 col-lg-4" style="border-radius: 70%;">
                         <img src="/pub/img/user.png" style="width: 150px; height: 150px; float: right; margin: 0 auto">
                     </div>
-                    <div class="col-md-10 col-lg-8" style="text-align: center">
-                        <h2 th:text="${user.getNickname()}">사용자닉네임</h2>
-                        <a href="/user/myNickReset" type="button" class="btn btn-primary w-30"
-                           style="margin-top : 15px; display: block; margin: 0 auto; float: left">변경
-                        </a>
+                    <div class="col-md-4 col-lg-6" style="text-align: center; ">
+                        <h2 th:text="${user.getNickname()}">사용자닉네임 </h2>
+                    </div>
+                    <div class="col-md-6 col-lg-2" style="text-align: center; display: block; float: left">
+                        <a href="/user/myNickReset" type="button" class="btn btn-primary w-30" style="margin-top : 15px; margin: 0 auto;">변경</a>
                     </div>
                 </div>
                 <div style="margin: 30px 30px">
@@ -59,7 +57,7 @@
                         <div class="col-md-4 col-lg-5" style="text-align: center">
                             <p>이름</p>
                         </div>
-                        <div class="col-md-8 col-lg-7">
+                        <div class="col-md-6 col-lg-5">
                             <p th:text="${user.getName()}">사용자이름</p>
                         </div>
                     </div>
@@ -67,7 +65,7 @@
                         <div class="col-md-4 col-lg-5" style="text-align: center">
                             <p>이메일 주소</p>
                         </div>
-                        <div class="col-md-8 col-lg-7">
+                        <div class="col-md-6 col-lg-5">
                             <p th:text="${user.getEmail()}">test1234@gmail.com</p>
                         </div>
                     </div>
@@ -75,13 +73,11 @@
                         <div class="col-md-4 col-lg-5" style="text-align: center">
                             <p>비밀번호</p>
                         </div>
-                        <div class="col-md-6 col-lg-5" style="padding-left: 5px">
+                        <div class="col-md-6 col-lg-5" >
                             <p>***********</p>
                         </div>
                         <div class="col-md-2 col-lg-2">
-                            <a href="/user/myPwReset" type="button" class="btn btn-primary w-30"
-                               style="margin-top : 15px; display: block; margin: 0 auto; float: left">변경
-                            </a>
+                            <a href="/user/myPwReset" type="button" class="btn btn-primary w-30" style="margin-top : 15px; display: block; margin: 0 auto; float: left">변경</a>
                         </div>
                     </div>
                 </div>
