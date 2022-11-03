@@ -29,13 +29,13 @@ var setLikes = function() {
         // 누르기전 기본색은 css나 부트스트랩으로 하시면 됩니다.
         if (data.likesYn) { // like눌렀을때
             //배경색
-            $('#board-like').css('background-color', 'black');
+            $('#board-like').css('background-color', '0');
             //글씨색
             $('#board-like').css('color', 'white');
         } else {
             $('#board-like').css('background-color', 'white');
             // $('#board-like').css('background-color', 'white');
-            $('#board-like').css('color', 'black');
+            $('#board-like').css('color', 'white');
         }
     })
 }
