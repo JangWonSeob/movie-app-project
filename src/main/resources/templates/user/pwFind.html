@@ -18,35 +18,37 @@
 
 <main style="width: 50%; margin: 0 auto">
 <body>
-<div class="d-md-block bg-light rounded" style="padding: 30px 15px 15px 15px;">
+<div class="d-md-block bg-light rounded" style="padding: 30px 15px 15px 15px; margin-top: 40px">
 <div class="container">
     <div>
         <div class="py-5 text-center">
             <h2>비밀번호 찾기</h2>
         </div>
         <form action="/user/pwFind" method="post">
-            <div class="row mb-5">
-                <label class="col-md-2 col-form-label" style="display: inline-block; text-align: center">이메일주소</label>
-                <div class="col-md-8" style="float:right;display: inline-block">
-                    <input type="email" name="email" class="form-control email_input" id="email" placeholder="이메일을 입력">
+            <div class="row" >
+                <label class="col-md-2 col-form-label" style="display: inline-block; text-align: right">이메일주소</label>
+                <div class="col-md-8" style="float:right;display: inline-block; padding-bottom: 10px">
+                    <input type="email" name="email" class="form-control email_input" id="email" placeholder="이메일을 입력" >
                     <!--                    <button onclick="fnEmailCheck()" id="emailChkBtn"  class="btn btn-primary me-md-2" type="button">-->
                     <!--                        중복확인-->
                     <!--                    </button>-->
                     <!--                <span class="emailOverlapNo" style="color: green; display: none;">사용 가능한 이메일입니다.</span>-->
                     <!--                <span class="emailOverlapYes" style="color: red; display: none;">이메일이 이미 존재합니다.</span>-->
-                <div class="col-md-2 d-grid gap-2 d-md-flex justify-content-md-end" style="float:right">
-                    <button class="btn btn-primary me-md-2 doubleChk" type="button"
-                            id="emailChk">인증
-                    </button>
-                    </div>
-                    <div id="authEmail">
+                </div>
+                <div class="col-md-2 d-grid gap-2 d-md-flex" style="float:left; padding-bottom: 10px">
+                    <button class="btn btn-primary me-md-2 doubleChk" type="button" id="emailChk">인증</button>
+                </div>
+                <div class="row mb-5">
+                    <label class="col-md-2"></label>
+                    <div id="authEmail" class="col-md-8">
                         <input type="text" name="certified" class="form-control" id="certified" placeholder="인증번호 입력">
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="float:right;"
-                             id="certifiedBut">
-                            <span class="point successEmailChk">이메일 입력후 인증번호 보내기를 해주십시오.</span> <br>
+                        <div class="d-grid d-md-flex " style="float:left; padding-top: 10px" id="certifiedBut">
+                            <span class="point successEmailChk">이메일 입력후 인증번호 보내기를 해주십시오.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="float: left">
                             <button id="emailChk2" class="btn btn-primary me-md-2 doubleChk" type="button">확인</button>
                             <input type="hidden" id="emailDoubleChk" value="false"/>
-                        </div>
                     </div>
                 </div>
             </div>

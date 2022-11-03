@@ -18,7 +18,7 @@
 
 <body>
 
-<div class="container rounded" style="background-color: white; width: 75%; padding: 60px 15px 15px 15px">
+<div class="container rounded" style="background-color: white; width: 75%; padding: 60px 15px 15px 15px; margin-top: 40px; margin-bottom: 100px">
     <main>
         <div class="py-5 text-center">
             <h2>회원가입</h2>
@@ -29,7 +29,7 @@
                 <div class="col-sm-8" style="float:right">
                     <input type="email" name="email" class="form-control email_input" id="email" placeholder="이메일을 입력해주세요.">
                 </div>
-                <div class="col-sm-2 d-grid gap-2 d-md-flex justify-content-center">
+                <div class="col-sm-2 d-grid gap-2 d-md-flex " style="text-align: left">
                     <button class="btn btn-primary me-md-2 doubleChk" type="button" id="emailChk">인증</button>
                 </div>
             </div>
@@ -76,12 +76,12 @@
                 <label class="col-sm-2 col-form-label" style="text-align: center">닉네임</label>
                 <div class="col-sm-8">
                     <input type="text" id="nickname" name="nickname" class="form-control" placeholder="닉네임">
-                    <div class="d-grid gap-2 d-md-flex mb-3" style="float:left">
+                    <div class="d-grid gap-2 d-md-flex mb-3" style="float:left; padding-top: 8px">
                         <span class="point successNicknameChk">닉네임 입력후 중복확인 버튼을 눌러주세요.</span> <br>
                         <input type="hidden" id="nicknameDoubleChk"/><br>
                     </div>
                 </div>
-                <div class="col-sm-2" style="text-align: center">
+                <div class="col-sm-2" style="text-align: left">
                     <button onclick="fnNickCheck()" class="btn btn-primary me-md-2" type="button">중복확인</button>
                 </div>
             </div>

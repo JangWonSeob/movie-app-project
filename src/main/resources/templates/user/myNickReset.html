@@ -18,7 +18,7 @@
 
 <main style="width: 75%; margin: 0 auto">
     <body>
-    <div class="d-md-block bg-light rounded" style="padding: 30px 15px 15px 15px;">
+    <div class="d-md-block bg-light rounded" style="padding: 30px 15px 15px 15px; margin-top: 40px">
         <div class="container">
             <div>
                 <div class="py-5 text-center">
@@ -26,8 +26,8 @@
                 </div>
                 <form action="/user/myNickReset" method="post">
                     <div class="row mb-5" id="passwordCurrentDisplay">
-                        <label class="col-sm-2 col-form-label">현재 비밀번호</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-2 col-form-label" style="text-align: center">현재 비밀번호</label>
+                        <div class="col-sm-8" style="text-align: left">
                             <input type="password" name="passwordCurrent" id="passwordCurrent" class="form-control"
                                    placeholder="비밀번호 입력">
                         </div>
@@ -36,16 +36,18 @@
                         <label class="col-sm-2 col-form-label" style="text-align: center">닉네임</label>
                         <div class="col-sm-8">
                             <input type="text" id="nickname" name="nickname" class="form-control" placeholder="닉네임">
-                            <div class="d-grid gap-2 d-md-flex mb-3" style="float:left">
+                            <div class="d-grid gap-2 d-md-flex mb-3" style="float:left; padding-top: 5px">
                                 <span class="point successNicknameChk">닉네임 입력후 중복확인 버튼을 눌러주세요.</span> <br>
                                 <input type="hidden" id="nicknameDoubleChk"/><br>
                             </div>
                         </div>
-                        <div class="col-sm-2" style="text-align: center">
+                        <div class="col-sm-2" style="text-align: left">
                             <button onclick="fnNickCheck()" class="btn btn-primary me-md-2" type="button">중복확인</button>
                         </div>
                     </div>
-                    <button class="w-30 btn btn-lg btn-primary" id="registButton" type="submit">닉네임 변경</button>
+                    <div style="text-align: center; padding-bottom: 70px">
+                        <button class="w-30 btn btn-lg btn-primary" style=" display: inline-block" id="registButton" type="submit">닉네임 변경</button>
+                    </div>
                 </form>
             </div>
         </div>
