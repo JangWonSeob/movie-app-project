@@ -33,13 +33,45 @@ var drawingCommentList = function (list, totalCount, pageIndex) {
         html += '<div style="margin: 0px 0px;">';
         html += '   <div style="display: flex; justify-content: space-between"><b>' + comment.regNickname + '</b><span>' + comment.regDtText + '</span></div>';
         html += '   <div style="margin: 5px 0px">' + comment.contents.replaceAll("\n", "<br/>") + '</div>';
+        html += '   <button type="button" style="font-size: 13px;" id="' + comment.id + '" onclick="showReComment()">' + '답글' + '</button>'
+        html += '   <div class="none" style="justify-content: space-between; margin: 5px 0;" id="recomment_' + comment.id + '">';
+        html += '        <textarea style="height: 15%; width: 100%" id="comment_contents" placeholder="댓글을 입력해주세요."></textarea>';
+        html += '        <button type="button" style="min-width: 50px" id="comment_set">등록</button>'
+        html += '   </div>';
+        // if (comment.childCommentCount > 0) {
+            html += '<div>'
+            html += '   <button type="button" style="font-size: 13px; margin: 5px 0; background: transparent; border: none">' + '댓글이 ' + comment.childCommentCount + '개 존재합니다.' + '</button>'
+            html += '</div>'
+        // }
+
         html += '</div>';
         html += '<hr/>';
     })
 
     $comments.append(html);
-
     drawIngPager(totalCount, pageIndex);
+}
+
+var showReComment = function () {
+    const id = event.target.id;
+    const loginYn = $('#loginYn').val();
+
+    if (loginYn !== 'true'){
+        alert(' 로그인 후 이용해주세요. ');
+        return false;
+    }
+
+    const $recomment = $('#recomment_' + id);
+
+    if ($recomment.hasClass('none') && !$recomment.hasClass('flex')) {
+        $recomment.removeClass('none');
+        $recomment.addClass('flex');
+    } else if (!$recomment.hasClass('none') && $recomment.hasClass('flex')) {
+        $recomment.addClass('none');
+        $recomment.removeClass('flex');
+    } else {
+        $recomment.removeClass();
+    }
 }
 
 var setBookMark = function () {

@@ -35,6 +35,12 @@
         width: 600px;
         height: 300px;
     }
+    .none {
+        display: none;
+    }
+    .flex {
+        display: flex;
+    }
 </style>
 
 <div th:replace="/fragments/commonNav :: commonNav"></div>
@@ -110,19 +116,25 @@
         <hr/>
         <div style="margin: 40px 0px 20px 20px">
             <h3>댓글</h3>
+            <input type="hidden" id="loginYn" th:value="${loginYn}">
             <hr/>
             <div id="comment_list"></div>
             <div th:if="${loginYn}" style="display: flex; justify-content: space-between" class="row">
                 <div class="col-md-10">
-                    <input style="height: 30px; width: 100%" class="rounded" id="comment_contents" placeholder="댓글을 입력해주세요.">
+                    <textarea style="height: 100%; width: 100%" class="rounded" id="comment_contents" placeholder="댓글을 입력해주세요."></textarea>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-primary" style="min-width: 50px" id="comment_set">등록</button>
+                    <button class="btn btn-primary" style="min-width: 50px; height: 100%;" id="comment_set">등록</button>
                 </div>
             </div>
-            <div th:if="${!loginYn}" style="display: flex; justify-content: space-between">
-                <textarea style="height: 15%; width: 100%;" id="not_login_contents" readonly>로그인 후 이용해주세요.</textarea>
-                <button style="min-width: 50px">등록</button>
+            <div th:if="${!loginYn}" style="display: flex; justify-content: space-between" class="row">
+                <div class="col-md-10">
+                    <textarea style="height: 100%; width: 100%" class="rounded" id="not_login_contents" readonly>로그인 후 이용해주세요.</textarea>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary" type="button" style="min-width: 50px; height: 100%;">등록</button>
+                </div>
+
             </div>
             <br/>
         </div>
@@ -150,8 +162,6 @@
         </nav>
 
     </div>
-
-
     </div>
     </body>
 </main>
