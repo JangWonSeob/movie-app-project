@@ -225,4 +225,13 @@ public class BoardController {
         return "/board/mypage";
     }
 
+    @GetMapping("/board/myBoard")
+    public String myBoard() {
+        return "/board/myBoard";
+    }
+
+    @GetMapping("/board/bookmarkList")
+    public String bookmarkList() {
+        return "/board/bookmarkList";
+    }
 }
