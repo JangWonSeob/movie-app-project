@@ -171,12 +171,10 @@ public class BoardController {
             parameter.setSearchCategory("자유");
         }
 //        parameter.setStartIndex(startIndex);
-
         parameter.initPage();
         parameter.setSqlSelectType("FRONT");  // DISPLAY_YN 구별
 
         System.out.println("set처리이후 parameter 출력 : " + parameter);
-
 
         int totalCount = boardService.totalCount(parameter);
         List<BoardDto> list = boardService.gets(parameter, totalCount);
@@ -191,7 +189,6 @@ public class BoardController {
         final String pager = pagerUtils.printFrontPager("&category=" + category);
 
         model.addAttribute("pager", pager);
-
 
         return "/board/boardList";
     }
@@ -226,7 +223,33 @@ public class BoardController {
     }
 
     @GetMapping("/board/myBoard")
-    public String myBoard() {
+    public String myBoard(@AuthenticationPrincipal UserDto user, HttpServletRequest request, Model model, BoardDto parameter) throws UnsupportedEncodingException {
+        request.setCharacterEncoding("utf-8");
+
+        String category = request.getParameter("category");
+//        int startIndex = Integer.parseInt(request.getParameter("startIndex"));
+
+//        parameter.setSearchCategory("자유");
+        parameter.setLoginUserId(user.getId());
+
+        parameter.initPage();
+        parameter.setSqlSelectType("MY_BOARD_LIST");  // DISPLAY_YN 구별
+
+        System.out.println("parameter 출력 : " + parameter);
+
+        int totalCount = boardService.totalCount(parameter);
+        List<BoardDto> list = boardService.gets(parameter, totalCount);
+
+        System.out.println("list :" + list);
+        model.addAttribute("boardTitle", parameter.getSearchCategory());
+        model.addAttribute("boardList", list);
+        model.addAttribute("totalCount", totalCount);
+        // TODO: 페이징 처리
+        final PagerUtils pagerUtils = new PagerUtils(parameter.getPageIndex(), parameter.getPageSize(), totalCount);
+        this.getSearchParam(parameter);
+        final String pager = pagerUtils.printFrontPager("&category=" + category);
+
+        model.addAttribute("pager", pager);
         return "/board/myBoard";
     }
 
