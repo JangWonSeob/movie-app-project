@@ -48,7 +48,6 @@ public class BoardController {
         return sb.toString();
     }
 
-
     @GetMapping("/board/write")
     public String boardWriteGet(@AuthenticationPrincipal UserDto user, Model model) {
 
@@ -93,7 +92,6 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-    // @RequestParam("id") int id
     @GetMapping("/board/update/{id}")
     public String boardUpdate(@AuthenticationPrincipal UserDto user, Model model, BoardDto parameter) throws UnsupportedEncodingException {
         System.out.println(parameter);
@@ -116,7 +114,6 @@ public class BoardController {
         }
         return "redirect:/board/list";
     }
-
 
     @GetMapping("/board/detail/{id}")
     public String detail(@AuthenticationPrincipal UserDto user, Model model, BoardDto parameter) {
@@ -193,17 +190,6 @@ public class BoardController {
         return "/board/boardList";
     }
 
-//    @GetMapping("/board/detail/{id}")
-//    public String detail(Model model, BoardDto parameter) {
-//
-//        BoardDto result = boardService.get(parameter);
-//        if (result == null) {
-//            return "redirect:/error";
-//        }
-//        model.addAttribute("board", result);
-//        return "board/detail";
-//    }
-
     @GetMapping("/board/notice")
     public String notice() {
         return "/board/notice";
@@ -254,7 +240,33 @@ public class BoardController {
     }
 
     @GetMapping("/board/bookmarkList")
-    public String bookmarkList() {
+    public String bookmarkList(@AuthenticationPrincipal UserDto user, HttpServletRequest request, Model model, BoardDto parameter) throws UnsupportedEncodingException {
+        request.setCharacterEncoding("utf-8");
+
+        String category = request.getParameter("category");
+//        int startIndex = Integer.parseInt(request.getParameter("startIndex"));
+
+//        parameter.setSearchCategory("자유");
+        parameter.setLoginUserId(user.getId());
+
+        parameter.initPage();
+        parameter.setSqlSelectType("MY_BOOKMARK_LIST");  // DISPLAY_YN 구별
+
+        System.out.println("parameter 출력 : " + parameter);
+
+        int totalCount = boardService.totalCount(parameter);
+        List<BoardDto> list = boardService.gets(parameter, totalCount);
+
+        System.out.println("list :" + list);
+        model.addAttribute("boardTitle", parameter.getSearchCategory());
+        model.addAttribute("boardList", list);
+        model.addAttribute("totalCount", totalCount);
+        // TODO: 페이징 처리
+        final PagerUtils pagerUtils = new PagerUtils(parameter.getPageIndex(), parameter.getPageSize(), totalCount);
+        this.getSearchParam(parameter);
+        final String pager = pagerUtils.printFrontPager("&category=" + category);
+
+        model.addAttribute("pager", pager);
         return "/board/bookmarkList";
     }
 }
