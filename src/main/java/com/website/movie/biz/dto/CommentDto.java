@@ -28,6 +28,9 @@ public class CommentDto extends BaseDto {
 
     private String regNickname;
 
+    // SEARCH
+    public int searchCommentId;
+
     public String getRegDtText() {
         String result = "";
 

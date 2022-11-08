@@ -69,6 +69,27 @@ public class ApiCommentController {
     public JsonResult getsBoard(@RequestBody CommentDto parameter) {
 
         parameter.initPage();
+        parameter.setSearchType("PARENTS");
+        parameter.setTableName(CommentDto.TABLE_NAME_BOARD);
+
+        List<CommentDto> list = commentService.gets(parameter);
+        int totalCount = commentService.totalCount(parameter);
+
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("list", list);
+        result.put("totalCount", totalCount);
+
+        return JsonResult.success(result);
+    }
+
+    @PostMapping("/api/comment/board/re/gets.api")
+    @ApiOperation(value = "게시글 대댓글 리스트 조회 API", notes = "게시글 댓글 리스트 조회가 가능합니다.")
+    public JsonResult getsReBoard(@RequestBody CommentDto parameter) {
+
+        parameter.initPage();
+        parameter.setSearchType("CHILD");
+        parameter.setTableName(CommentDto.TABLE_NAME_BOARD);
 
         List<CommentDto> list = commentService.gets(parameter);
         int totalCount = commentService.totalCount(parameter);
@@ -86,8 +107,9 @@ public class ApiCommentController {
     public JsonResult getsMovie(@RequestBody CommentDto parameter) {
 
         parameter.initPage();
-
+        parameter.setSearchType("PARENTS");
         parameter.setTableName(CommentDto.TABLE_NAME_MOVIE);
+
         List<CommentDto> list = commentService.gets(parameter);
         int totalCount = commentService.totalCount(parameter);
 
@@ -99,7 +121,24 @@ public class ApiCommentController {
         return JsonResult.success(result);
     }
 
+    @PostMapping("/api/comment/movie/re/gets.api")
+    @ApiOperation(value = "영화 대댓글 리스트 조회 API", notes = "영화 댓글 리스트 조회가 가능합니다.")
+    public JsonResult getsReMovie(@RequestBody CommentDto parameter) {
 
+        parameter.initPage();
+        parameter.setSearchType("CHILD");
+        parameter.setTableName(CommentDto.TABLE_NAME_MOVIE);
+
+        List<CommentDto> list = commentService.gets(parameter);
+        int totalCount = commentService.totalCount(parameter);
+
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("list", list);
+        result.put("totalCount", totalCount);
+
+        return JsonResult.success(result);
+    }
 
     @PostMapping("/api/comment/delete.api")
     @ApiOperation(value = "댓글 삭제 API", notes = "댓글을 삭제합니다.")

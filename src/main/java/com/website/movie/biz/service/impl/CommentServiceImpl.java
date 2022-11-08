@@ -39,7 +39,6 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentDto> gets(CommentDto parameter) {
-        parameter.setSearchType("PARENTS");
         return commentDao.selectList(parameter);
     }
 

@@ -20,6 +20,10 @@
                 </when>
             </choose>
         </if>
+
+        <if test="searchCommentId > 0">
+            AND COMMENT_ID = #{searchCommentId}
+        </if>
     </sql>
 
 	<select id="selectList" resultType="com.website.movie.biz.dto.CommentDto">
