@@ -14,6 +14,29 @@
             <when test="sqlSelectType != null and sqlSelectType eq 'MY_BOARD_LIST' and loginUserId != null">
                 AND T1.DISPLAY_YN = 1 AND T1.REG_ID = #{loginUserId}
             </when>
+            <when test="sqlSelectType != null and sqlSelectType eq 'MY_BOOKMARK_LIST' and loginUserId != null">
+                AND T1.DISPLAY_YN = 1 AND T3.USER_ID = #{loginUserId}
+            </when>
+        </choose>
+    </sql>
+
+    <sql id="FROM_JOIN">
+        <choose>
+            <when test="sqlSelectType != null and sqlSelectType eq 'MY_BOOKMARK_LIST' and loginUserId != null">
+                RIGHT JOIN book_mark T3
+                ON T1.ID = T3.TABLE_ID
+            </when>
+        </choose>
+    </sql>
+
+    <sql id="ORDER_BY">
+        <choose>
+            <when test="sqlSelectType != null and sqlSelectType eq 'MY_BOOKMARK_LIST' and loginUserId != null">
+                T3.ID DESC
+            </when>
+            <otherwise>
+                T1.ID DESC
+            </otherwise>
         </choose>
     </sql>
 
@@ -61,6 +84,7 @@
         SELECT T1.*
         , (SELECT T2.NICKNAME FROM user T2 WHERE T1.REG_ID = T2.ID) AS REG_NM
         FROM <include refid="TABLE"/> T1
+        <include refid="FROM_JOIN"/>
         WHERE 1 = 1
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
@@ -71,6 +95,7 @@
     <select id="selectListCount" resultType="int">
         SELECT COUNT(*)
         FROM <include refid="TABLE"/> T1
+        <include refid="FROM_JOIN"/>
         WHERE 1 = 1
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
