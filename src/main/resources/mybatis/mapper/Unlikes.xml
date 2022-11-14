@@ -5,7 +5,7 @@
 
 	<sql id="TABLE">unlikes</sql>
 
-    <select id="selectMyLike" resultType="boolean">
+    <select id="selectMyUnlike" resultType="boolean">
         SELECT COUNT(*) > 0
         FROM <include refid="TABLE"/> T1
         WHERE T1.BOARD_ID = ${boardId} AND T1.USER_ID = ${loginUserId}

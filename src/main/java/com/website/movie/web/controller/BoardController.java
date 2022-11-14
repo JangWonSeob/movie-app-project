@@ -27,22 +27,22 @@ public class BoardController {
 
 
     public String getSearchParam(BoardDto parameter) {
-        if(parameter == null) {
+        if (parameter == null) {
             return "";
         }
 
         StringBuilder sb = new StringBuilder();
 
-        if(!StringUtils.isEmpty(parameter.getCategory())) {
-            sb.append(String.format("&category=%s",parameter.getCategory()));
+        if (!StringUtils.isEmpty(parameter.getCategory())) {
+            sb.append(String.format("&category=%s", parameter.getCategory()));
         }
 
-        if(!StringUtils.isEmpty(parameter.getSearchType())) {
-            sb.append(String.format("&searchType=%s",parameter.getSearchType()));
+        if (!StringUtils.isEmpty(parameter.getSearchType())) {
+            sb.append(String.format("&searchType=%s", parameter.getSearchType()));
         }
 
-        if(!StringUtils.isEmpty(parameter.getSearchValue())) {
-            sb.append(String.format("&searchValue=%s",parameter.getSearchValue()));
+        if (!StringUtils.isEmpty(parameter.getSearchValue())) {
+            sb.append(String.format("&searchValue=%s", parameter.getSearchValue()));
         }
 
         return sb.toString();
@@ -95,7 +95,7 @@ public class BoardController {
     @GetMapping("/board/update/{id}")
     public String boardUpdate(@AuthenticationPrincipal UserDto user, Model model, BoardDto parameter) throws UnsupportedEncodingException {
         System.out.println(parameter);
-        System.out.println("\n\n"+parameter.getId());
+        System.out.println("\n\n" + parameter.getId());
 
         model.addAttribute("loginUserId", user.getId());
         model.addAttribute("detail", boardService.get(parameter));
@@ -117,22 +117,19 @@ public class BoardController {
 
     @GetMapping("/board/detail/{id}")
     public String detail(@AuthenticationPrincipal UserDto user, Model model, BoardDto parameter) {
-
+        int userId = 0;
+        if (user != null) {
+            userId = user.getId();
+            parameter.setLoginUserId(userId);
+        }
         BoardDto result = boardService.get(parameter);
         if (result == null) {
             return "redirect:/error";
         }
-        int userId = 0;
-        if (user != null) {
-            userId = user.getId();
-        }
-
         boardService.viewCountUp(parameter);
-//        System.out.println("result =="+ result);
-//        System.out.println("getRegId() =="+ result.getRegId());
         model.addAttribute("detail", result);
-        model.addAttribute("writerId",result.getRegId());
-        model.addAttribute("loginUserId",userId);
+        model.addAttribute("writerId", result.getRegId());
+        model.addAttribute("loginUserId", userId);
 
         return "board/boardContents";
     }
@@ -203,7 +200,7 @@ public class BoardController {
     @GetMapping("/board/mypage")
     public String mypage(@AuthenticationPrincipal UserDto user, Model model) {
 
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
 
         return "/board/mypage";
     }

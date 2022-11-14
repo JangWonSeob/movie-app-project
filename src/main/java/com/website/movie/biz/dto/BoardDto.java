@@ -31,6 +31,9 @@ public class BoardDto extends BaseDto {
     private int unlikeTotalCount;
 
     private boolean myBookMark;
+    
+    //민수 접속자 확인용
+    private int loginUserId;
 
     // 프론트 넘버링
     private int boardNo;

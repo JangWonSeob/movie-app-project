@@ -10,17 +10,17 @@ let TOTAL_COUNT = 0;
 // split('/')[3] == 118
 const BOARD_ID = location.pathname.split('/')[3];
 
-var setLikes = function() {
+var setLikes = function () {
     const url = '/api/likes/set.api';
 
     const param = {
-        boardId: BOARD_ID,
+        boardId: BOARD_ID
     };
 
-    console.log("boardId",BOARD_ID)
+    console.log("boardId", BOARD_ID)
 
     API_CALL.post(url, param, function (result, message, data) {
-        if(!result) {
+        if (!result) {
             alert(message);
             return false;
         }
@@ -28,51 +28,49 @@ var setLikes = function() {
         // 원하는 색깔을 넣어주세요.
         // 누르기전 기본색은 css나 부트스트랩으로 하시면 됩니다.
         if (data.likesYn) { // like눌렀을때
-            //배경색
-            $('#board-like').css('background-color', '0');
-            //글씨색
-            $('#board-like').css('color', 'white');
+            $('#board-like').css('background-color', '#d3d3d3');
+            $('#board-like-img').css('background-color', '#d3d3d3');
+            $('#board-like-img').css('color', '#FFDF65');
         } else {
             $('#board-like').css('background-color', 'white');
-            // $('#board-like').css('background-color', 'white');
-            $('#board-like').css('color', 'white');
+            $('#board-like-img').css('background-color', 'white');
+            $('#board-like-img').css('color', '#d3d3d3');
         }
     })
 }
 
-var setUnlikes = function() {
+var setUnlikes = function () {
     const url = '/api/unlikes/set.api';
-
     const param = {
         boardId: BOARD_ID
     };
-
     API_CALL.post(url, param, function (result, message, data) {
-        if(!result) {
+        if (!result) {
             alert(message);
             return false;
         }
         console.log(data);
         // 원하는 색깔을 넣어주세요.
         if (data.unLikesYn) {
-            $('#board-unlike').css('background-color', 'black');
-            $('#board-unlike').css('color', 'white');
+            $('#board-unlike').css('background-color', '#d3d3d3');
+            $('#board-unlike-img').css('background-color', '#d3d3d3');
+            $('#board-unlike-img').css('color', '#FFDF65');
         } else {
             $('#board-unlike').css('background-color', 'white');
-            $('#board-unlike').css('color', 'black');
+            $('#board-unlike-img').css('background-color', 'white');
+            $('#board-unlike-img').css('color', '#d3d3d3');
         }
     })
 }
 
-
-var setBookMark = function() {
+var setBookMark = function () {
     const url = '/api/book-mark/board/set.api';
     console.log(BOARD_ID);
     const param = {
         tableId: BOARD_ID
     };
     API_CALL.post(url, param, function (result, message, data) {
-        if(!result) {
+        if (!result) {
             alert(message);
             return false;
         }
@@ -91,12 +89,11 @@ var setBookMark = function() {
 var getGenre = function () {
 
     let queryString = location.search;
-
-    if(queryString != undefined && queryString != '') {
+    if (queryString != undefined && queryString != '') {
         queryString = queryString.replaceAll('?', '');
         queryString = queryString.split("&");
         for (let i = 0; i < queryString.length; i++) {
-            if ((queryString[i].indexOf('subId') + queryString[i].indexOf('='))  > 1) {
+            if ((queryString[i].indexOf('subId') + queryString[i].indexOf('=')) > 1) {
                 SEARCH_GENRE = queryString[i].split('=')[1];
                 break;
             }
@@ -104,83 +101,24 @@ var getGenre = function () {
     }
 }
 
-// var getList = function() {
-//     const url = '/api/movie/gets.api';
-//     const param = {
-//         pageIndex: PAGE_INDEX,
-//         pageSize: PAGE_SIZE,
-//         searchGenre: SEARCH_GENRE,
-//     };
-//
-//     API_CALL.post(url, param, function (result, message, data) {
-//         if(!result) {
-//             alert(message);
-//             return false;
-//         }
-//         let movieList = data.list || [];
-//         TOTAL_COUNT = data.totalCount || 0;
-//
-//         for (let i = 0; i < movieList.length; i++) {
-//
-//             // <div className="col-lg-2">
-//             //     <div className="card" style="width: 15rem;">
-//             //         <!--                    <img src="test/test.png" class="card-img-top" alt="...">-->
-//             //     </div>
-//             //     <div>제목</div>
-//             // </div>
-//
-//             // <div th:each="movie : ${code.movieList}" className="col-lg-2">
-//             //     <a th:href="@{/movie/detail/{id}(id=${movie.id})}">
-//             //         <div className="card" style="width: 15rem;">
-//             //             <img th:src="${movie.fullPosterPath}" className="card-img-top" alt="...">
-//             //         </div>
-//             //         <div style="color: white" th:text="${movie.title}"></div>
-//             //     </a>
-//             // </div>
-//
-//             let append = '';
-//             append += '<div class="col-lg-2">';
-//             append += '<a href=" /movie/detail/' + movieList[i].id + ' ">';
-//             append += '<div class="card" style="width: 15rem;">';
-//             append += '<img src=" ' + movieList[i].fullPosterPath +  ' " class="card-img-top" alt="...">';
-//             append += '</div>';
-//             append += '<div>' + movieList[i].title + '</div>';
-//             append += '</a>';
-//             append += '</div>';
-//
-//             $('#movieList').append(append);
-//         }
-//     })
-// }
-$(function(){
+$(function () {
     getGenre();
-    // getList();
-
     $('#moreList').on('click', function () {
         PAGE_INDEX += 1;
-
         if ((PAGE_INDEX - 1) * PAGE_SIZE > TOTAL_COUNT) {
             alert('더 이상 데이터가 없습니다.');
             return false;
         }
-
         getList();
     })
-    
     //원하는 html id와 axios 함수 연결
     $('#board-like').on('click', function () {
         setLikes();
     })
-
     $('#board-unlike').on('click', function () {
         setUnlikes();
     })
-
     $('#board-bookmark').on('click', function () {
         setBookMark();
     })
-
-
-
 });
-
