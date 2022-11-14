@@ -126,6 +126,10 @@ public class BoardController {
         if (result == null) {
             return "redirect:/error";
         }
+
+        System.out.println("result"+result);
+        System.out.println("parameter"+parameter);
+
         boardService.viewCountUp(parameter);
         model.addAttribute("detail", result);
         model.addAttribute("writerId", result.getRegId());

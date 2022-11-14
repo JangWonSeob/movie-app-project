@@ -28,12 +28,12 @@ var setLikes = function () {
         // 원하는 색깔을 넣어주세요.
         // 누르기전 기본색은 css나 부트스트랩으로 하시면 됩니다.
         if (data.likesYn) { // like눌렀을때
-            $('#board-like').css('background-color', '#d3d3d3');
-            $('#board-like-img').css('background-color', '#d3d3d3');
+            // $('#board-like').css('background-color', '#d3d3d3');
+            // $('#board-like-img').css('background-color', '#d3d3d3');
             $('#board-like-img').css('color', '#FFDF65');
         } else {
-            $('#board-like').css('background-color', 'white');
-            $('#board-like-img').css('background-color', 'white');
+            // $('#board-like').css('background-color', 'white');
+            // $('#board-like-img').css('background-color', 'white');
             $('#board-like-img').css('color', '#d3d3d3');
         }
     })
@@ -52,12 +52,12 @@ var setUnlikes = function () {
         console.log(data);
         // 원하는 색깔을 넣어주세요.
         if (data.unLikesYn) {
-            $('#board-unlike').css('background-color', '#d3d3d3');
-            $('#board-unlike-img').css('background-color', '#d3d3d3');
+            // $('#board-unlike').css('background-color', '#d3d3d3');
+            // $('#board-unlike-img').css('background-color', '#d3d3d3');
             $('#board-unlike-img').css('color', '#FFDF65');
         } else {
-            $('#board-unlike').css('background-color', 'white');
-            $('#board-unlike-img').css('background-color', 'white');
+            // $('#board-unlike').css('background-color', 'white');
+            // $('#board-unlike-img').css('background-color', 'white');
             $('#board-unlike-img').css('color', '#d3d3d3');
         }
     })
@@ -77,11 +77,11 @@ var setBookMark = function () {
         console.log(data);
         // 원하는 색깔을 넣어주세요.
         if (data.bookMarkYn) {
-            $('#board-bookmark').css('background-color', 'black');
-            $('#board-bookmark').css('color', 'white');
+            // $('#board-bookmark').css('background-color', 'black');
+            $('#board-bookmark-img').css('color', 'limegreen');
         } else {
-            $('#board-bookmark').css('background-color', 'white');
-            $('#board-bookmark').css('color', 'black');
+            // $('#board-bookmark').css('background-color', 'white');
+            $('#board-bookmark-img').css('color', 'black');
         }
     })
 }
