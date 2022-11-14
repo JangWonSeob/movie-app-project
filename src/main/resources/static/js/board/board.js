@@ -31,6 +31,7 @@ var setLikes = function () {
             // $('#board-like').css('background-color', '#d3d3d3');
             // $('#board-like-img').css('background-color', '#d3d3d3');
             $('#board-like-img').css('color', '#FFDF65');
+            $('#board-unlike-img').css('color', '#d3d3d3');
         } else {
             // $('#board-like').css('background-color', 'white');
             // $('#board-like-img').css('background-color', 'white');
@@ -55,6 +56,8 @@ var setUnlikes = function () {
             // $('#board-unlike').css('background-color', '#d3d3d3');
             // $('#board-unlike-img').css('background-color', '#d3d3d3');
             $('#board-unlike-img').css('color', '#FFDF65');
+            $('#board-like-img').css('color', '#d3d3d3');
+
         } else {
             // $('#board-unlike').css('background-color', 'white');
             // $('#board-unlike-img').css('background-color', 'white');
