@@ -45,9 +45,9 @@
         </div>
 
         <div class="row mb-3" style="padding: 0px 15px 15px 15px">
-            <div class="col-lg-3" th:each="movie : ${movieList}">
+            <div class="col-lg-3 col-md-6" th:each="movie : ${movieList}">
                 <a style="color: black" class="text-center text-decoration-none" th:href="@{/movie/detail/{id}(id=${movie.id})}">
-                    <div class="rounded" style="width: 18rem; display: block; margin: auto;">
+                    <div class="card rounded" style=" margin: auto;">
                         <img th:src="${movie.fullPosterPath}" class="card-img-top" alt="...">
                     </div>
                     <div th:text="${movie.title}"></div>
@@ -64,9 +64,9 @@
         </div>
 
         <div class="row mb-3" style="padding: 0px 15px 15px 15px">
-            <div class="col-lg-3" th:each="tv : ${tvList}">
+            <div class="col-lg-3 col-md-6" th:each="tv : ${tvList}">
                 <a style="color: black" class="text-center text-decoration-none" href="#">
-                    <div class="card" style="width: 18rem; display: block; margin: auto;">
+                    <div class="card rounded" style="margin: auto;">
                         <img th:src="${tv.fullPosterPath}" class="card-img-top" alt="...">
                     </div>
                     <div th:text="${tv.title}"></div>
