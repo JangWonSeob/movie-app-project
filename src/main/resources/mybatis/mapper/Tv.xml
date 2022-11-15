@@ -124,7 +124,7 @@
                 VIEW_COUNT = VIEW_COUNT + 1
             </when>
             <otherwise>
-                UDT_DT = NOW()
+                UPD_DT = NOW()
                 , TITLE = #{title}
                 , OVERVIEW = #{overview}
                 , ADULT = #{adult}

@@ -23,7 +23,7 @@ public class BoardOutputModel {
 
     private Date regDt;
     private int regId;
-    private Date udtDT;
+    private Date updDT;
 
     public static BoardOutputModel toModel(BoardDto parameter) {
 
@@ -36,7 +36,7 @@ public class BoardOutputModel {
                 .displayYn(parameter.isDisplayYn())
                 .regDt(parameter.getRegDt())
                 .regId(parameter.getRegId())
-                .udtDT(parameter.getUpdDT())
+                .updDT(parameter.getUpdDT())
                 .build();
     }
 

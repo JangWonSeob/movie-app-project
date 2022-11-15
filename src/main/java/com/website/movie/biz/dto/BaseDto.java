@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public abstract class BaseDto {
 
-    private int loginUserId;
+    protected int loginUserId;
 
     protected Date regDt;
     protected int regId;

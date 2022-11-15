@@ -28,6 +28,10 @@ public class CommentDto extends BaseDto {
 
     private String regNickname;
 
+    public boolean isOwnerYn() {
+        return this.loginUserId == regId;
+    }
+
     // SEARCH
     public int searchCommentId;
 

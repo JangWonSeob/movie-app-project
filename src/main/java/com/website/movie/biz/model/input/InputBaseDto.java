@@ -15,8 +15,8 @@ public abstract class InputBaseDto {
 
     protected Date regDt;
     protected String regId;
-    protected Date udtDT;
-    protected String udtId;
+    protected Date updDT;
+    protected String updId;
     protected Date delDt;
     protected String delId;
     protected boolean delYn;

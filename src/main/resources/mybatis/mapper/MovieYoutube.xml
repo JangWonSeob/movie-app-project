@@ -70,7 +70,7 @@
 
     <update id="update">
         UPDATE <include refid="TABLE"/>
-        SET UDT_DT = NOW()
+        SET UPD_DT = NOW()
         , MOVIE_ID = #{movieId}
         , ISO6391 = #{iso6391}
         , ISO31661 = #{iso31661}

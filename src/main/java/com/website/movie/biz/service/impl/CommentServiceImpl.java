@@ -36,11 +36,33 @@ public class CommentServiceImpl implements CommentService {
         return true;
     }
 
+    @Override
+    public CommentDto get(CommentDto parameter) {
+        return commentDao.selectOne(parameter);
+    }
+
+    @Override
+    public List<CommentDto> getAll(CommentDto parameter) {
+        List<CommentDto> list = commentDao.selectListAll(parameter);
+        if (list != null && list.size() > 0) {
+            for(CommentDto x : list) {
+                x.setLoginUserId(parameter.getLoginUserId());
+            }
+        }
+        return list;
+    }
 
     @Override
     public List<CommentDto> gets(CommentDto parameter) {
-        return commentDao.selectList(parameter);
+        List<CommentDto> list = commentDao.selectList(parameter);
+        if (list != null && list.size() > 0) {
+            for(CommentDto x : list) {
+                x.setLoginUserId(parameter.getLoginUserId());
+            }
+        }
+        return list;
     }
+
 
     @Override
     public int totalCount(CommentDto parameter) {

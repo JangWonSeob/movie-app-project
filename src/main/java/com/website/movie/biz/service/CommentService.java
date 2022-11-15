@@ -11,6 +11,8 @@ public interface CommentService {
 
     boolean set(CommentDto parameter);
 
+    CommentDto get(CommentDto parameter);
+    List<CommentDto> getAll(CommentDto parameter);
     List<CommentDto> gets(CommentDto parameter);
     int totalCount(CommentDto parameter);
 

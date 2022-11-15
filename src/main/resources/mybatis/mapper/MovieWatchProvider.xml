@@ -76,7 +76,7 @@
                 VIEW_COUNT = VIEW_COUNT + 1
             </when>
             <otherwise>
-                UDT_DT = NOW()
+                UPD_DT = NOW()
                 , MOVIE_ID = #{movieId}
                 , PROVIDER_ID = #{providerId}
                 , PROVIDER_NAME = #{providerName}

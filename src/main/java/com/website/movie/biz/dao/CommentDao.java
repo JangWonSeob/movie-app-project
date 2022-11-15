@@ -13,6 +13,8 @@ public interface CommentDao {
     int delete(CommentDto parameter);
     int update(CommentDto parameter);
 
+    CommentDto selectOne(CommentDto parameter);
+    List<CommentDto> selectListAll(CommentDto parameter);
     List<CommentDto> selectList(CommentDto parameter);
     int selectListCount(CommentDto parameter);
 
