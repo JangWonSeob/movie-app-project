@@ -97,7 +97,7 @@ public class ApiCommentController {
             parameter.setLoginUserId(user.getId());
         }
 
-        List<CommentDto> list = commentService.gets(parameter);
+        List<CommentDto> list = commentService.getAll(parameter);
         int totalCount = commentService.totalCount(parameter);
 
         Map<String, Object> result = new HashMap<>();

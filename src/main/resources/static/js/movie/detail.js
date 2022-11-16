@@ -131,10 +131,10 @@ var changeInput = function (comment) {
     $div.empty();
 
     let html = '';
-    html += '<textarea style="height: 15%; width: 100%" id="comment_contents_' + comment.id + '" placeholder="댓글을 입력해주세요.">' + comment.contents + '</textarea>';
+    html += '<textarea style="height: 15%; width: 100%" class="rounded" id="comment_contents_' + comment.id + '" placeholder="댓글을 입력해주세요.">' + comment.contents + '</textarea>';
     html += '<input type="hidden" id="comment_hidden_' + comment.id + '" value="' + comment.contents + '"/>';
-    html += '<button type="button" style="min-width: 50px" id="comment_set_' + comment.id + '" onclick="onClickCommentSet(' + comment.id + ')">저장</button>'
-    html += '<button type="button" style="min-width: 50px" id="comment_set_' + comment.id + '" onclick="onClickCancel(' + comment.id + ')">취소</button>'
+    html += '<button type="button" style="min-width: 50px" class="btn btn-primary" id="comment_set_' + comment.id + '" onclick="onClickCommentSet(' + comment.id + ')">저장</button>'
+    html += '<button type="button" style="min-width: 50px" class="btn btn-primary" id="comment_set_' + comment.id + '" onclick="onClickCancel(' + comment.id + ')">취소</button>'
     $div.append(html);
 }
 
@@ -180,22 +180,26 @@ var drawingCommentList = function (list, totalCount, pageIndex) {
         html += '<div style="margin: 0px 0px;">';
         html += '   <div style="display: flex; justify-content: space-between"><b>' + comment.regNickname + '</b><span>' + comment.regDtText + '</span></div>';
         html += '   <div style="margin: 5px 0px" id="movie_comment_' + comment.id + '">' + comment.contents.replaceAll("\n", "<br/>") + '</div>';
-        html += '   <button type="button" style="font-size: 13px;" id="' + comment.id + '" onclick="onClickShowReCommentWrite()">' + '답글' + '</button>';
+        html += '   <button type="button" style="font-size: 13px;" class="btn btn-primary"id="' + comment.id + '" onclick="onClickShowReCommentWrite()">' + '답글' + '</button>';
         if (comment.ownerYn) {
-            html += '   <button type="button" style="font-size: 13px;" id="btn_set_' + comment.id + '" onclick="onClickCommentSetDate(' + comment.id + ')">' + '수정' + '</button>';
+            html += '   <button type="button" style="font-size: 13px;" class="btn btn-primary" id="btn_set_' + comment.id + '" onclick="onClickCommentSetDate(' + comment.id + ')">' + '수정' + '</button>';
         }
-        html += '   <div class="none" style="justify-content: space-between; margin: 5px 0;" id="recomment_' + comment.id + '">';
-        html += '        <textarea style="height: 15%; width: 100%" id="comment_contents_' + comment.id + '" placeholder="댓글을 입력해주세요."></textarea>';
-        html += '        <button type="button" style="min-width: 50px" id="comment_set_' + comment.id + '" onclick="onClickReCommentSet(' + comment.id + ')">등록</button>'
+        html += '   <div class="none" id="recomment_' + comment.id + '">';
+        html += '       <div className="col-md-10">';
+        html += '           <textarea style="height: 100%; width: 100%" class="rounded" id="comment_contents_' + comment.id + '" placeholder="댓글을 입력해주세요."></textarea>';
+        html += '       </div>';
+        html += '       <div className="col-md-2">';
+        html += '           <button type="button" class="btn btn-primary" style="min-width: 50px; height: 100%" id="comment_set_' + comment.id + '" onclick="onClickReCommentSet(' + comment.id + ')">등록</button>';
+        html += '       </div>';
         html += '   </div>';
-        // if (comment.childCommentCount > 0) {
-            html += '<div>';
-            html += '   <input type="hidden" id="re_comment_yn_' + comment.id + '" value="N" />';
-            html += '   <button type="button" style="font-size: 13px; margin: 5px 0; background: transparent; border: none" onclick="onClickShowReComment(' + comment.id + ')">' + '댓글이 ' + comment.childCommentCount + '개 존재합니다.' + '</button>'
-            html += '   <input type="hidden" id="pageIndex_' + comment.id + '" value="0"/>';
-            html += '   <div id="re_comment_' + comment.id +'"></div>';
-            html += '</div>'
-        // }
+        if (comment.childCommentCount > 0) {
+        html += '   <div>';
+        html += '       <input type="hidden" id="re_comment_yn_' + comment.id + '" value="N" />';
+        html += '       <button type="button" style="font-size: 13px; margin: 5px 0; background: transparent; border: none" onclick="onClickShowReComment(' + comment.id + ')">' + '댓글이 ' + comment.childCommentCount + '개 존재합니다.' + '</button>'
+        html += '       <input type="hidden" id="pageIndex_' + comment.id + '" value="0"/>';
+        html += '       <div id="re_comment_' + comment.id +'"></div>';
+        html += '   </div>'
+        }
 
         html += '</div>';
         html += '<hr/>';
@@ -220,7 +224,7 @@ var drawingReCommentList = function (commentId, list, totalCount, pageIndex) {
         html += '   <div style="display: flex; justify-content: space-between"><b>' + comment.regNickname + '</b><span>' + comment.regDtText + '</span></div>';
         html += '   <div style="margin: 5px 0px" id="movie_comment_' + comment.id + '">' + comment.contents.replaceAll("\n", "<br/>") + '</div>';
         if (comment.ownerYn) {
-            html += '   <button type="button" style="font-size: 13px;" id="btn_set_' + comment.id + '" onclick="onClickCommentSetDate(' + comment.id + ')">' + '수정' + '</button>';
+            html += '   <button type="button" style="font-size: 13px;" id="btn_set_' + comment.id + '" class="btn btn-primary" onclick="onClickCommentSetDate(' + comment.id + ')">' + '수정' + '</button>';
         }
         html += '</div>';
     })
@@ -233,8 +237,6 @@ var onClickShowReComment = function (commentId) {
     const $reCommentYn = $('#re_comment_yn_' + commentId);
     const $reComment = $('#re_comment_' + commentId);
 
-
-    console.log($reCommentYn.val());
     if ($reCommentYn.val() === 'Y') {
         $reCommentYn.val('N');
         $reComment.empty();
@@ -256,12 +258,12 @@ var onClickShowReCommentWrite = function () {
 
     const $recommentId = $('#recomment_' + id);
 
-    if ($recommentId.hasClass('none') && !$recommentId.hasClass('flex')) {
-        $recommentId.removeClass('none');
-        $recommentId.addClass('flex');
-    } else if (!$recommentId.hasClass('none') && $recommentId.hasClass('flex')) {
+    if ($recommentId.hasClass('row') && !$recommentId.hasClass('none')) {
+        $recommentId.removeClass('row');
         $recommentId.addClass('none');
-        $recommentId.removeClass('flex');
+    } else if (!$recommentId.hasClass('row') && $recommentId.hasClass('none')) {
+        $recommentId.addClass('row');
+        $recommentId.removeClass('none');
     } else {
         $recommentId.removeClass();
     }

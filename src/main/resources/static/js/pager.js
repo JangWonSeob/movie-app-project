@@ -81,7 +81,7 @@ if (typeof (movie.app.project.pager) == 'undefined') { movie.app.project.pager =
         _html += '<li class="page-item"><a class="page-link" href="javascript:;" onclick="onClickPageIndex(' + _nextPageIndex + ')">다음</a></li>';
         _html += '</ul>';
 
-        console.log(_html);
+        // console.log(_html);
 
         _pager.append(_html);
 

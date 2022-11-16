@@ -135,6 +135,8 @@ public class BoardController {
         model.addAttribute("writerId", result.getRegId());
         model.addAttribute("loginUserId", userId);
 
+        model.addAttribute("loginYn", user != null);
+
         return "board/boardContents";
     }
 
