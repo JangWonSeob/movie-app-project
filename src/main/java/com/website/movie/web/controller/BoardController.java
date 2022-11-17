@@ -23,7 +23,6 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
-    private final UserService userService;
 
 
     public String getSearchParam(BoardDto parameter) {
@@ -57,7 +56,7 @@ public class BoardController {
         model.addAttribute("loginUserId", user.getId());
         model.addAttribute("nickname", user.getNickname());
 
-        return "/board/boardWrite";
+        return "board/boardWrite";
     }
 
     @PostMapping("/board/write")
@@ -89,7 +88,7 @@ public class BoardController {
 
         System.out.println("게시판 정보" + board);
         boardService.set(board);
-        return "redirect:/board/list";
+        return "redirect:board/list";
     }
 
     @GetMapping("/board/update/{id}")
@@ -100,7 +99,7 @@ public class BoardController {
         model.addAttribute("loginUserId", user.getId());
         model.addAttribute("detail", boardService.get(parameter));
 
-        return "/board/boardUpdate";
+        return "board/boardUpdate";
     }
 
     @GetMapping("/board/delete/{id}")
@@ -112,7 +111,7 @@ public class BoardController {
             System.out.println("boardService delete");
             boardService.delete(board);
         }
-        return "redirect:/board/list";
+        return "redirect:board/list";
     }
 
     @GetMapping("/board/detail/{id}")
@@ -127,8 +126,8 @@ public class BoardController {
             return "redirect:/error";
         }
 
-        System.out.println("result"+result);
-        System.out.println("parameter"+parameter);
+        System.out.println("result" + result);
+        System.out.println("parameter" + parameter);
 
         boardService.viewCountUp(parameter);
         model.addAttribute("detail", result);
@@ -183,24 +182,23 @@ public class BoardController {
         model.addAttribute("boardTitle", parameter.getSearchCategory());
         model.addAttribute("boardList", list);
         model.addAttribute("totalCount", totalCount);
-        // TODO: 페이징 처리
         final PagerUtils pagerUtils = new PagerUtils(parameter.getPageIndex(), parameter.getPageSize(), totalCount);
         this.getSearchParam(parameter);
         final String pager = pagerUtils.printFrontPager("&category=" + category);
 
         model.addAttribute("pager", pager);
 
-        return "/board/boardList";
+        return "board/boardList";
     }
 
     @GetMapping("/board/notice")
     public String notice() {
-        return "/board/notice";
+        return "board/notice";
     }
 
     @GetMapping("/board/noticeList")
     public String noticeList() {
-        return "/board/noticeList";
+        return "board/noticeList";
     }
 
     @GetMapping("/board/mypage")
@@ -208,7 +206,7 @@ public class BoardController {
 
         model.addAttribute("user", user);
 
-        return "/board/mypage";
+        return "board/mypage";
     }
 
     @GetMapping("/board/myBoard")
@@ -218,7 +216,7 @@ public class BoardController {
         String category = request.getParameter("category");
 //        int startIndex = Integer.parseInt(request.getParameter("startIndex"));
 
-//        parameter.setSearchCategory("자유");
+        parameter.setSearchCategory("자유");
         parameter.setLoginUserId(user.getId());
 
         parameter.initPage();
@@ -233,13 +231,12 @@ public class BoardController {
         model.addAttribute("boardTitle", parameter.getSearchCategory());
         model.addAttribute("boardList", list);
         model.addAttribute("totalCount", totalCount);
-        // TODO: 페이징 처리
         final PagerUtils pagerUtils = new PagerUtils(parameter.getPageIndex(), parameter.getPageSize(), totalCount);
         this.getSearchParam(parameter);
         final String pager = pagerUtils.printFrontPager("&category=" + category);
 
         model.addAttribute("pager", pager);
-        return "/board/myBoard";
+        return "board/myBoard";
     }
 
     @GetMapping("/board/bookmarkList")
@@ -247,9 +244,7 @@ public class BoardController {
         request.setCharacterEncoding("utf-8");
 
         String category = request.getParameter("category");
-//        int startIndex = Integer.parseInt(request.getParameter("startIndex"));
 
-//        parameter.setSearchCategory("자유");
         parameter.setLoginUserId(user.getId());
 
         parameter.initPage();
@@ -270,6 +265,6 @@ public class BoardController {
         final String pager = pagerUtils.printFrontPager("&category=" + category);
 
         model.addAttribute("pager", pager);
-        return "/board/bookmarkList";
+        return "board/bookmarkList";
     }
 }
