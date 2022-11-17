@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/head :: fragment-head"></div>
+</head>
+<style>
+    body{
+        margin: 0 auto;
+        width: auto;
+        background-color: black;
+    }
+
+</style>
+<div th:replace="/fragments/commonNav :: commonNav"></div>
+
+<main style="width: 75%; margin: 0 auto">
+<body>
+    <div>
+    <div th:each="code : ${codeList}">
+        <div class="d-flex justify-content-between" style="color: white; padding: 40px 0px 10px 0px" >
+            <h4 th:text="${code.movieTitle}"></h4>
+            <a class="text-decoration-none" th:href="@{/movie/list(subId=${code.subId})}" style="color: white">+ 더보기</a>
+        </div>
+        <br/>
+        <div class="row mb-3 justify-content-center" style="padding: 0px 80px 0px 80px">
+            <div th:each="movie : ${code.movieList}" class="col-lg-3">
+                <a class="text-center text-decoration-none" th:href="@{/movie/detail/{id}(id=${movie.id})}">
+                    <div class="card" style="padding-bottom: 2px">
+                        <img th:src="${movie.fullPosterPath}" class="card-img-top" alt="...">
+                    </div>
+                    <div style="color: white" th:text="${movie.title}";></div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+
+        const url = '/api/movie/gets.api';
+        const param = {};
+
+        // API_CALL.post(url, param, function (result, message, data) {
+        //     if(!result) {
+        //         alert(message);
+        //         return false;
+        //     }
+        //     // 리스트 뿌리기
+        // })
+        //
+        // axios.post(url, param).then(function(response) {
+        //     console.log(response);
+        // }).catch(function (err){
+        //     console.log(err);
+        // })
+
+    </script>
+    </div>
+</body>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+</html>

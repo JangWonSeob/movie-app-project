@@ -65,6 +65,12 @@ public class MovieController {
         return "movie/detail";
     }
 
+    @GetMapping("/movie/search")
+    public String search(Model model) {
 
+        model.addAttribute("codeList", movieService.main());
+
+        return "movie/search";
+    }
 
 }
