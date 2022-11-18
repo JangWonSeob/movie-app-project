@@ -136,7 +136,7 @@ public class TvServiceImpl implements TvService {
         result.setWatchYoutubeList(tvYoutubeDao.selectList(TvYoutubeDto.builder().tvId(result.getId()).build()));
 
         if (parameter.getLoginUserId() > 0) {
-            result.setBookMarkYn(bookMarkDao.selectMyBookMark(BookMarkDto.builder().tableId(result.getId()).tableName(BookMarkDto.TABLE_NAME_MOVIE).loginUserId(parameter.getLoginUserId()).build()));
+            result.setBookMarkYn(bookMarkDao.selectMyBookMark(BookMarkDto.builder().tableId(result.getId()).tableName(BookMarkDto.TABLE_NAME_TV).loginUserId(parameter.getLoginUserId()).build()));
         }
 
         System.out.println(result);

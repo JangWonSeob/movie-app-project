@@ -40,7 +40,7 @@ public class TvController {
 
         CodeDto codeDto = codeService.getBySubId(parameter);
 
-        if(codeDto != null) {
+        if(codeDto == null) {
             // 값이 없으면 액션 & 어드벤처로 세팅
             parameter.setSubId("10759");
             codeDto = codeService.getBySubId(parameter);
@@ -55,12 +55,13 @@ public class TvController {
     @GetMapping("/tv/detail/{id}")
     public String detail(@AuthenticationPrincipal UserDto user, Model model, TvDto parameter) {
 
+        if (user != null) {
+            parameter.setLoginUserId(user.getId());
+        }
         TvDto result = tvService.get(parameter);
-
         if (result == null) {
             return "redirect:/error";
         }
-
         model.addAttribute("tv", result);
         model.addAttribute("loginYn", user != null);
 
@@ -76,7 +77,7 @@ public class TvController {
 
         CodeDto codeDto = codeService.getBySubId(parameter);
 
-        if(codeDto != null) {
+        if(codeDto == null) {
             // 값이 없으면 어드벤처로 세팅
             parameter.setSubId("10759");
             codeDto = codeService.getBySubId(parameter);

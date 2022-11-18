@@ -18,18 +18,18 @@
     <div>
         <div th:each="code : ${codeList}">
             <div class="d-flex justify-content-between" style="color: white; padding: 40px 0px 10px 0px">
-                <h4 th:text="${code.movieTitle}"></h4>
-                <a class="text-decoration-none" th:href="@{/movie/list(subId=${code.subId})}" style="color: white">+
+                <h4 th:text="${code.tvTitle}"></h4>
+                <a class="text-decoration-none" th:href="@{/tv/list(subId=${code.subId})}" style="color: white">+
                     더보기</a>
             </div>
             <br/>
             <div class="row mb-3 justify-content-center" style="padding: 0px 80px 0px 80px">
-                <div th:each="movie : ${code.movieList}" class="col-lg-3">
-                    <a class="text-center text-decoration-none" th:href="@{/movie/detail/{id}(id=${movie.id})}">
+                <div th:each="tv : ${code.tvList}" class="col-lg-3">
+                    <a class="text-center text-decoration-none" th:href="@{/tv/detail/{id}(id=${tv.id})}">
                         <div class="card" style="padding-bottom: 2px">
-                            <img th:src="${movie.fullPosterPath}" class="card-img-top" alt="...">
+                            <img th:src="${tv.fullPosterPath}" class="card-img-top" alt="...">
                         </div>
-                        <div style="color: white" th:text="${movie.title}" ;></div>
+                        <div style="color: white" th:text="${tv.title}" ;></div>
                     </a>
                 </div>
             </div>
@@ -38,7 +38,7 @@
 
         <script>
 
-            const url = '/api/movie/gets.api';
+            const url = '/api/tv/gets.api';
             const param = {};
 
             // API_CALL.post(url, param, function (result, message, data) {

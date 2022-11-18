@@ -16,6 +16,7 @@ public class CommentDto extends BaseDto {
 
     public static final String TABLE_NAME_BOARD = "board";
     public static final String TABLE_NAME_MOVIE = "movie";
+    public static final String TABLE_NAME_TV = "tv";
 
     private int id;
     private int userId;

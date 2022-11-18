@@ -3,9 +3,6 @@ package com.website.movie.web.controller.api;
 import com.website.movie.biz.dto.CommentDto;
 import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.model.JsonResult;
-import com.website.movie.biz.model.input.BoardInputModel;
-import com.website.movie.biz.model.input.CommentInputModel;
-import com.website.movie.biz.model.search.CommentSearchModel;
 import com.website.movie.biz.service.CommentService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +10,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +51,26 @@ public class ApiCommentController {
 
         parameter.setLoginUserId(user.getId());
         parameter.setTableName(CommentDto.TABLE_NAME_MOVIE);
+
+        boolean result = commentService.set(parameter);
+
+        if(!result) {
+            return JsonResult.fail(" 데이터 처리 중 문제가 발생하였습니다. ");
+        }
+
+        return JsonResult.success();
+    }
+
+    @PostMapping("/api/comment/tv/set.api")
+    @ApiOperation(value = "영화 댓글 등록 및 수정 API", notes = "영화 댓글 등록 및 수정이 가능합니다.")
+    public JsonResult setTv(@AuthenticationPrincipal UserDto user, @RequestBody CommentDto parameter) {
+
+        if (user == null) {
+            return JsonResult.fail("접근 권한이 없습니다.");
+        }
+
+        parameter.setLoginUserId(user.getId());
+        parameter.setTableName(CommentDto.TABLE_NAME_TV);
 
         boolean result = commentService.set(parameter);
 
@@ -184,6 +200,73 @@ public class ApiCommentController {
             return JsonResult.fail(" 접근 권한이 없습니다. ");
         }
         parameter.setTableName(CommentDto.TABLE_NAME_MOVIE);
+        parameter.setLoginUserId(user.getId());
+
+        CommentDto detail = commentService.get(parameter);
+
+        if (detail == null) {
+            return JsonResult.fail(" 해당 댓글을 찾을 수 없습니다. ");
+        }
+
+        if (detail.getRegId() != parameter.getLoginUserId()) {
+            return JsonResult.fail(" 접근 권한이 없습니다. ");
+        }
+
+        return JsonResult.success(detail);
+    }
+
+    @PostMapping("/api/comment/tv/gets.api")
+    @ApiOperation(value = "영화 댓글 리스트 조회 API", notes = "영화 댓글 리스트 조회가 가능합니다.")
+    public JsonResult getsTv(@AuthenticationPrincipal UserDto user, @RequestBody CommentDto parameter) {
+
+        parameter.initPage();
+        parameter.setSearchType("PARENTS");
+        parameter.setTableName(CommentDto.TABLE_NAME_TV);
+        if (user != null && user.getId() > 0) {
+            parameter.setLoginUserId(user.getId());
+        }
+
+        List<CommentDto> list = commentService.gets(parameter);
+        int totalCount = commentService.totalCount(parameter);
+
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("list", list);
+        result.put("totalCount", totalCount);
+
+        return JsonResult.success(result);
+    }
+
+    @PostMapping("/api/comment/tv/re/gets.api")
+    @ApiOperation(value = "영화 대댓글 리스트 조회 API", notes = "영화 댓글 리스트 조회가 가능합니다.")
+    public JsonResult getsReTv(@AuthenticationPrincipal UserDto user, @RequestBody CommentDto parameter) {
+
+        parameter.setSearchType("CHILD");
+        parameter.setTableName(CommentDto.TABLE_NAME_TV);
+        if (user != null && user.getId() > 0) {
+            parameter.setLoginUserId(user.getId());
+        }
+
+        List<CommentDto> list = commentService.getAll(parameter);
+        int totalCount = commentService.totalCount(parameter);
+
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("list", list);
+        result.put("totalCount", totalCount);
+
+        return JsonResult.success(result);
+    }
+
+    @PostMapping("/api/comment/tv/set/get.api")
+    @ApiOperation(value = "영화 수정 댓글 조회 API", notes = "영화 수정 댓글 조회가 가능합니다.")
+    public JsonResult getSetTv(@AuthenticationPrincipal UserDto user, @RequestBody CommentDto parameter) {
+
+
+        if (user == null && user.getId() < 1) {
+            return JsonResult.fail(" 접근 권한이 없습니다. ");
+        }
+        parameter.setTableName(CommentDto.TABLE_NAME_TV);
         parameter.setLoginUserId(user.getId());
 
         CommentDto detail = commentService.get(parameter);

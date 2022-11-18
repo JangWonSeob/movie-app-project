@@ -71,4 +71,25 @@ public class ApiBookMarkController {
         result.put("bookMarkYn", bookMarkYn);
         return JsonResult.success(result);
     }
+
+    @PostMapping("/api/book-mark/tv/set.api")
+    @ApiOperation(value = "TV 즐겨찾기 등록 및 삭제 API", notes = "TV 즐겨찾기 등록 및 삭제가 가능합니다.")
+    public JsonResult TvSet(@AuthenticationPrincipal UserDto user, @RequestBody BookMarkDto parameter) {
+
+        if (user == null) {
+            return JsonResult.fail("로그인 후 이용해주세요.");
+//            return JsonResult.fail("접근 권한이 없습니다.");
+        }
+
+        parameter.setLoginUserId(user.getId());
+
+//        로그인 유저 추가 로직
+//        parameter.setLoginUserId();
+
+        parameter.setTableName(BookMarkDto.TABLE_NAME_TV);
+        boolean bookMarkYn = bookMarkService.set(parameter);
+        HashMap<String, Boolean> result = new HashMap<>();
+        result.put("bookMarkYn", bookMarkYn);
+        return JsonResult.success(result);
+    }
 }

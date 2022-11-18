@@ -34,4 +34,13 @@ public class CodeDto extends BaseDto {
         }
         return result;
     }
+    public String getTvTitle() {
+        String result = "";
+
+        if(!StringUtils.isEmpty(description)) {
+            result = " # " + description;
+
+        }
+        return result;
+    }
 }
