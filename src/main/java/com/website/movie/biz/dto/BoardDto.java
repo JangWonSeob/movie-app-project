@@ -30,7 +30,7 @@ public class BoardDto extends BaseDto {
     private int likeTotalCount;
     private int unlikeTotalCount;
 
-    private boolean myBookMark;
+    private boolean bookMarkYn;
     
     //민수 접속자 확인용
     private int loginUserId;

@@ -42,20 +42,11 @@
             <p class="col-md-3"
                style="display: table-cell; vertical-align: middle; padding-top: 11px; text-align: right; padding-right: 30px"
                th:text="| 조회수 ${detail.viewCount}|">조회수</p>
-            <th:block th:if="${detail.isMyBookMark() == true}">
-                <button class="col-md-1 btn" id="board-bookmark" style=" text-align: left; border:none;">
-                    <svg id="board-bookmark-img" xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px; color: yellowgreen" fill="currentColor" class="bi bi-bookmark-fill" viewBox="0 0 16 16">
-                        <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/>
-                    </svg>
-                </button>
-            </th:block>
-            <th:block th:if="${detail.isMyBookMark() != true}">
-                <button class="col-md-1 btn" id="board-bookmark" style=" text-align: left; border:none;">
-                    <svg id="un-board-bookmark-img" xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px; color: black" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
-                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-                    </svg>
-                </button>
-            </th:block>
+            <button th:style="${detail.bookMarkYn ? 'border: none; background-color:white; color: coral;' : 'border: none; background-color:white; color: black;'}" id="board-bookmark" class="col" style="text-align: right; margin: 0; padding: 0">
+                <svg id="movie-bookmark" xmlns="http://www.w3.org/2000/svg" style="width: 25px; height: 25px; padding-bottom: 0" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                </svg>
+            </button>
         </div>
         <hr style="border: solid 1px gray" class="mb-3">
         <div style="height: 500px; padding: 15px 10px">

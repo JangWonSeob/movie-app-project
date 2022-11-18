@@ -77,14 +77,10 @@ var setBookMark = function () {
             alert(message);
             return false;
         }
-        console.log(data);
-        // 원하는 색깔을 넣어주세요.
         if (data.bookMarkYn) {
-            // $('#board-bookmark').css('background-color', 'black');
-            $('#board-bookmark-img').css('color', 'yellowgreen');
+            $('#movie-bookmark').css('color', 'coral');
         } else {
-            // $('#board-bookmark').css('background-color', 'white');
-            $('#un-board-bookmark-img').css('color', '#d3d3d3');
+            $('#movie-bookmark').css('color', 'black');
         }
     })
 }

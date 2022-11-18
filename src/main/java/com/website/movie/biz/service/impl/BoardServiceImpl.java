@@ -57,7 +57,7 @@ public class BoardServiceImpl implements BoardService {
             // 나의 싫어요 여부
             result.setMyUnlike(unlikesDao.selectMyUnlike(UnlikesDto.builder().boardId(result.getId()).loginUserId(parameter.getLoginUserId()).build()));
             // 즐겨찾기 여부
-            result.setMyBookMark(bookMarkDao.selectMyBookMark(BookMarkDto.builder().tableId(String.valueOf(result.getId())).tableName(BookMarkDto.TABLE_NAME_BOARD).loginUserId(parameter.getLoginUserId()).build()));
+            result.setBookMarkYn(bookMarkDao.selectMyBookMark(BookMarkDto.builder().tableId(String.valueOf(result.getId())).tableName(BookMarkDto.TABLE_NAME_BOARD).loginUserId(parameter.getLoginUserId()).build()));
         }
         // 좋아요 갯수
         //
