@@ -56,7 +56,7 @@ public class TvServiceImpl implements TvService {
 
     @Override
     public List<CodeDto> main() {
-        List<CodeDto> result = codeDao.selectList(CodeDto.builder().type(MovieDto.CODE_TYPE_MOVIE_GENRE).build());
+        List<CodeDto> result = codeDao.selectList(CodeDto.builder().type(TvDto.CODE_TYPE_TV_GENRE).build());
 
         for (CodeDto x : result) {
             x.setTvList(tvDao.main(TvDto.builder().searchGenre(x.getSubId()).build()));
