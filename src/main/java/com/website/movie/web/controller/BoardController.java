@@ -3,9 +3,11 @@ package com.website.movie.web.controller;
 
 import com.website.movie.biz.dto.BoardDto;
 import com.website.movie.biz.dto.MovieDto;
+import com.website.movie.biz.dto.TvDto;
 import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.service.BoardService;
 import com.website.movie.biz.service.MovieService;
+import com.website.movie.biz.service.TvService;
 import com.website.movie.common.util.PagerUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,7 +27,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final MovieService movieService;
-
+    private final TvService tvService;
 
     public String getSearchParam(BoardDto parameter) {
         if (parameter == null) {
@@ -50,6 +52,24 @@ public class BoardController {
     }
 
     public String getSearchParam(MovieDto parameter) {
+        if (parameter == null) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        if (!StringUtils.isEmpty(parameter.getSearchType())) {
+            sb.append(String.format("&searchType=%s", parameter.getSearchType()));
+        }
+
+        if (!StringUtils.isEmpty(parameter.getSearchValue())) {
+            sb.append(String.format("&searchValue=%s", parameter.getSearchValue()));
+        }
+
+        return sb.toString();
+    }
+
+    public String getSearchParam(TvDto parameter) {
         if (parameter == null) {
             return "";
         }
@@ -259,8 +279,6 @@ public class BoardController {
         return "board/myBoard";
     }
 
-
-
     @GetMapping("/board/bookmarkList")
     public String bookmarkList(@AuthenticationPrincipal UserDto user, HttpServletRequest request, Model model, BoardDto parameter) throws UnsupportedEncodingException {
         request.setCharacterEncoding("utf-8");
@@ -297,7 +315,9 @@ public class BoardController {
         parameter.setLoginUserId(user.getId());
 
         parameter.initPage2();
-        parameter.setSqlSelectType("MY_BOOKMARK_LIST");  // DISPLAY_YN 구별
+        parameter.setSqlSelectType("MY_BOOKMARK_MOVIE_LIST");  // DISPLAY_YN 구별
+
+        System.out.println("parameter =="+parameter);
 
         int totalCount = movieService.totalCount(parameter);
         List<MovieDto> list = movieService.gets(parameter);
@@ -312,4 +332,30 @@ public class BoardController {
 
         return "board/bookmarkMovieList";
     }
+
+    @GetMapping("/board/bookmarkTvList")
+    public String bookmarkTvList(@AuthenticationPrincipal UserDto user, HttpServletRequest request, Model model, TvDto parameter) throws UnsupportedEncodingException {
+        request.setCharacterEncoding("utf-8");
+
+        parameter.setLoginUserId(user.getId());
+
+        parameter.initPage2();
+        parameter.setSqlSelectType("MY_BOOKMARK_TV_LIST");  // DISPLAY_YN 구별
+
+        System.out.println("parameter =="+parameter);
+
+        int totalCount = tvService.totalCount(parameter);
+        List<TvDto> list = tvService.gets(parameter);
+        model.addAttribute("tvList", list);
+        model.addAttribute("totalCount", totalCount);
+
+        final PagerUtils pagerUtils = new PagerUtils(parameter.getPageIndex(), parameter.getPageSize(), totalCount);
+        this.getSearchParam(parameter);
+
+        final String pager = pagerUtils.printFrontPager("");
+        model.addAttribute("pager", pager);
+
+        return "board/bookmarkTvList";
+    }
+
 }
