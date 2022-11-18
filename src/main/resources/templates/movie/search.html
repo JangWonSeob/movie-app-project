@@ -4,7 +4,7 @@
     <div th:replace="/fragments/head :: fragment-head"></div>
 </head>
 <style>
-    body{
+    body {
         margin: 0 auto;
         width: auto;
         background-color: black;
@@ -13,52 +13,55 @@
 </style>
 <div th:replace="/fragments/commonNav :: commonNav"></div>
 
-<main style="width: 75%; margin: 0 auto">
-<body>
+<main style="width: 75%; margin: 0 auto; background-color: #ebebeb">
+    <body>
     <div>
-    <div th:each="code : ${codeList}">
-        <div class="d-flex justify-content-between" style="color: white; padding: 40px 0px 10px 0px" >
-            <h4 th:text="${code.movieTitle}"></h4>
-            <a class="text-decoration-none" th:href="@{/movie/list(subId=${code.subId})}" style="color: white">+ 더보기</a>
-        </div>
-        <br/>
-        <div class="row mb-3 justify-content-center" style="padding: 0px 80px 0px 80px">
-            <div th:each="movie : ${code.movieList}" class="col-lg-3">
-                <a class="text-center text-decoration-none" th:href="@{/movie/detail/{id}(id=${movie.id})}">
-                    <div class="card" style="padding-bottom: 2px">
-                        <img th:src="${movie.fullPosterPath}" class="card-img-top" alt="...">
-                    </div>
-                    <div style="color: white" th:text="${movie.title}";></div>
+        <form method="get" action="/movie/search">
+            <div class="business-srch">
+                <input type="text" name="searchValue" placeholder="검색어를 입력하세요." th:value="${param.searchValue}"/>
+                <dl style="padding-left:140px;">
+                    <dt class="">분류</dt>
+                    <dd>
+                        <input type="checkbox" class="all" id="category_total" name="searchArea" value=""/><span
+                            class="ml_10 mr_10">전체 </span>
+                        <input type="checkbox" class="elem" name="searchArea" value="1"/> <span class="">테스트1</span>
+                        <input type="checkbox" class="elem" name="searchArea" value="2"/> <span class="">테스트2</span>
+                        <input type="checkbox" class="elem" name="searchArea" value="3"/> <span class="">테스트2</span>
+                        <!--                    <input type="checkbox" class="elem" name="searchArea" value="2" <c:if test="${fn:contains(searchVO.searchArea, '2') }">checked</c:if> /><span class="ml_10 mr_10">테스트2</span>-->
+                    </dd>
+                </dl>
+            </div>
+            <button class="border-0 bg-transparent">
+                <a class="link-secondary" href="#" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img"
+                         viewBox="0 0 24 24"><title>Search</title>
+                        <circle cx="10.5" cy="10.5" r="7.5"/>
+                        <path d="M21 21l-5.2-5.2"/>
+                    </svg>
                 </a>
+            </button>
+        </form>
+        <div class="d-md-block bg-light rounded" style="padding: 30px 15px 15px 15px;">
+            <h4 th:text="${code.movieTitle}" style="color: black"></h4>
+            <br/>
+            <div class="row mb-3 justify-content-center" id="movieList">
+                <!--            <div class="col-lg-2">-->
+                <!--                <div class="card" style="width: 15rem;">-->
+                <!--&lt;!&ndash;                    <img src="test/test.png" class="card-img-top" alt="...">&ndash;&gt;-->
+                <!--                </div>-->
+                <!--                <div>제목</div>-->
+                <!--            </div>-->
+            </div>
+            <div class="text-center mb-5">
+                <button type="button" class="btn btn-primary" id="moreList">더보기</button>
             </div>
         </div>
     </div>
-
-
-
-    <script>
-
-        const url = '/api/movie/gets.api';
-        const param = {};
-
-        // API_CALL.post(url, param, function (result, message, data) {
-        //     if(!result) {
-        //         alert(message);
-        //         return false;
-        //     }
-        //     // 리스트 뿌리기
-        // })
-        //
-        // axios.post(url, param).then(function(response) {
-        //     console.log(response);
-        // }).catch(function (err){
-        //     console.log(err);
-        // })
-
-    </script>
-    </div>
-</body>
+    </body>
 </main>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+<script th:src="@{/js/movie/search.js(v=${#dates.createNow().getTime()})}"></script>
 </html>

@@ -66,9 +66,21 @@ public class MovieController {
     }
 
     @GetMapping("/movie/search")
-    public String search(Model model) {
+    public String search(Model model,CodeDto parameter) {
 
-        model.addAttribute("codeList", movieService.main());
+        if(parameter.getSubId() == null) {
+            parameter.setSubId("12");
+        }
+
+        CodeDto codeDto = codeService.getBySubId(parameter);
+
+        if(codeDto != null) {
+            // 값이 없으면 어드벤처로 세팅
+            parameter.setSubId("12");
+            codeDto = codeService.getBySubId(parameter);
+        }
+
+        model.addAttribute("code", codeDto);
 
         return "movie/search";
     }

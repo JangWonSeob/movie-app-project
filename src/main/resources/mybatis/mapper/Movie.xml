@@ -15,6 +15,16 @@
         </if>
     </sql>
 
+    <sql id="SEARCH">
+        <if test="searchArea != null and searchArea !=''">
+            AND T1.GENRE_IDS in
+            <foreach item="item" index="index" collection="searchArea.split(',')"  open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </sql>
+
+
     <select id="index" resultType="com.website.movie.biz.dto.MovieDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
@@ -36,6 +46,15 @@
         ORDER BY T1.POPULARITY DESC
         LIMIT 4
     </select>
+
+    <select id="search" resultType="com.website.movie.biz.dto.MovieDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE <include refid="SEARCH"/>
+        ORDER BY T1.POPULARITY DESC
+        LIMIT 4
+    </select>
+
 
 	<select id="selectList" resultType="com.website.movie.biz.dto.MovieDto">
         SELECT T1.*
