@@ -9,6 +9,16 @@
         width: auto;
         background-color: black;
     }
+    label{
+        display:inline-block;
+        line-height:40px;
+    }
+    searchValue {
+        border: none;
+        background: transparent;
+    }
+
+
 
 </style>
 <div th:replace="/fragments/commonNav :: commonNav"></div>
@@ -18,26 +28,34 @@
         <div>
             <div class="d-md-block bg-light rounded" style="padding: 30px 15px 15px 15px;">
                 <div style="background-color: #ebebeb;">
-                    <div>
-                        <input type="text" id="searchValue" name="searchValue" placeholder="검색어를 입력하세요." />
-                        <dl style="padding-left:50px;">
-                            <dt>카테고리</dt>
-                            <dd>
-                                <input type="checkbox" id="genre_all" name="searchGenre" value=""/><label for="genre_all" class="ml_10 mr_10">전체 </label>
+                    <div style=" text-align: center; padding-top: 5px;" >
+                        <input type="text" id="searchValue" name="searchValue" placeholder="검색어를 입력하세요." style="margin-top: 30px; width: 50%; padding: 5px 5px; border: none; border-bottom: 2px solid black; outline: none; background: transparent;"/>
+                    </div>
+                    <div class="row">
+                        <dl style="padding-left:70px; padding-top: 15px; padding-right: 70px">
+                            <dt class="col-lg-1" style="padding-bottom: 5px">카테고리</dt>
+                            <dd class="col-lg-11" style="text-align: left; display: inline">
+                                <input type="checkbox" id="genre_all" name="searchGenre" value=""/><label for="genre_all" class="ml_10 mr_10" style="padding-right: 6px">전체 </label>
                                 <th:block th:each="genre : ${genreList}">
-                                    <input type="checkbox" th:id="'genre_' + ${genre.id}" name="searchGenre" th:value="${genre.subId}"/><label th:text="${genre.description}" th:for="'genre_' + ${genre.id}" class="ml_10 mr_10"> </label>
-                                </th:block>
-                            </dd>
-                            <dt>공급처</dt>
-                            <dd>
-                                <input type="checkbox" id="provider_all" name="searchProvider" value=""/><label for="genre_all" class="ml_10 mr_10">전체 </label>
-                                <th:block th:each="provider : ${providerList}">
-                                    <input type="checkbox" th:id="'provider_' + ${provider.id}" name="searchProvider" th:value="${provider.subId}"/><label th:text="${provider.name}" th:for="'provider_' + ${provider.id}" class="ml_10 mr_10"> </label>
+                                    <input type="checkbox" th:id="'genre_' + ${genre.id}" name="searchGenre" th:value="${genre.subId}"/><label th:text="${genre.description}" th:for="'genre_' + ${genre.id}" class="ml_10 mr_10" style="padding-right: 10px; padding-left: 3px"> </label>
                                 </th:block>
                             </dd>
                         </dl>
                     </div>
-                    <button type="button" style="float:right" class="btn btn-primary" id="search" onclick="onClickSearch()">조회</button>
+                    <div class="row">
+                        <dl style="padding-left:70px; padding-top: 5px; padding-right: 70px">
+                            <dt class="col-lg-1" style="padding-bottom: 5px">공급처</dt>
+                            <dd class="col-lg-11" style="text-align: left; display: inline">
+                                <input type="checkbox" id="provider_all" name="searchProvider" value=""/><label for="genre_all" class="ml_10 mr_10" style="padding-right: 6px">전체 </label>
+                                <th:block th:each="provider : ${providerList}">
+                                    <input type="checkbox" th:id="'provider_' + ${provider.id}" name="searchProvider" th:value="${provider.subId}"/><label th:text="${provider.name}" th:for="'provider_' + ${provider.id}" class="ml_10 mr_10" style="padding-right: 10px; padding-left: 3px"> </label>
+                                </th:block>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="row justify-content-center" >
+                        <button type="button" style="text-align: center; width: 120px; height: 40px; margin-bottom: 10px" class="btn btn-primary" id="search" onclick="onClickSearch()">조회</button>
+                    </div>
                 </div>
                 <br/>
                 <div class="row mb-3 justify-content-center" id="movieList">
