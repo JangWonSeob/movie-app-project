@@ -53,6 +53,8 @@ public class TvDto extends BaseDto {
 
     // search
     private String searchGenre;
+    private String searchGenreList;
+    private String searchProvider;
 
     public String getFullBackdropPath() {
         String result = "";

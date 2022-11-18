@@ -62,6 +62,23 @@ public class ApiTvController {
         return JsonResult.success(result);
     }
 
+    @PostMapping("/api/tv/search.api")
+    @ApiOperation(value = "TV 검색 조회 API", notes = "TV 검색 조회가 가능합니다.")
+    public JsonResult search(@RequestBody TvDto parameter) {
+
+        parameter.initPage2();
+
+        List<TvDto> list = tvService.gets(parameter);
+        int totalCount = tvService.totalCount(parameter);
+
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("list", list);
+        result.put("totalCount", totalCount);
+
+        return JsonResult.success(result);
+    }
+
     @PostMapping("/api/tv/tmdb/add.api")
     public void tmdb() {
 

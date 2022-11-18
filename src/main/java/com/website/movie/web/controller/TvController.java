@@ -2,11 +2,9 @@ package com.website.movie.web.controller;
 
 
 import com.website.movie.biz.dto.CodeDto;
-import com.website.movie.biz.dto.MovieDto;
 import com.website.movie.biz.dto.TvDto;
 import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.service.CodeService;
-import com.website.movie.biz.service.MovieService;
 import com.website.movie.biz.service.TvService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -69,21 +67,10 @@ public class TvController {
     }
 
     @GetMapping("/tv/search")
-    public String search(Model model,CodeDto parameter) {
+    public String search(Model model) {
 
-        if(parameter.getSubId() == null) {
-            parameter.setSubId("10759");
-        }
-
-        CodeDto codeDto = codeService.getBySubId(parameter);
-
-        if(codeDto == null) {
-            // 값이 없으면 어드벤처로 세팅
-            parameter.setSubId("10759");
-            codeDto = codeService.getBySubId(parameter);
-        }
-
-        model.addAttribute("code", codeDto);
+        model.addAttribute("genreList", codeService.gets(CodeDto.builder().type(TvDto.CODE_TYPE_TV_GENRE).build()));
+        model.addAttribute("providerList", codeService.gets(CodeDto.builder().type(TvDto.CODE_TYPE_TV_PROVIDERS).searchBastYn(true).build()));
 
         return "tv/search";
     }

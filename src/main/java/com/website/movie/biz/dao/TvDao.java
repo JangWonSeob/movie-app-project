@@ -1,6 +1,5 @@
 package com.website.movie.biz.dao;
 
-import com.website.movie.biz.dto.MovieDto;
 import com.website.movie.biz.dto.TvDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,7 +13,6 @@ public interface TvDao {
     int delete(TvDto parameter);
 
     List<TvDto> index();
-    List<TvDto> index2();
 
     TvDto selectOne(TvDto parameter);
 

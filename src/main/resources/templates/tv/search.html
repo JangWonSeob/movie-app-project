@@ -9,50 +9,56 @@
         width: auto;
         background-color: black;
     }
+    label{
+        display:inline-block;
+        line-height:40px;
+    }
+    searchValue {
+        border: none;
+        background: transparent;
+    }
+
+
 
 </style>
 <div th:replace="/fragments/commonNav :: commonNav"></div>
 
-<main style="width: 75%; margin: 0 auto; background-color: #ebebeb">
+<main style="width: 75%; margin: 0 auto; ">
     <body>
     <div>
-        <form method="get" action="/movie/search">
-            <div class="business-srch">
-<!--                <input type="text" name="searchValue" placeholder="검색어를 입력하세요." th:value="${param.searchValue}"/>-->
-                <dl style="padding-left:140px;">
-                    <dt class="">분류</dt>
-                    <dd>
-                        <input type="checkbox" class="all" id="category_total" name="searchArea" value=""/><span
-                            class="ml_10 mr_10">전체 </span>
-                        <input type="checkbox" class="elem" name="subId" value="12"/> <span class="">테스트1</span>
-                        <input type="checkbox" class="elem" name="subId" value="10749"/> <span class="">로맨스10749</span>
-<!--                        <input type="checkbox" class="elem" name="searchGenre" value="14"/> <span class="">테스트2</span>-->
-<!--                        <input type="checkbox" class="elem" name="searchArea" value="3"/> <span class="">테스트2</span>-->
-                        <!--                    <input type="checkbox" class="elem" name="searchArea" value="2" <c:if test="${fn:contains(searchVO.searchArea, '2') }">checked</c:if> /><span class="ml_10 mr_10">테스트2</span>-->
-                    </dd>
-                </dl>
-            </div>
-            <button class="border-0 bg-transparent">
-                <a class="link-secondary" href="#" aria-label="Search">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img"
-                         viewBox="0 0 24 24"><title>Search</title>
-                        <circle cx="10.5" cy="10.5" r="7.5"/>
-                        <path d="M21 21l-5.2-5.2"/>
-                    </svg>
-                </a>
-            </button>
-        </form>
         <div class="d-md-block bg-light rounded" style="padding: 30px 15px 15px 15px;">
-            <h4 th:text="${code.movieTitle}" style="color: black"></h4>
+            <div style="background-color: #ebebeb;">
+                <div style=" text-align: center; padding-top: 5px;" >
+                    <input type="text" id="searchValue" name="searchValue" placeholder="검색어를 입력하세요." style="margin-top: 30px; width: 50%; padding: 5px 5px; border: none; border-bottom: 2px solid black; outline: none; background: transparent;"/>
+                </div>
+                <div class="row">
+                    <dl style="padding-left:70px; padding-top: 15px; padding-right: 70px">
+                        <dt class="col-lg-1" style="padding-bottom: 5px">카테고리</dt>
+                        <dd class="col-lg-11" style="text-align: left; display: inline">
+                            <input type="checkbox" id="genre_all" name="searchGenre" value=""/><label for="genre_all" class="ml_10 mr_10" style="padding-right: 6px">전체 </label>
+                            <th:block th:each="genre : ${genreList}">
+                                <input type="checkbox" th:id="'genre_' + ${genre.id}" name="searchGenre" th:value="${genre.subId}"/><label th:text="${genre.description}" th:for="'genre_' + ${genre.id}" class="ml_10 mr_10" style="padding-right: 10px; padding-left: 3px"> </label>
+                            </th:block>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row">
+                    <dl style="padding-left:70px; padding-top: 5px; padding-right: 70px">
+                        <dt class="col-lg-1" style="padding-bottom: 5px">공급처</dt>
+                        <dd class="col-lg-11" style="text-align: left; display: inline">
+                            <input type="checkbox" id="provider_all" name="searchProvider" value=""/><label for="genre_all" class="ml_10 mr_10" style="padding-right: 6px">전체 </label>
+                            <th:block th:each="provider : ${providerList}">
+                                <input type="checkbox" th:id="'provider_' + ${provider.id}" name="searchProvider" th:value="${provider.subId}"/><label th:text="${provider.name}" th:for="'provider_' + ${provider.id}" class="ml_10 mr_10" style="padding-right: 10px; padding-left: 3px"> </label>
+                            </th:block>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="row justify-content-center" >
+                    <button type="button" style="text-align: center; width: 120px; height: 40px; margin-bottom: 10px" class="btn btn-primary" id="search" onclick="onClickSearch()">조회</button>
+                </div>
+            </div>
             <br/>
-            <div class="row mb-3 justify-content-center" id="movieList">
-                <!--            <div class="col-lg-2">-->
-                <!--                <div class="card" style="width: 15rem;">-->
-                <!--&lt;!&ndash;                    <img src="test/test.png" class="card-img-top" alt="...">&ndash;&gt;-->
-                <!--                </div>-->
-                <!--                <div>제목</div>-->
-                <!--            </div>-->
+            <div class="row mb-3 justify-content-center" id="tvList">
             </div>
             <div class="text-center mb-5">
                 <button type="button" class="btn btn-primary" id="moreList">더보기</button>
@@ -61,8 +67,7 @@
     </div>
     </body>
 </main>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
-<script th:src="@{/js/movie/search.js(v=${#dates.createNow().getTime()})}"></script>
+<script th:src="@{/js/tv/search.js(v=${#dates.createNow().getTime()})}"></script>
 </html>

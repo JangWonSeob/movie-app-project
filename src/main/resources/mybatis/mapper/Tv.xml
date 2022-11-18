@@ -10,8 +10,29 @@
     </sql>
 
     <sql id="WHERE">
+        <if test="searchValue != null and searchValue != ''">
+            AND (
+            T1.TITLE LIKE CONCAT('%', #{searchValue}, '%') OR
+            T1.OVERVIEW LIKE CONCAT('%', #{searchValue}, '%')
+            )
+        </if>
+
         <if test="searchGenre != null and  searchGenre != ''">
              AND T1.GENRE_IDS LIKE CONCAT('%', #{searchGenre}, '%')
+        </if>
+
+        <if test="searchGenreList != null and searchGenreList !=''">
+            AND
+            <foreach item="item" index="index" collection="searchGenreList.split(',')"  open="(" separator="OR" close=")">
+                T1.GENRE_IDS LIKE CONCAT ('%' , #{item}, '%')
+            </foreach>
+        </if>
+
+        <if test="searchProvider != null and searchProvider != ''">
+            AND TWP.PROVIDER_ID IN
+            <foreach item="item" index="index" collection="searchProvider.split(',')"  open="(" separator="," close=")">
+                #{item}
+            </foreach>
         </if>
     </sql>
 
@@ -20,13 +41,6 @@
         FROM <include refid="TABLE"/> T1
         ORDER BY T1.POPULARITY DESC
         LIMIT 4
-    </select>
-
-    <select id="index2" resultType="com.website.movie.biz.dto.TvDto">
-        SELECT T1.*
-        FROM <include refid="TABLE"/> T1
-        ORDER BY T1.POPULARITY DESC
-        LIMIT 4, 4
     </select>
 
     <select id="main" resultType="com.website.movie.biz.dto.TvDto">
@@ -40,15 +54,17 @@
 	<select id="selectList" resultType="com.website.movie.biz.dto.TvDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
+        LEFT JOIN tv_watch_providers TWP ON T1.ID = TWP.TV_ID
         WHERE 1 = 1
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
+        GROUP BY T1.ID
         ORDER BY T1.POPULARITY DESC
         LIMIT #{startIndex}, #{pageSize}
     </select>
 
     <select id="selectListCount" resultType="int">
-        SELECT COUNT(*)
+        SELECT COUNT(DISTINCT T1.ID)
         FROM <include refid="TABLE"/> T1
         WHERE 1 = 1
         <include refid="WHERE_REQUIRED"/>
