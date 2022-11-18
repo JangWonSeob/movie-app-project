@@ -20,9 +20,9 @@ var setBookMark = function () {
             return false;
         }
         if (data.bookMarkYn) {
-            $('#movie-bookmark').css('background-color', 'yellow');
+            $('#movie-bookmark').css('color', 'coral');
         } else {
-            $('#movie-bookmark').css('background-color', 'white');
+            $('#movie-bookmark').css('color', 'black');
         }
     })
 }
