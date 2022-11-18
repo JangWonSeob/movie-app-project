@@ -74,7 +74,7 @@ public class MovieController {
 
         CodeDto codeDto = codeService.getBySubId(parameter);
 
-        if(codeDto != null) {
+        if(codeDto == null) {
             // 값이 없으면 어드벤처로 세팅
             parameter.setSubId("12");
             codeDto = codeService.getBySubId(parameter);

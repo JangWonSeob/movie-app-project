@@ -5,7 +5,7 @@
 </head>
 
 <style>
-    body{
+    body {
         margin: 0 auto;
         width: auto;
         background-color: black;
@@ -14,25 +14,27 @@
 <div th:replace="/fragments/commonNav :: commonNav"></div>
 
 <main style="margin: 0 auto; width: 75%">
-<body>
+    <body>
 
-<div class="d-md-block bg-light rounded" style="padding: 30px 15px 15px 15px;">
-    <h4 th:text="${code.movieTitle}" style="color: black"></h4>
-    <br />
-    <div class="row mb-3 justify-content-center" id="movieList">
-        <!--            <div class="col-lg-2">-->
-        <!--                <div class="card" style="width: 15rem;">-->
-        <!--&lt;!&ndash;                    <img src="test/test.png" class="card-img-top" alt="...">&ndash;&gt;-->
-        <!--                </div>-->
-        <!--                <div>제목</div>-->
-        <!--            </div>-->
+    <div class="d-md-block bg-light rounded" style="padding: 30px 15px 15px 15px;">
+        <h4 th:text="${code.movieTitle}" style="color: black"></h4>
+        <br/>
+        <div class="row mb-3 justify-content-center" id="movieList">
+            <!--            <div class="col-lg-2">-->
+            <!--                <div class="card" style="width: 15rem;">-->
+            <!--&lt;!&ndash;                    <img src="test/test.png" class="card-img-top" alt="...">&ndash;&gt;-->
+            <!--                </div>-->
+            <!--                <div>제목</div>-->
+            <!--            </div>-->
+        </div>
+        <div class="text-center mb-5">
+            <button type="button" class="btn btn-primary" id="moreList">더보기</button>
+        </div>
     </div>
-    <div class="text-center mb-5">
-        <button type="button" class="btn btn-primary" id="moreList" >더보기</button>
-    </div>
-</div>
-</body>
+    </body>
 </main>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
 <script th:src="@{/js/movie/list.js(v=${#dates.createNow().getTime()})}"></script>
 </html>

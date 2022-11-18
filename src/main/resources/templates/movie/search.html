@@ -18,15 +18,16 @@
     <div>
         <form method="get" action="/movie/search">
             <div class="business-srch">
-                <input type="text" name="searchValue" placeholder="검색어를 입력하세요." th:value="${param.searchValue}"/>
+<!--                <input type="text" name="searchValue" placeholder="검색어를 입력하세요." th:value="${param.searchValue}"/>-->
                 <dl style="padding-left:140px;">
                     <dt class="">분류</dt>
                     <dd>
                         <input type="checkbox" class="all" id="category_total" name="searchArea" value=""/><span
                             class="ml_10 mr_10">전체 </span>
-                        <input type="checkbox" class="elem" name="searchArea" value="1"/> <span class="">테스트1</span>
-                        <input type="checkbox" class="elem" name="searchArea" value="2"/> <span class="">테스트2</span>
-                        <input type="checkbox" class="elem" name="searchArea" value="3"/> <span class="">테스트2</span>
+                        <input type="checkbox" class="elem" name="subId" value="12"/> <span class="">테스트1</span>
+                        <input type="checkbox" class="elem" name="subId" value="10749"/> <span class="">로맨스10749</span>
+<!--                        <input type="checkbox" class="elem" name="searchGenre" value="14"/> <span class="">테스트2</span>-->
+<!--                        <input type="checkbox" class="elem" name="searchArea" value="3"/> <span class="">테스트2</span>-->
                         <!--                    <input type="checkbox" class="elem" name="searchArea" value="2" <c:if test="${fn:contains(searchVO.searchArea, '2') }">checked</c:if> /><span class="ml_10 mr_10">테스트2</span>-->
                     </dd>
                 </dl>
