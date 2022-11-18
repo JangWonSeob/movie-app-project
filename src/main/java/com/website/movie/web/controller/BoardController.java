@@ -297,7 +297,9 @@ public class BoardController {
         parameter.setLoginUserId(user.getId());
 
         parameter.initPage2();
-        parameter.setSqlSelectType("MY_BOOKMARK_LIST");  // DISPLAY_YN 구별
+        parameter.setSqlSelectType("MY_BOOKMARK_MOVIE_LIST");  // DISPLAY_YN 구별
+
+        System.out.println("parameter =="+parameter);
 
         int totalCount = movieService.totalCount(parameter);
         List<MovieDto> list = movieService.gets(parameter);
