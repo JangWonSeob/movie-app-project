@@ -2,12 +2,10 @@ package com.website.movie.web.controller;
 
 
 import com.website.movie.biz.dto.BoardDto;
-import com.website.movie.biz.dto.CodeDto;
 import com.website.movie.biz.dto.MovieDto;
 import com.website.movie.biz.dto.UserDto;
 import com.website.movie.biz.service.BoardService;
 import com.website.movie.biz.service.MovieService;
-import com.website.movie.biz.service.UserService;
 import com.website.movie.common.util.PagerUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -261,28 +259,7 @@ public class BoardController {
         return "board/myBoard";
     }
 
-    @GetMapping("/board/myMovie")
-    public String myMovie(@AuthenticationPrincipal UserDto user, HttpServletRequest request, Model model, MovieDto parameter) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("utf-8");
 
-        parameter.setLoginUserId(user.getId());
-
-        parameter.initPage2();
-        parameter.setSqlSelectType("MY_BOOKMARK_LIST");  // DISPLAY_YN 구별
-
-        int totalCount = movieService.totalCount(parameter);
-        List<MovieDto> list = movieService.gets(parameter);
-        model.addAttribute("movieList", list);
-        model.addAttribute("totalCount", totalCount);
-
-        final PagerUtils pagerUtils = new PagerUtils(parameter.getPageIndex(), parameter.getPageSize(), totalCount);
-        this.getSearchParam(parameter);
-
-        final String pager = pagerUtils.printFrontPager("");
-        model.addAttribute("pager", pager);
-
-        return "board/myMovie";
-    }
 
     @GetMapping("/board/bookmarkList")
     public String bookmarkList(@AuthenticationPrincipal UserDto user, HttpServletRequest request, Model model, BoardDto parameter) throws UnsupportedEncodingException {
@@ -311,5 +288,28 @@ public class BoardController {
 
         model.addAttribute("pager", pager);
         return "board/bookmarkList";
+    }
+
+    @GetMapping("/board/bookmarkMovieList")
+    public String bookmarkMovieList(@AuthenticationPrincipal UserDto user, HttpServletRequest request, Model model, MovieDto parameter) throws UnsupportedEncodingException {
+        request.setCharacterEncoding("utf-8");
+
+        parameter.setLoginUserId(user.getId());
+
+        parameter.initPage2();
+        parameter.setSqlSelectType("MY_BOOKMARK_LIST");  // DISPLAY_YN 구별
+
+        int totalCount = movieService.totalCount(parameter);
+        List<MovieDto> list = movieService.gets(parameter);
+        model.addAttribute("movieList", list);
+        model.addAttribute("totalCount", totalCount);
+
+        final PagerUtils pagerUtils = new PagerUtils(parameter.getPageIndex(), parameter.getPageSize(), totalCount);
+        this.getSearchParam(parameter);
+
+        final String pager = pagerUtils.printFrontPager("");
+        model.addAttribute("pager", pager);
+
+        return "board/bookmarkMovieList";
     }
 }

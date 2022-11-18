@@ -43,7 +43,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/board/bookmarkList">
-                        <span data-feather="file-text" class="align-text-bottom">즐겨찾기 목록</span>
+                        <span data-feather="file-text" class="align-text-bottom">즐겨찾기 게시판</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/board/bookmarkMovieList">
+                        <span data-feather="file-text" class="align-text-bottom">즐겨찾기 영화</span>
                     </a>
                 </li>
             </ul>
@@ -51,7 +56,7 @@
         <div class="col-md-auto"> </div>
         <div class="row col-md-9 col-lg-10 p-4 text-black rounded" style="background-color: white">
             <div>
-                <h2>나의 게시물</h2>
+                <h2>즐겨찾기 영화</h2>
                 <br>
                 <div class="px-3 d-flex justify-content-between">
                     <span th:text="| 총 ${totalCount} 건 |"></span>
