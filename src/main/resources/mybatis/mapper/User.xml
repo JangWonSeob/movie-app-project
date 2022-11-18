@@ -49,19 +49,6 @@
         )
     </insert>
 
-    <!--권한부여-->
-    <insert id="createAuthority"
-            parameterType="org.springframework.security.core.GrantedAuthority">
-        INSERT INTO authority(ID, AUTHORITY_NAME, EMAIL,REG_DT)
-        VALUES
-        <foreach item="item" collection="authorities" separator=",">
-            ((SELECT AUTO_INCREMENT
-            FROM information_schema.tables
-            WHERE table_name = 'user'
-            AND table_schema = DATABASE()) -1, #{item.authority}, #{email},NOW())
-        </foreach>
-    </insert>
-
     <update id="update">
         UPDATE <include refid="TABLE"/>
         SET
