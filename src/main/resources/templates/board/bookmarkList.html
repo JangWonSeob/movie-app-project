@@ -1,143 +1,161 @@
 <!doctype html>
 <html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-  <div th:replace="/fragments/head :: fragment-head"></div>
+    <div th:replace="/fragments/head :: fragment-head"></div>
 </head>
 <style>
-  div {
-    position: static;
-  }
-  body{
-    margin: 0 auto;
-    width: auto;
-    background-color: black;
-  }
-  td_a:link{
-    color: black;
-  }
-  td_a:visited{
-    color: purple;
-  }
-  td_a:hover{
-    color: blue;
-  }
+    div {
+        position: static;
+    }
+
+    body {
+        margin: 0 auto;
+        width: auto;
+        background-color: black;
+    }
+
+    td_a:link {
+        color: black;
+    }
+
+    td_a:visited {
+        color: purple;
+    }
+
+    td_a:hover {
+        color: blue;
+    }
 
 </style>
 <div th:replace="/fragments/commonNav :: commonNav"></div>
 
 <main style="margin: 0 auto; width: 75%; padding-top: 50px">
-  <body>
-  <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse rounded"
-         style="background-color: #e0e0e0; height: 50%; padding: 20px; ">
-      <ul class="nav flex-column mb-2">
-        <li class="nav-item">
-          <a class="nav-link" href="/board/mypage">
-            <span data-feather="file-text" class="align-text-bottom">회원정보 수정</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/board/myBoard">
-            <span data-feather="file-text" class="align-text-bottom">나의 게시글</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <span data-feather="file-text" class="align-text-bottom">즐겨찾기 목록</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <div class="col-md-auto"> </div>
-    <div class="row col-md-9 col-lg-10 p-4 text-black rounded" style="background-color: white">
-      <div>
-        <h2>즐겨찾기 목록</h2>
-        <br>
-        <div class="px-3 d-flex justify-content-between">
-          <span th:text="| 총 ${totalCount} 건 |"></span>
+    <body>
+    <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse rounded"
+             style="background-color: #e0e0e0; height: 50%; padding: 20px; ">
+            <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                    <a class="nav-link" href="/board/mypage">
+                        <span data-feather="file-text" class="align-text-bottom">회원정보 수정</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/board/myBoard">
+                        <span data-feather="file-text" class="align-text-bottom">나의 게시글</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <span data-feather="file-text" class="align-text-bottom">즐겨찾기 목록</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="col-md-auto"></div>
+        <div class="row col-md-9 col-lg-10 p-4 text-black rounded" style="background-color: white">
+            <div>
+                <h2>즐겨찾기 목록</h2>
+                <br>
+                <div class="px-3 d-flex justify-content-between">
+                    <span th:text="| 총 ${totalCount} 건 |"></span>
 
-          <!--            <div class="form-check form-check-inline">-->
-          <!--                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">-->
-          <!--                <label class="form-check-label" for="inlineCheckbox1">최신</label>-->
-          <!--            </div>-->
-          <!--            <div class="form-check form-check-inline">-->
-          <!--                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">-->
-          <!--                <label class="form-check-label" for="inlineCheckbox2">인기</label>-->
-          <!--            </div>-->
-          <div class=" align-items-center">
+                    <!--            <div class="form-check form-check-inline">-->
+                    <!--                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">-->
+                    <!--                <label class="form-check-label" for="inlineCheckbox1">최신</label>-->
+                    <!--            </div>-->
+                    <!--            <div class="form-check form-check-inline">-->
+                    <!--                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">-->
+                    <!--                <label class="form-check-label" for="inlineCheckbox2">인기</label>-->
+                    <!--            </div>-->
+                    <div class=" align-items-center">
 
-            <form method="get" action="/board/bookmarkList">
-              <input type="hidden" name="category" th:value="${param.category}">
-              <input type="hidden" name="pageIndex" value="1"/>
-              <input type="hidden" name="searchType" value=""/>
-              <input type="text" name="searchValue" placeholder="검색어를 입력하세요." th:value="${param.searchValue}"/>
-              <button class="border-0 bg-transparent">
-                <a class="link-secondary" href="#" aria-label="Search">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                       stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img"
-                       viewBox="0 0 24 24"><title>Search</title>
-                    <circle cx="10.5" cy="10.5" r="7.5"/>
-                    <path d="M21 21l-5.2-5.2"/>
-                  </svg>
-                </a>
-              </button>
+                        <form method="get" action="/board/bookmarkList">
+                            <input type="hidden" name="category" th:value="${param.category}">
+                            <input type="hidden" name="pageIndex" value="1"/>
+                            <input type="hidden" name="searchType" value=""/>
+                            <input type="text" name="searchValue" placeholder="검색어를 입력하세요."
+                                   th:value="${param.searchValue}"/>
+                            <button class="border-0 bg-transparent">
+                                <a class="link-secondary" href="#" aria-label="Search">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                         stroke="currentColor"
+                                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3"
+                                         role="img"
+                                         viewBox="0 0 24 24"><title>Search</title>
+                                        <circle cx="10.5" cy="10.5" r="7.5"/>
+                                        <path d="M21 21l-5.2-5.2"/>
+                                    </svg>
+                                </a>
+                            </button>
 
-            </form>
+                        </form>
 
-          </div>
+                    </div>
+                </div>
+                <hr style="border: solid 1px black;">
+                <table class="table table-striped" style="text-align: center">
+                    <thead>
+                    <tr>
+                        <th style="width: 5%">번호</th>
+                        <th style="width: 60%">제목</th>
+                        <th style="width: 20%">등록일</th>
+                        <th style="width: 15%">글쓴이</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${totalCount > 0}" th:each="board : ${boardList}">
+                        <td th:text="${board.boardNo}"
+                            style="overflow:hidden; text-overflow: ellipsis; white-space: nowrap; width: 10%">번호
+                        </td>
+                        <td style="text-align: left; padding-left: 60px"><a class="text-decoration-none"
+                                                                            th:href="@{/board/detail/{id}(id=${board.id})}"
+                                                                            th:text="${board.title} "
+                                                                            style="overflow:hidden; text-overflow: ellipsis; white-space: nowrap; color: black; width: 55%;">제목</a>
+                        </td>
+                        <td th:text="${#dates.format(board.regDt, 'yyyy-MM-dd HH:mm:ss')}"
+                            style="overflow:hidden; text-overflow: ellipsis; white-space: nowrap; width: 20%">등록일
+                        </td>
+                        <td th:text="${board.regNm}"
+                            style="overflow:hidden; text-overflow: ellipsis; white-space: nowrap; width: 15%">글쓴이
+                        </td>
+                    </tr>
+                    <tr th:unless="${totalCount > 0}">
+                        <td class="text-center" colspan="4">검색결과가 없습니다.</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <hr style="border: solid 1px black;">
+                <a sec:authorize="isAuthenticated()" href="/board/write" class="btn btn-primary float-end"
+                   type="button">글쓰기</a>
+            </div>
+            <div th:utext="${pager}" style="padding-bottom: 20px"></div>
         </div>
-        <hr style="border: solid 1px black;">
-        <table class="table table-striped" style="text-align: center">
-          <thead>
-          <tr>
-            <th style="width: 5%">번호</th>
-            <th style="width: 60%">제목</th>
-            <th style="width: 20%">등록일</th>
-            <th style="width: 15%">글쓴이</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr th:if="${totalCount > 0}" th:each="board : ${boardList}">
-            <td th:text="${board.boardNo}" style="width: 10%">번호</td>
-            <td style="text-align: left; padding-left: 60px"><a class="text-decoration-none" th:href="@{/board/detail/{id}(id=${board.id})}" th:text="${board.title} "style="color: black; width: 55%;">제목</a></td>
-            <td th:text="${#dates.format(board.regDt, 'yyyy-MM-dd HH:mm:ss')}" style="width: 20%">등록일</td>
-            <td th:text="${board.regNm}" style="width: 15%">글쓴이</td>
-          </tr>
-          <tr th:unless="${totalCount > 0}">
-            <td class="text-center" colspan="4">검색결과가 없습니다.</td>
-          </tr>
-          </tbody>
-        </table>
-        <hr style="border: solid 1px black;">
-        <a sec:authorize="isAuthenticated()" href="/board/write" class="btn btn-primary float-end" type="button">글쓰기</a>
-      </div>
-      <div th:utext="${pager}" style="padding-bottom: 20px"></div>
     </div>
-  </div>
 
-  </div>
-  <script>
+    </div>
+    <script>
 
-    // const url = '/api/board/gets.api';
-    // const param = {
-    //     category: '자유',
-    //     category: 'notice'
-    // };
-    //
-    // console.log('api call');
-    //
-    // API_CALL.post(url, param, function (result, message, data) {
-    //     if (!result) {
-    //         alert(message);
-    //         return false;
-    //     }
-    //     console.log('result: ', result);
-    //     console.log('message: ', message);
-    //     console.log('data: ', data);
-    // })
-  </script>
-  </div>
-  </body>
+        // const url = '/api/board/gets.api';
+        // const param = {
+        //     category: '자유',
+        //     category: 'notice'
+        // };
+        //
+        // console.log('api call');
+        //
+        // API_CALL.post(url, param, function (result, message, data) {
+        //     if (!result) {
+        //         alert(message);
+        //         return false;
+        //     }
+        //     console.log('result: ', result);
+        //     console.log('message: ', message);
+        //     console.log('data: ', data);
+        // })
+    </script>
+    </div>
+    </body>
 </main>
 <script th:src="@{/js/board/board.js(v=${#dates.createNow().getTime()})}"></script>
 </html>

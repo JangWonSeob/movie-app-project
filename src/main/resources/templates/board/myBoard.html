@@ -7,18 +7,22 @@
     div {
         position: static;
     }
-    body{
+
+    body {
         margin: 0 auto;
         width: auto;
         background-color: black;
     }
-    td_a:link{
+
+    td_a:link {
         color: black;
     }
-    td_a:visited{
+
+    td_a:visited {
         color: purple;
     }
-    td_a:hover{
+
+    td_a:hover {
         color: blue;
     }
 
@@ -48,7 +52,7 @@
                 </li>
             </ul>
         </nav>
-        <div class="col-md-auto"> </div>
+        <div class="col-md-auto"></div>
         <div class="row col-md-9 col-lg-10 p-4 text-black rounded" style="background-color: white">
             <div>
                 <h2>나의 게시물</h2>
@@ -70,11 +74,14 @@
                             <input type="hidden" name="category" th:value="${param.category}">
                             <input type="hidden" name="pageIndex" value="1"/>
                             <input type="hidden" name="searchType" value=""/>
-                            <input type="text" name="searchValue" placeholder="검색어를 입력하세요." th:value="${param.searchValue}"/>
+                            <input type="text" name="searchValue" placeholder="검색어를 입력하세요."
+                                   th:value="${param.searchValue}"/>
                             <button class="border-0 bg-transparent">
                                 <a class="link-secondary" href="#" aria-label="Search">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                         stroke="currentColor"
+                                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3"
+                                         role="img"
                                          viewBox="0 0 24 24"><title>Search</title>
                                         <circle cx="10.5" cy="10.5" r="7.5"/>
                                         <path d="M21 21l-5.2-5.2"/>
@@ -98,10 +105,16 @@
                     </thead>
                     <tbody>
                     <tr th:if="${totalCount > 0}" th:each="board : ${boardList}">
-                        <td th:text="${board.boardNo}" style="width: 10%">번호</td>
-                        <td style="text-align: left; padding-left: 60px"><a class="text-decoration-none" th:href="@{/board/detail/{id}(id=${board.id})}" th:text="${board.title} "style="color: black; width: 55%;">제목</a></td>
-                        <td th:text="${#dates.format(board.regDt, 'yyyy-MM-dd HH:mm:ss')}" style="width: 20%">등록일</td>
-                        <td th:text="${board.regNm}" style="width: 15%">글쓴이</td>
+                        <td th:text="${board.boardNo}"
+                            style="overflow:hidden; text-overflow: ellipsis; white-space: nowrap; width: 10%">번호
+                        </td>
+                        <td style="text-align: left; padding-left: 60px"><a class="text-decoration-none"
+                                                                            th:href="@{/board/detail/{id}(id=${board.id})}"
+                                                                            th:text="${board.title} "
+                                                                            style="overflow:hidden; text-overflow: ellipsis; white-space: nowrap; color: black; width: 55%;">제목</a>
+                        </td>
+                        <td th:text="${#dates.format(board.regDt, 'yyyy-MM-dd HH:mm:ss')}" style="overflow:hidden; text-overflow: ellipsis; white-space: nowrap; width: 20%">등록일</td>
+                        <td th:text="${board.regNm}" style="overflow:hidden; text-overflow: ellipsis; white-space: nowrap; width: 15%">글쓴이</td>
                     </tr>
                     <tr th:unless="${totalCount > 0}">
                         <td class="text-center" colspan="4">검색결과가 없습니다.</td>
@@ -109,7 +122,8 @@
                     </tbody>
                 </table>
                 <hr style="border: solid 1px black;">
-                <a sec:authorize="isAuthenticated()" href="/board/write" class="btn btn-primary float-end" type="button">글쓰기</a>
+                <a sec:authorize="isAuthenticated()" href="/board/write" class="btn btn-primary float-end"
+                   type="button">글쓰기</a>
             </div>
             <div th:utext="${pager}" style="padding-bottom: 20px"></div>
         </div>
