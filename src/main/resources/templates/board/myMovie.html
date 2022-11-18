@@ -66,7 +66,7 @@
                     <!--            </div>-->
                     <div class=" align-items-center">
 
-                        <form method="get" action="/board/myBoard">
+                        <form method="get" action="/board/myMovie">
                             <input type="hidden" name="category" th:value="${param.category}">
                             <input type="hidden" name="pageIndex" value="1"/>
                             <input type="hidden" name="searchType" value=""/>
@@ -94,7 +94,7 @@
                             <div class="card" style="padding-bottom: 2px">
                                 <img th:src="${movie.fullPosterPath}" class="card-img-top" alt="...">
                             </div>
-                            <div style="color: white" th:text="${movie.title}" ;></div>
+                            <div style="color: black" th:text="${movie.title}" ;></div>
                         </a>
                     </div>
                 </div>
