@@ -123,7 +123,6 @@ $(function(){
 
 
     $('input:checkbox[name=searchGenre]').change(function (e) {
-        console.log(e.target.value);
         if (e.target.value === '') {
             changeGenre(true);
         } else {
@@ -132,7 +131,6 @@ $(function(){
     });
 
     $('input:checkbox[name=searchProvider]').change(function (e) {
-        console.log(e.target.value);
         if (e.target.value === '') {
             changeProvider(true);
         } else {
