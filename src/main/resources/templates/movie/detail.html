@@ -17,21 +17,19 @@
         margin-bottom: 50px;
     }
 
-    .youtube-wrap {
+    .wrapper {
         position: relative;
-        padding-bottom: 56.25%; /* 16:9 */
-        padding-top: 25px;
-        height: 0;
-        margin-right: 3px;
+        width: 100%;
+        padding-bottom: 56.25%;
     }
-    .youtube-wrap iframe {
+
+    .player {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 114%;
-        height: 50%;
-        vertical-align: bottom;
+        width: 100%;
+        height: 100%;
+        background: #000;
     }
+
     .swiper {
         width: 600px;
         height: 300px;
@@ -126,12 +124,21 @@
         <hr style="border: solid 1px gray" class="mb-5">
         <h3 class="mb-3" style="padding: 10px 70px 0px 70px">동영상</h3>
 
-
-        <div class="row" >
-            <div class="youtube-wrap col-lg-5" style="margin: 20px 50px 0px 50px" th:each="youtube : ${movie.watchYoutubeList}" >
-                <iframe width="100%" height="100%" th:src="${youtube.youtubeUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="row">
+            <div class="wrapper" style="margin-top: 30px;margin-bottom: 30px" th:each="youtube : ${movie.watchYoutubeList}">
+                <iframe class="player" width="560" height="315" th:src="${youtube.youtubeUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
+
+<!--        <hr style="border: solid 1px gray" class="mb-5">-->
+<!--        <h3 class="mb-3" style="padding: 10px 70px 0px 70px">동영상</h3>-->
+
+<!--        <div class="row" >-->
+<!--            &lt;!&ndash;            style="margin: 20px 50px 0px 50px"&ndash;&gt;-->
+<!--            <div class="youtube-wrap col-lg-5"  th:each="youtube : ${movie.watchYoutubeList}" >-->
+<!--                <iframe width="100%" height="100%" th:src="${youtube.youtubeUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <hr/>
         <div style="margin: 20px 0px 20px 20px">
