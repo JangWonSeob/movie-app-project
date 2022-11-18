@@ -81,10 +81,10 @@ var setBookMark = function () {
         // 원하는 색깔을 넣어주세요.
         if (data.bookMarkYn) {
             // $('#board-bookmark').css('background-color', 'black');
-            $('#board-bookmark-img').css('color', 'limegreen');
+            $('#board-bookmark-img').css('color', 'black');
         } else {
             // $('#board-bookmark').css('background-color', 'white');
-            $('#board-bookmark-img').css('color', 'black');
+            $('#board-bookmark-img').css('color', 'limegreen');
         }
     })
 }
