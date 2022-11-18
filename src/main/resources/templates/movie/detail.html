@@ -52,11 +52,19 @@
         <div class=" d-flex justify-content-between" >
             <div style="padding: 50px 70px 0px 70px">
                 <h2 th:text="${movie.title}"></h2>
-                <div>
-                    <span th:text="|${movie.originalTitle},|"></span>
-                    <span th:text="| ${#dates.format(movie.releaseDate, 'yyyy')}|"></span>
+                <div class="row">
+                    <div class="col">
+                        <span th:text="|${movie.originalTitle},|"></span>
+                        <span th:text="| ${#dates.format(movie.releaseDate, 'yyyy')}|"></span>
+                    </div>
+                    <div class="col">
+                        <button th:style="${movie.bookMarkYn ? 'background-color:yellow' : 'background-color:white'}" id="movie-bookmark" style="border:none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 30px; height: 30px; color: #ffffff" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-                <button th:style="${movie.bookMarkYn ? 'background-color:yellow' : 'background-color:white'}" id="movie-bookmark">즐겨찾기</button>
                 <hr style="border: none;height: 1px" class="mb-5">
                 <div class="mb-3" style="margin-right: 6px;">
                     <span><b>장르</b> </span>
