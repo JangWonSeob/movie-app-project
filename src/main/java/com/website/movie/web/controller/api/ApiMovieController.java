@@ -62,6 +62,23 @@ public class ApiMovieController {
         return JsonResult.success(result);
     }
 
+    @PostMapping("/api/movie/search.api")
+    @ApiOperation(value = "영화 검색 조회 API", notes = "영화 검색 조회가 가능합니다.")
+    public JsonResult search(@RequestBody MovieDto parameter) {
+
+        parameter.initPage2();
+
+        List<MovieDto> list = movieService.gets(parameter);
+        int totalCount = movieService.totalCount(parameter);
+
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("list", list);
+        result.put("totalCount", totalCount);
+
+        return JsonResult.success(result);
+    }
+
     @PostMapping("/api/movie/tmdb/add.api")
     public void tmdb() {
 

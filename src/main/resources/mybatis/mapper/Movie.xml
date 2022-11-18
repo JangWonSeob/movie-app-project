@@ -10,33 +10,37 @@
     </sql>
 
     <sql id="WHERE">
-        <if test="searchGenre != null and  searchGenre != ''">
+        <if test="searchValue != null and searchValue != ''">
+            AND (
+                T1.TITLE LIKE CONCAT('%', #{searchValue}, '%') OR
+                T1.OVERVIEW LIKE CONCAT('%', #{searchValue}, '%')
+            )
+        </if>
+
+        <if test="searchGenre != null and searchGenre != ''">
              AND T1.GENRE_IDS LIKE CONCAT('%', #{searchGenre}, '%')
         </if>
-    </sql>
 
-    <sql id="SEARCH">
-        <if test="searchArea != null and searchArea !=''">
-            AND T1.GENRE_IDS in
-            <foreach item="item" index="index" collection="searchArea.split(',')"  open="(" separator="," close=")">
+        <if test="searchGenreList != null and searchGenreList !=''">
+            AND
+            <foreach item="item" index="index" collection="searchGenreList.split(',')"  open="(" separator="OR" close=")">
+                T1.GENRE_IDS LIKE CONCAT ('%' , #{item}, '%')
+            </foreach>
+        </if>
+
+        <if test="searchProvider != null and searchProvider != ''">
+            AND MWP.PROVIDER_ID IN
+            <foreach item="item" index="index" collection="searchProvider.split(',')"  open="(" separator="," close=")">
                 #{item}
             </foreach>
         </if>
     </sql>
-
 
     <select id="index" resultType="com.website.movie.biz.dto.MovieDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
         ORDER BY T1.POPULARITY DESC
         LIMIT 4
-    </select>
-
-    <select id="index2" resultType="com.website.movie.biz.dto.MovieDto">
-        SELECT T1.*
-        FROM <include refid="TABLE"/> T1
-        ORDER BY T1.POPULARITY DESC
-        LIMIT 4, 4
     </select>
 
     <select id="main" resultType="com.website.movie.biz.dto.MovieDto">
@@ -47,28 +51,22 @@
         LIMIT 4
     </select>
 
-    <select id="search" resultType="com.website.movie.biz.dto.MovieDto">
-        SELECT T1.*
-        FROM <include refid="TABLE"/> T1
-        WHERE <include refid="SEARCH"/>
-        ORDER BY T1.POPULARITY DESC
-        LIMIT 4
-    </select>
-
-
 	<select id="selectList" resultType="com.website.movie.biz.dto.MovieDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
+        LEFT JOIN movie_watch_providers MWP ON T1.ID = MWP.MOVIE_ID
         WHERE 1 = 1
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>
+        GROUP BY T1.ID
         ORDER BY T1.POPULARITY DESC
         LIMIT #{startIndex}, #{pageSize}
     </select>
 
     <select id="selectListCount" resultType="int">
-        SELECT COUNT(*)
+        SELECT COUNT(DISTINCT T1.ID)
         FROM <include refid="TABLE"/> T1
+        LEFT JOIN movie_watch_providers MWP ON T1.ID = MWP.MOVIE_ID
         WHERE 1 = 1
         <include refid="WHERE_REQUIRED"/>
         <include refid="WHERE"/>

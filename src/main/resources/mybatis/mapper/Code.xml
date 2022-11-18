@@ -10,7 +10,8 @@
     </sql>
 
     <sql id="WHERE">
-        <if test="searchType != null and searchValue != null">
+        <if test="searchBastYn">
+            AND T1.BAST_YN = true
         </if>
     </sql>
 
@@ -56,6 +57,7 @@
             , DESCRIPTION
             , SORT_VALUE
             , IMG_PATH
+            , BAST_YN
         )
         VALUES
         (
@@ -65,6 +67,7 @@
             , #{description}
             , #{sortValue}
             , #{imgPath}
+            , #{bastYn}
         )
     </insert>
 

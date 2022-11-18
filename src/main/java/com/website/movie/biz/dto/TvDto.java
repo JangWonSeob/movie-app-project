@@ -20,6 +20,7 @@ import java.util.List;
 public class TvDto extends BaseDto {
 
     public static final String CODE_TYPE_TV_GENRE = "TV_GENRE";
+    public static final String CODE_TYPE_TV_PROVIDERS = "MOVIE_PROVIDERS";
 
     @JsonIgnore
     private final String IMG_BASE_URL = "https://image.tmdb.org/t/p/w300";

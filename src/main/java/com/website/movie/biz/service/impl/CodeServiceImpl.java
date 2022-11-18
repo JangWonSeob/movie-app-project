@@ -6,6 +6,8 @@ import com.website.movie.biz.service.CodeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CodeServiceImpl implements CodeService {
@@ -21,6 +23,13 @@ public class CodeServiceImpl implements CodeService {
     public CodeDto getBySubId(CodeDto parameter) {
         return codeDao.selectOneBySubId(parameter);
     }
+
+    @Override
+    public List<CodeDto> gets(CodeDto parameter) {
+        return codeDao.selectList(parameter);
+    }
+
+
 
 
 }

@@ -1,33 +1,80 @@
 let PAGE_INDEX = 1;
-// TODO: 페이지 사이즈 수정
 let PAGE_SIZE = 8;
-let SEARCH_GENRE = '';
 
 let LIST = [];
 let TOTAL_COUNT = 0;
 
-var getGenre = function () {
-
-    let queryString = location.search;
-
-    if(queryString != undefined && queryString != '') {
-        queryString = queryString.replaceAll('?', '');
-        queryString = queryString.split("&");
-        for (let i = 0; i < queryString.length; i++) {
-            if ((queryString[i].indexOf('subId') + queryString[i].indexOf('='))  > 1) {
-                SEARCH_GENRE = queryString[i].split('=')[1];
-                break;
-            }
-        }
-    }
+var onClickSearch = function () {
+    getList(false)
 }
 
-var getList = function() {
-    const url = '/api/movie/gets.api';
+var changeGenre = function (allYn) {
+
+    let chk_val = [];
+
+    $('input:checkbox[name=searchGenre]').each(function (index) {
+        if (allYn) {
+            $("input:checkbox[name='searchGenre']").prop("checked", false);
+        } else {
+            if($(this).is(":checked")==true){
+                if ($(this).val() !== '') {
+                    chk_val.push($(this).val());
+                }
+            }
+        }
+    });
+
+    const result = chk_val.join(',');
+
+    if (result === '') {
+        $("input:checkbox[id='genre_all']").prop("checked", true);
+    } else {
+        $("input:checkbox[id='genre_all']").prop("checked", false);
+    }
+
+    return result;
+}
+
+var changeProvider = function (allYn) {
+
+    let chk_val = [];
+
+    $('input:checkbox[name=searchProvider]').each(function (index) {
+        if (allYn) {
+            $("input:checkbox[name=searchProvider]").prop("checked", false);
+        } else {
+            if($(this).is(":checked")==true){
+                if ($(this).val() !== '') {
+                    chk_val.push($(this).val());
+                }
+            }
+        }
+    });
+
+    const result = chk_val.join(',');
+
+    if (result === '') {
+        $("input:checkbox[id='provider_all']").prop("checked", true);
+    } else {
+        $("input:checkbox[id='provider_all']").prop("checked", false);
+    }
+
+    return result;
+}
+
+var getList = function(moreYn) {
+    const url = '/api/movie/search.api';
+
+    if (!moreYn) {
+        PAGE_INDEX = 1;
+    }
+
     const param = {
         pageIndex: PAGE_INDEX,
         pageSize: PAGE_SIZE,
-        searchGenre: SEARCH_GENRE,
+        searchGenreList: changeGenre(),
+        searchProvider: changeProvider(),
+        searchValue: $('#searchValue').val()
     };
 
     API_CALL.post(url, param, function (result, message, data) {
@@ -38,31 +85,18 @@ var getList = function() {
         let movieList = data.list || [];
         TOTAL_COUNT = data.totalCount || 0;
 
+        if (!moreYn) {
+            $('#movieList').empty();
+        }
+
         for (let i = 0; i < movieList.length; i++) {
-
-            // <div className="col-lg-2">
-            //     <div className="card" style="width: 15rem;">
-            //         <!--                    <img src="test/test.png" class="card-img-top" alt="...">-->
-            //     </div>
-            //     <div>제목</div>
-            // </div>
-
-            // <div th:each="movie : ${code.movieList}" className="col-lg-2">
-            //     <a th:href="@{/movie/detail/{id}(id=${movie.id})}">
-            //         <div className="card" style="width: 15rem;">
-            //             <img th:src="${movie.fullPosterPath}" className="card-img-top" alt="...">
-            //         </div>
-            //         <div style="color: white" th:text="${movie.title}"></div>
-            //     </a>
-            // </div>
-
             let append = '';
             append += '<div class="col-lg-3 mb-4">';
             append += '<a class="text-center text-decoration-none" href=" /movie/detail/' + movieList[i].id + ' ">';
             append += '<div class="card">';
             append += '<img src=" ' + movieList[i].fullPosterPath +  ' " class="card-img-top" alt="...">';
             append += '</div>';
-            append += '<div style="color: white;">' + movieList[i].title + '</div>';
+            append += '<div style="color: black;">' + movieList[i].title + '</div>';
             append += '</a>';
             append += '</div>';
 
@@ -72,7 +106,6 @@ var getList = function() {
 }
 
 $(function(){
-    getGenre();
     getList();
 
     $('#moreList').on('click', function () {
@@ -83,6 +116,27 @@ $(function(){
             return false;
         }
 
-        getList();
+        getList(true);
     })
+    $("input:checkbox[id='genre_all']").prop("checked", true);
+    $("input:checkbox[id='provider_all']").prop("checked", true);
+
+
+    $('input:checkbox[name=searchGenre]').change(function (e) {
+        console.log(e.target.value);
+        if (e.target.value === '') {
+            changeGenre(true);
+        } else {
+            changeGenre(false);
+        }
+    });
+
+    $('input:checkbox[name=searchProvider]').change(function (e) {
+        console.log(e.target.value);
+        if (e.target.value === '') {
+            changeProvider(true);
+        } else {
+            changeProvider(false);
+        }
+    });
 });

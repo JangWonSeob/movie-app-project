@@ -21,9 +21,12 @@ public class CodeDto extends BaseDto {
     private String name;
     private int sortValue;
     private String imgPath;
+    private boolean bastYn;
 
     private List<MovieDto> movieList;
     private List<TvDto> tvList;
+
+    private boolean searchBastYn;
 
     public String getMovieTitle() {
         String result = "";

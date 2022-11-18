@@ -19,6 +19,7 @@ import java.util.List;
 public class MovieDto extends BaseDto {
 
     public static final String CODE_TYPE_MOVIE_GENRE = "MOVIE_GENRE";
+    public static final String CODE_TYPE_MOVIE_PROVIDERS = "MOVIE_PROVIDERS";
 
     @JsonIgnore
     private final String IMG_BASE_URL = "https://image.tmdb.org/t/p/w300";
@@ -52,6 +53,8 @@ public class MovieDto extends BaseDto {
 
     // search
     private String searchGenre;
+    private String searchGenreList;
+    private String searchProvider;
 
     public String getFullBackdropPath() {
         String result = "";

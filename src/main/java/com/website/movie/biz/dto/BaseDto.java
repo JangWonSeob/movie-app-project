@@ -50,4 +50,16 @@ public abstract class BaseDto {
         this.startIndex = (this.pageIndex - 1) * this.pageSize;
     }
 
+    public void initPage2() {
+
+        if (this.pageIndex < 1) {
+            this.pageIndex = 1;
+        }
+        if (this.pageSize < 1) {
+            this.pageSize = 8;
+        }
+
+        this.startIndex = (this.pageIndex - 1) * this.pageSize;
+    }
+
 }
