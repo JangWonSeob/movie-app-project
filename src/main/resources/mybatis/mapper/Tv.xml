@@ -15,21 +15,21 @@
         </if>
     </sql>
 
-    <select id="index" resultType="com.website.movie.biz.dto.MovieDto">
+    <select id="index" resultType="com.website.movie.biz.dto.TvDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
         ORDER BY T1.POPULARITY DESC
         LIMIT 4
     </select>
 
-    <select id="index2" resultType="com.website.movie.biz.dto.MovieDto">
+    <select id="index2" resultType="com.website.movie.biz.dto.TvDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
         ORDER BY T1.POPULARITY DESC
         LIMIT 4, 4
     </select>
 
-    <select id="main" resultType="com.website.movie.biz.dto.MovieDto">
+    <select id="main" resultType="com.website.movie.biz.dto.TvDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
         WHERE T1.GENRE_IDS LIKE CONCAT('%', #{searchGenre}, '%')
@@ -37,7 +37,7 @@
         LIMIT 4
     </select>
 
-	<select id="selectList" resultType="com.website.movie.biz.dto.MovieDto">
+	<select id="selectList" resultType="com.website.movie.biz.dto.TvDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
         WHERE 1 = 1
@@ -55,7 +55,7 @@
         <include refid="WHERE"/>
     </select>
 
-    <select id="selectOne" resultType="com.website.movie.biz.dto.MovieDto">
+    <select id="selectOne" resultType="com.website.movie.biz.dto.TvDto">
         SELECT T1.*
         FROM <include refid="TABLE"/> T1
         WHERE T1.ID = #{id}
@@ -79,13 +79,12 @@
             , ORIGINAL_TITLE
             , BACKDROP_PATH
             , POSTER_PATH
-            , RELEASE_DATE
-            , RUNTIME
+            , FIRST_AIR_DATE
+            , LAST_AIR_DATE
             , VOTE_AVERAGE
             , VOTE_COUNT
             , POPULARITY
-            , BUDGET
-            , REVENUE
+            , SEASONS_NUMBER
             , VIEW_COUNT
             , DISPLAY_YN
         )
@@ -104,13 +103,12 @@
             , #{originalTitle}
             , #{backdropPath}
             , #{posterPath}
-            , #{releaseDate}
-            , #{runtime}
+            , #{firstAirDate}
+            , #{lastAirDate}
             , #{voteAverage}
             , #{voteCount}
             , #{popularity}
-            , #{budget}
-            , #{revenue}
+            , #{seasonsNumber}
             , #{viewCount}
             , #{displayYn}
         )
@@ -132,10 +130,12 @@
                 , ORIGINAL_TITLE = #{originalTitle}
                 , BACKDROP_PATH = #{backdropPath}
                 , POSTER_PATH = #{posterPath}
-                , RELEASE_DATE = #{releaseDate}
+                , FIRST_AIR_DATE = #{firstAirDate}
+                , LAST_AIR_DATE = #{lastAirDate}
                 , VOTE_AVERAGE = #{voteAverage}
                 , VOTE_COUNT = #{voteCount}
                 , POPULARITY = #{popularity}
+                , SEASONS_NUMBER = #{seasonsNumber}
                 , DISPLAY_YN = #{displayYn}
             </otherwise>
         </choose>

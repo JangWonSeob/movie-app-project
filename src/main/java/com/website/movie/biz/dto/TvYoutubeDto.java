@@ -1,6 +1,6 @@
 package com.website.movie.biz.dto;
 
-import com.website.movie.biz.model.movie.detail.MovieVideos;
+import com.website.movie.biz.model.tv.detail.TvVideos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,10 +11,10 @@ import org.thymeleaf.util.StringUtils;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MovieYoutubeDto extends BaseDto {
+public class TvYoutubeDto extends BaseDto {
 
     private String id;                  // PK
-    private String movieId;             // 영화_TABLE_ID
+    private String tvId;                // TV_TABLE_ID
     private String iso6391;             // iso6391
     private String iso31661;            // iso31661
     private String title;               // 유튜트_제목
@@ -33,9 +33,9 @@ public class MovieYoutubeDto extends BaseDto {
     }
 
 
-    public static MovieYoutubeDto toDto(MovieVideos model, String movieId, int sortValue) {
-        return MovieYoutubeDto.builder()
-                .movieId(movieId)
+    public static TvYoutubeDto toDto(TvVideos model, String tvId, int sortValue) {
+        return TvYoutubeDto.builder()
+                .tvId(tvId)
                 .iso6391(model.getIso6391())
                 .iso31661(model.getIso31661())
                 .title(model.getName())

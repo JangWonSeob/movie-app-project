@@ -44,7 +44,6 @@ public class MovieDto extends BaseDto {
     private boolean displayYn;              // 노출 여부
 
     // join
-    private List<MovieGenreDto> genreList;
     private List<MovieWatchProvidersDto> watchProvidersBuyList;
     private List<MovieWatchProvidersDto> watchProvidersRentList;
     private List<MovieYoutubeDto> watchYoutubeList;
@@ -80,23 +79,6 @@ public class MovieDto extends BaseDto {
         return new String[0];
     }
 
-
-    public static MovieDto toDto(MovieData module) {
-        return MovieDto.builder()
-                .id(module.getId())
-                .title(module.getTitle())
-                .overview(module.getOverview())
-                .adult(module.isAdult())
-                .originalLanguage(module.getOriginalLanguage())
-                .originalTitle(module.getOriginalTitle())
-                .backdropPath(module.getBackdropPath())
-                .posterPath(module.getPosterPath())
-                .releaseDate(module.getReleaseDate())
-                .voteAverage(module.getVoteAverage())
-                .voteCount(module.getVoteCount())
-                .popularity(module.getPopularity())
-                .build();
-    }
 
     public static MovieDto toDto(MovieResultDetail module) {
         return MovieDto.builder()

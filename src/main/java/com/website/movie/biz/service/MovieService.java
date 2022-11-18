@@ -10,7 +10,6 @@ public interface MovieService {
     void getTmdbMovieData();
 
     List<MovieDto> index();
-    List<MovieDto> index2();
     List<CodeDto> main();
 
     List<MovieDto> gets(MovieDto parameter);

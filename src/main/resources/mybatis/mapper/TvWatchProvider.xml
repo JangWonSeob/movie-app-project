@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.website.movie.biz.dao.TvWatchProviderDao">
+
+	<sql id="TABLE">tv_watch_providers</sql>
+
+    <sql id="WHERE_REQUIRED">
+        AND T1.DEL_YN = 0
+    </sql>
+
+    <sql id="WHERE">
+    </sql>
+
+	<select id="selectList" resultType="com.website.movie.biz.dto.TvWatchProvidersDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE TV_ID = #{tvId}
+        <include refid="WHERE_REQUIRED"/>
+        <include refid="WHERE"/>
+        GROUP BY T1.PROVIDER_ID
+        ORDER BY T1.DISPLAY_PRIORITY
+    </select>
+
+    <select id="selectListCount" resultType="int">
+        SELECT COUNT(*)
+        FROM <include refid="TABLE"/> T1
+        WHERE 1 = 1
+        <include refid="WHERE_REQUIRED"/>
+        <include refid="WHERE"/>
+    </select>
+
+    <select id="selectOne" resultType="com.website.movie.biz.dto.TvWatchProvidersDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE T1.ID = #{id}
+        <include refid="WHERE_REQUIRED"/>
+        LIMIT 1
+    </select>
+
+    <insert id="insert">
+        INSERT INTO <include refid="TABLE"/>
+        (
+            REG_DT
+            , DEL_YN
+
+            , TV_ID
+            , PROVIDER_ID
+            , PROVIDER_NAME
+            , DISPLAY_PRIORITY
+            , LOGO_PATH
+        )
+        VALUES
+        (
+            NOW()
+            , 0
+
+            , #{tvId}
+            , #{providerId}
+            , #{providerName}
+            , #{displayPriority}
+            , #{logoPath}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE <include refid="TABLE"/>
+        SET
+        <choose>
+            <when test="sqlUpdateType != null and sqlUpdateType eq 'VIEW_COUNT_UP'">
+                VIEW_COUNT = VIEW_COUNT + 1
+            </when>
+            <otherwise>
+                UPD_DT = NOW()
+                , TV_ID = #{tvId}
+                , PROVIDER_ID = #{providerId}
+                , PROVIDER_NAME = #{providerName}
+                , DISPLAY_PRIORITY = #{displayPriority}
+                , LOGO_PATH = #{logoPath}
+            </otherwise>
+        </choose>
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM <include refid="TABLE"/>
+        WHERE ID = #{id}
+    </delete>
+
+    <delete id="deleteByMovieId">
+        DELETE FROM <include refid="TABLE"/>
+        WHERE TV_ID = #{tvId}
+    </delete>
+
+</mapper>

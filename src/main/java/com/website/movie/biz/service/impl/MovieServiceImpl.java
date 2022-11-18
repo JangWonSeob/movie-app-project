@@ -55,12 +55,6 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<MovieDto> index2() {
-
-        return movieDao.index2();
-    }
-
-    @Override
     public List<CodeDto> main() {
         List<CodeDto> result = codeDao.selectList(CodeDto.builder().type(MovieDto.CODE_TYPE_MOVIE_GENRE).build());
 
@@ -76,43 +70,46 @@ public class MovieServiceImpl implements MovieService {
 
         for (int i = 0; i < 10; i++) {
             List<MovieData> list = tmdbComponent.getMovieList(i + 1);
-            for (MovieData x : list) {
-                MovieResultDetail movieDetail = tmdbComponent.getMovieDetail(x.getId());
-                MovieDto parameter = MovieDto.toDto(movieDetail);
-                // 삭제
-                movieDao.delete(parameter);
-                // 공급자 삭제
-                movieWatchProviderDao.deleteByMovieId(MovieWatchProvidersDto.builder().movieId(parameter.getId()).build());
-                // YOUTUBE 삭제
-                movieYoutubeDao.deleteByMovieId(MovieYoutubeDto.builder().movieId(parameter.getId()).build());
 
-                // 장르 세팅
-                setGenre(movieDetail.getGenres(), parameter);
-                // 영화 추가
-                movieDao.insert(parameter);
-                if (movieDetail.getWatchProviders() != null && movieDetail.getWatchProviders().getResults() != null
-                        && movieDetail.getWatchProviders().getResults().getKR() != null) {
-                    if (movieDetail.getWatchProviders().getResults().getKR().getBuy() != null && movieDetail.getWatchProviders().getResults().getKR().getBuy().size() > 0) {
-                        // 공급자 추가(buy)
-                        for (MovieKrBuyRent y : movieDetail.getWatchProviders().getResults().getKR().getBuy()) {
-                            movieWatchProviderDao.insert(MovieWatchProvidersDto.toDto(movieDetail.getId(), y, MovieWatchProvidersDto.TYPE_BUY));
+            if (list != null) {
+                for (MovieData x : list) {
+                    MovieResultDetail movieDetail = tmdbComponent.getMovieDetail(x.getId());
+                    MovieDto parameter = MovieDto.toDto(movieDetail);
+                    // 삭제
+                    movieDao.delete(parameter);
+                    // 공급자 삭제
+                    movieWatchProviderDao.deleteByMovieId(MovieWatchProvidersDto.builder().movieId(parameter.getId()).build());
+                    // YOUTUBE 삭제
+                    movieYoutubeDao.deleteByMovieId(MovieYoutubeDto.builder().movieId(parameter.getId()).build());
+
+                    // 장르 세팅
+                    setGenre(movieDetail.getGenres(), parameter);
+                    // 영화 추가
+                    movieDao.insert(parameter);
+                    if (movieDetail.getWatchProviders() != null && movieDetail.getWatchProviders().getResults() != null
+                            && movieDetail.getWatchProviders().getResults().getKR() != null) {
+                        if (movieDetail.getWatchProviders().getResults().getKR().getBuy() != null && movieDetail.getWatchProviders().getResults().getKR().getBuy().size() > 0) {
+                            // 공급자 추가(buy)
+                            for (MovieKrBuyRent y : movieDetail.getWatchProviders().getResults().getKR().getBuy()) {
+                                movieWatchProviderDao.insert(MovieWatchProvidersDto.toDto(movieDetail.getId(), y, MovieWatchProvidersDto.TYPE_BUY));
+                            }
+                        }
+                        if (movieDetail.getWatchProviders().getResults().getKR().getRent() != null && movieDetail.getWatchProviders().getResults().getKR().getRent().size() > 0) {
+                            // 공급자 추가(rent)
+                            for (MovieKrBuyRent z : movieDetail.getWatchProviders().getResults().getKR().getRent()) {
+                                movieWatchProviderDao.insert(MovieWatchProvidersDto.toDto(movieDetail.getId(), z, MovieWatchProvidersDto.TYPE_RENT));
+                            }
                         }
                     }
-                    if (movieDetail.getWatchProviders().getResults().getKR().getRent() != null && movieDetail.getWatchProviders().getResults().getKR().getRent().size() > 0) {
-                        // 공급자 추가(rent)
-                        for (MovieKrBuyRent z : movieDetail.getWatchProviders().getResults().getKR().getRent()) {
-                            movieWatchProviderDao.insert(MovieWatchProvidersDto.toDto(movieDetail.getId(), z, MovieWatchProvidersDto.TYPE_RENT));
-                        }
-                    }
-                }
 
-                int j = 1;
-                if (movieDetail.getVideos() != null && movieDetail.getVideos().getResults() != null
-                        && !movieDetail.getVideos().getResults().isEmpty()) {
-                    // YOUTUBE 추가
-                    for (MovieVideos y : movieDetail.getVideos().getResults()) {
-                        if ("YouTube".equals(y.getSite())) {
-                            movieYoutubeDao.insert(MovieYoutubeDto.toDto(y, movieDetail.getId(), j++));
+                    int j = 1;
+                    if (movieDetail.getVideos() != null && movieDetail.getVideos().getResults() != null
+                            && !movieDetail.getVideos().getResults().isEmpty()) {
+                        // YOUTUBE 추가
+                        for (MovieVideos y : movieDetail.getVideos().getResults()) {
+                            if ("YouTube".equals(y.getSite())) {
+                                movieYoutubeDao.insert(MovieYoutubeDto.toDto(y, movieDetail.getId(), j++));
+                            }
                         }
                     }
                 }
@@ -156,7 +153,6 @@ public class MovieServiceImpl implements MovieService {
             result.setBookMarkYn(bookMarkDao.selectMyBookMark(BookMarkDto.builder().tableId(result.getId()).tableName(BookMarkDto.TABLE_NAME_MOVIE).loginUserId(parameter.getLoginUserId()).build()));
         }
 
-        System.out.println(result);
 
         return result;
     }

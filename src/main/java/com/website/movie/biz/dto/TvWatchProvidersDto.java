@@ -1,7 +1,7 @@
 package com.website.movie.biz.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.website.movie.biz.model.movie.detail.MovieKrBuyRent;
+import com.website.movie.biz.model.tv.detail.TvKr;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,23 +12,18 @@ import org.thymeleaf.util.StringUtils;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MovieWatchProvidersDto extends BaseDto {
+public class TvWatchProvidersDto extends BaseDto {
 
     @JsonIgnore
     private final String IMG_BASE_URL = "https://www.themoviedb.org/t/p/original";
 
-    public static final String TYPE_BUY = "buy";
-    public static final String TYPE_RENT = "rent";
 
     private String id;                  // PK
-    private String movieId;             // 영화_TABLE_ID
+    private String tvId;                // TV_TABLE_ID
     private int providerId;             // 공급자 ID
     private String providerName;        // 공급자 이름
     private int displayPriority;        // 표시 순위
     private String logoPath;            // 로그 위치
-    private String type;                // 타입
-
-    private String searchProviderType;
 
     public String getFullLogPath() {
         String result = "";
@@ -39,14 +34,13 @@ public class MovieWatchProvidersDto extends BaseDto {
         return result;
     }
 
-    public static MovieWatchProvidersDto toDto(String movieId, MovieKrBuyRent model, String type) {
-        return MovieWatchProvidersDto.builder()
-                .movieId(movieId)
+    public static TvWatchProvidersDto toDto(String tvId, TvKr model) {
+        return TvWatchProvidersDto.builder()
+                .tvId(tvId)
                 .providerId(model.getProviderId())
                 .providerName(model.getProviderName())
                 .displayPriority(model.getDisplayPriority())
                 .logoPath(model.getLogoPath())
-                .type(type)
                 .build();
     }
 }

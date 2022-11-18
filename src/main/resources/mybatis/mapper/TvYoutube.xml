@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.website.movie.biz.dao.TvYoutubeDao">
+
+	<sql id="TABLE">tv_youtube</sql>
+
+    <sql id="WHERE_REQUIRED">
+        AND T1.DEL_YN = 0
+    </sql>
+
+    <sql id="WHERE">
+    </sql>
+
+	<select id="selectList" resultType="com.website.movie.biz.dto.TvYoutubeDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE TV_ID = #{tvId}
+        <include refid="WHERE_REQUIRED"/>
+        <include refid="WHERE"/>
+        ORDER BY T1.SORT_VALUE
+    </select>
+
+    <select id="selectListCount" resultType="int">
+        SELECT COUNT(*)
+        FROM <include refid="TABLE"/> T1
+        WHERE 1 = 1
+        <include refid="WHERE_REQUIRED"/>
+        <include refid="WHERE"/>
+    </select>
+
+    <select id="selectOne" resultType="com.website.movie.biz.dto.TvYoutubeDto">
+        SELECT T1.*
+        FROM <include refid="TABLE"/> T1
+        WHERE T1.ID = #{id}
+        <include refid="WHERE_REQUIRED"/>
+        LIMIT 1
+    </select>
+
+    <insert id="insert">
+        INSERT INTO <include refid="TABLE"/>
+        (
+            REG_DT
+            , DEL_YN
+
+            , TV_ID
+            , ISO6391
+            , ISO31661
+            , TITLE
+            , YOUTUBE_KEY
+            , SIZE
+            , YOUTUBE_ID
+            , SORT_VALUE
+        )
+        VALUES
+        (
+            NOW()
+            , 0
+
+            , #{tvId}
+            , #{iso6391}
+            , #{iso31661}
+            , #{title}
+            , #{youtubeKey}
+            , #{size}
+            , #{youtubeId}
+            , #{sortValue}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE <include refid="TABLE"/>
+        SET UPD_DT = NOW()
+        , TV_ID = #{tvId}
+        , ISO6391 = #{iso6391}
+        , ISO31661 = #{iso31661}
+        , TITLE = #{title}
+        , YOUTUBE_KEY = #{youtubeKey}
+        , SIZE = #{size}
+        , YOUTUBE_ID = #{youtubeId}
+        , SORT_VALUE = #{sortValue}
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM <include refid="TABLE"/>
+        WHERE ID = #{id}
+    </delete>
+
+    <delete id="deleteByTvId">
+        DELETE FROM <include refid="TABLE"/>
+        WHERE TV_ID = #{tvId}
+    </delete>
+
+</mapper>

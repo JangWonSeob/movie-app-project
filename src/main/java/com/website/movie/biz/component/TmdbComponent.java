@@ -30,7 +30,7 @@ public class TmdbComponent {
         try{
             //      https://api.themoviedb.org/3/movie/popular?api_key={{api_key}}&language=ko-Kr&page=1
 
-            String url = tmdbProperties.getMovieUrl() + "popular?";
+            String url = tmdbProperties.getBaseUrl() + "movie/popular?";
             url += "api_key=" + tmdbProperties.getApiKey();
             url += "&language=ko-Kr";
             url += "&page=" + pageNo;
@@ -51,7 +51,7 @@ public class TmdbComponent {
         try {
             //      https://api.themoviedb.org/3/movie/{{id}}?api_key={{api_key}}&language=ko-Kr&page=1&append_to_response=videos,images,watch/providers,credits
 
-            String url = tmdbProperties.getMovieUrl() + id + "?";
+            String url = tmdbProperties.getBaseUrl() + "movie/" + id + "?";
             url += "api_key=" + tmdbProperties.getApiKey();
             url += "&language=ko-KR";
             url += "&append_to_response=videos,images,watch/providers,credits";
@@ -72,10 +72,11 @@ public class TmdbComponent {
         try {
             //      https://api.themoviedb.org/3/tv/popular?api_key={{api_key}}&language=ko-Kr&page=1
 
-            String url = tmdbProperties.getTvUrl();
+            String url = tmdbProperties.getBaseUrl() + "tv/popular?";
             url += "api_key=" + tmdbProperties.getApiKey();
             url += "&language=ko-KR";
             url += "&page=" + pageNo;
+            System.out.println(url);
 
             result = restTemplate.getForObject(url, TvResult.class);
 
@@ -94,7 +95,7 @@ public class TmdbComponent {
         try {
             //      https://api.themoviedb.org/3/tv/{{id}}?api_key={{api_key}}&language=ko-Kr&append_to_response=videos,images,watch/providers,credits
 
-            String url = tmdbProperties.getTvUrl() + id + "?";
+            String url = tmdbProperties.getBaseUrl() + "tv/" + id + "?";
             url += "api_key=" + tmdbProperties.getApiKey();
             url += "&language=ko-KR";
             url += "&append_to_response=videos,images,watch/providers,credits";

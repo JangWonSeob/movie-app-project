@@ -10,8 +10,7 @@ import org.springframework.stereotype.Component;
 public class TmdbProperties {
 
     private String apiKey;
-    private String movieUrl;
-    private String tvUrl;
+    private String baseUrl;
     private String imgBaseUrl;
 
 }

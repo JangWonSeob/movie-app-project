@@ -23,6 +23,7 @@ public class CodeDto extends BaseDto {
     private String imgPath;
 
     private List<MovieDto> movieList;
+    private List<TvDto> tvList;
 
     public String getMovieTitle() {
         String result = "";

@@ -1,6 +1,7 @@
 package com.website.movie.biz.dao;
 
 import com.website.movie.biz.dto.MovieDto;
+import com.website.movie.biz.dto.TvDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -8,18 +9,18 @@ import java.util.List;
 @Mapper
 public interface TvDao {
 
-    int insert(MovieDto parameter);
-    int update(MovieDto parameter);
-    int delete(MovieDto parameter);
+    int insert(TvDto parameter);
+    int update(TvDto parameter);
+    int delete(TvDto parameter);
 
-    List<MovieDto> index();
-    List<MovieDto> index2();
+    List<TvDto> index();
+    List<TvDto> index2();
 
-    MovieDto selectOne(MovieDto parameter);
+    TvDto selectOne(TvDto parameter);
 
-    List<MovieDto> selectList(MovieDto parameter);
-    int selectListCount(MovieDto parameter);
+    List<TvDto> selectList(TvDto parameter);
+    int selectListCount(TvDto parameter);
 
-    List<MovieDto> main(MovieDto parameter);
+    List<TvDto> main(TvDto parameter);
 
 }

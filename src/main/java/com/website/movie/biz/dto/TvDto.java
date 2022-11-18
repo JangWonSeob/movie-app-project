@@ -3,6 +3,7 @@ package com.website.movie.biz.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.website.movie.biz.model.movie.MovieData;
 import com.website.movie.biz.model.movie.detail.MovieResultDetail;
+import com.website.movie.biz.model.tv.detail.TvResultDetail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,7 @@ public class TvDto extends BaseDto {
     private final String IMG_BASE_URL = "https://image.tmdb.org/t/p/w300";
 
     private String id;                      // PK
-    private String title;                   // 재목
+    private String title;                   // 제목
     private String overview;                // 내용
     private String genreIds;                // 장르 ID 리스트
     private String genreNames;              // 장르 이름 리스트
@@ -33,21 +34,19 @@ public class TvDto extends BaseDto {
     private String originalTitle;           // 원래 제목
     private String backdropPath;            // 배경 이미지
     private String posterPath;              // 포스트 이미지
-    private Date releaseDate;               // 개봉일
-    private int runtime;                    // 런타임
+    private Date firstAirDate;              // 첫_방송일
+    private Date lastAirDate;               // 마지막_방송일
     private double voteAverage;             // 평점
     private int voteCount;                  // 평점 참여자
     private double popularity;              // 평가 지표
-    private int budget;                     // 예산
-    private long revenue;                   // 수익
+    private int seasonsNumber;              // 시리즈_개수
     private int viewCount;                  // 조회수
     private boolean displayYn;              // 노출 여부
 
+
     // join
-    private List<MovieGenreDto> genreList;
-    private List<MovieWatchProvidersDto> watchProvidersBuyList;
-    private List<MovieWatchProvidersDto> watchProvidersRentList;
-    private List<MovieYoutubeDto> watchYoutubeList;
+    private List<TvWatchProvidersDto> watchProvidersList;
+    private List<TvYoutubeDto> watchYoutubeList;
 
     private boolean bookMarkYn;             // 즐겨찾기 여부
 
@@ -81,40 +80,22 @@ public class TvDto extends BaseDto {
     }
 
 
-    public static TvDto toDto(MovieData module) {
+    public static TvDto toDto(TvResultDetail module) {
         return TvDto.builder()
                 .id(module.getId())
-                .title(module.getTitle())
+                .title(module.getName())
                 .overview(module.getOverview())
                 .adult(module.isAdult())
                 .originalLanguage(module.getOriginalLanguage())
-                .originalTitle(module.getOriginalTitle())
+                .originalTitle(module.getOriginalName())
                 .backdropPath(module.getBackdropPath())
                 .posterPath(module.getPosterPath())
-                .releaseDate(module.getReleaseDate())
+                .firstAirDate(module.getFirstAirDate())
+                .lastAirDate(module.getLastAirDate())
                 .voteAverage(module.getVoteAverage())
                 .voteCount(module.getVoteCount())
                 .popularity(module.getPopularity())
-                .build();
-    }
-
-    public static TvDto toDto(MovieResultDetail module) {
-        return TvDto.builder()
-                .id(module.getId())
-                .title(module.getTitle())
-                .overview(module.getOverview())
-                .adult(module.isAdult())
-                .originalLanguage(module.getOriginalLanguage())
-                .originalTitle(module.getOriginalTitle())
-                .backdropPath(module.getBackdropPath())
-                .posterPath(module.getPosterPath())
-                .releaseDate(module.getReleaseDate())
-                .runtime(module.getRuntime())
-                .voteAverage(module.getVoteAverage())
-                .voteCount(module.getVoteCount())
-                .popularity(module.getPopularity())
-                .budget(module.getBudget())
-                .revenue(module.getRevenue())
+                .seasonsNumber(module.getNumberOfSeasons())
                 .build();
     }
 }

@@ -7,16 +7,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class TvWatchProvidersKrDetail {
+public class TvKr {
 
-    private String link;
-    private List<TvKr> flatrate;
+    private int displayPriority;
+    private String logoPath;
+    private int providerId;
+    private String providerName;
 
 }
