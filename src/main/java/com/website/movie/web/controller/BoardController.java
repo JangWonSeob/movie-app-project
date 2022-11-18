@@ -88,7 +88,7 @@ public class BoardController {
 
         System.out.println("게시판 정보" + board);
         boardService.set(board);
-        return "redirect:board/list";
+        return "redirect:/board/list";
     }
 
     @GetMapping("/board/update/{id}")
@@ -111,7 +111,7 @@ public class BoardController {
             System.out.println("boardService delete");
             boardService.delete(board);
         }
-        return "redirect:board/list";
+        return "redirect:/board/list";
     }
 
     @GetMapping("/board/detail/{id}")
