@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <div th:replace="/fragments/head :: fragment-head"></div>
+    <div th:replace="fragments/head :: fragment-head"></div>
 </head>
 <style>
     div {
@@ -27,7 +27,7 @@
     }
 
 </style>
-<div th:replace="/fragments/commonNav :: commonNav"></div>
+<div th:replace="fragments/commonNav :: commonNav"></div>
 
 <main style="margin: 0 auto; width: 75%; padding-top: 50px">
     <body>
@@ -118,7 +118,7 @@
                             <input type="text" name="searchValue" placeholder="검색어를 입력하세요."
                                    th:value="${param.searchValue}"/>
                             <button class="border-0 bg-transparent">
-                                <a class="link-secondary" href="#" aria-label="Search">
+                                <a class="link-secondary" href="/#" aria-label="Search">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                                          stroke="currentColor"
                                          stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3"

@@ -34,7 +34,7 @@ public class UserController {
     // 회원가입 페이지
     @GetMapping("/user/signUp")
     public String signUp() {
-        return "/user/signUp";
+        return "user/signUp";
     }
 
     // 회원가입 처리
@@ -53,7 +53,7 @@ public class UserController {
     // 마이페이지
     @GetMapping("/user/user")
     public String user() {
-        return "/user/auth/user";
+        return "user/auth/user";
     }
 
     // 로그아웃 처리
@@ -67,7 +67,7 @@ public class UserController {
     public String login(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "exception", required = false) String exception, Model model) {
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
-        return "/user/login";
+        return "user/login";
     }
 
     // 로그인 결과 페이지
@@ -78,12 +78,12 @@ public class UserController {
 
     @GetMapping("/user/loginAlert")
     public String loginAlert() {
-        return "/user/loginAlert";
+        return "user/loginAlert";
     }
 
     @GetMapping("/user/pwFind")
     public String pwFind() {
-        return "/user/pwFind";
+        return "user/pwFind";
     }
 
     @PostMapping("/user/pwFind")
@@ -92,12 +92,12 @@ public class UserController {
         System.out.println(user);
 
         userService.updatePassword(user);
-        return "redirect:/user/login";
+        return "redirect:user/login";
     }
 
     @GetMapping("/user/myPwReset")
     public String pwFindReset() {
-        return "/user/myPwReset";
+        return "user/myPwReset";
     }
 
     @PostMapping("/user/myPwReset")
@@ -115,12 +115,12 @@ public class UserController {
             out.println("<script>alert('현재 비밀번호가 일치하지 않습니다.');</script>");
             out.flush();
         }
-        return "/user/myPwReset";
+        return "user/myPwReset";
     }
 
     @GetMapping("/user/myNickReset")
     public String pwNickReset() {
-        return "/user/myNickReset";
+        return "user/myNickReset";
     }
 
     @PostMapping("/user/myNickReset")
@@ -137,7 +137,7 @@ public class UserController {
             PrintWriter out = response.getWriter();
             out.println("<script>alert('현재 비밀번호가 일치하지 않습니다.');</script>");
             out.flush();
-            return "/user/myNickReset";
+            return "user/myNickReset";
         }
     }
 
@@ -145,7 +145,7 @@ public class UserController {
     @GetMapping("/user/adminChangeUser")
     public String adminChangeUser() {
 
-        return "/user/adminChangeUser";
+        return "user/adminChangeUser";
     }
 
     @PostMapping("/user/adminChangeUser")
